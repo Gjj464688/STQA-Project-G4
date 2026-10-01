@@ -1,0 +1,180 @@
+{
+  "runStarted": "2026-09-30T06:20:42.178Z",
+  "browser": "154.0.4258.37",
+  "results": [
+    {
+      "id": "TC-BB-001",
+      "status": "Pass",
+      "actual": "Registration opened My Tasks with abc shown in navigation.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-001.png"
+    },
+    {
+      "id": "TC-BB-002",
+      "status": "Pass",
+      "actual": "Registration rejected ab: Username must be 3-20 characters (letters, numbers, underscore).",
+      "screenshot": "evidence/browser_screenshots/TC-BB-002.png"
+    },
+    {
+      "id": "TC-BB-003",
+      "status": "Pass",
+      "actual": "20-character username accepted.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-003.png"
+    },
+    {
+      "id": "TC-BB-004",
+      "status": "Pass",
+      "actual": "21-character username rejected: Username must be 3-20 characters (letters, numbers, underscore).",
+      "screenshot": "evidence/browser_screenshots/TC-BB-004.png"
+    },
+    {
+      "id": "TC-BB-005",
+      "status": "Pass",
+      "actual": "Username with hyphen rejected: Username must be 3-20 characters (letters, numbers, underscore).",
+      "screenshot": "evidence/browser_screenshots/TC-BB-005.png"
+    },
+    {
+      "id": "TC-BB-006",
+      "status": "Pass",
+      "actual": "7-character password rejected: Password must be at least 8 characters.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-006.png"
+    },
+    {
+      "id": "TC-BB-007",
+      "status": "Fail",
+      "actual": "Expected 8-character password accepted; got http://127.0.0.1:5001/register, Password must be at least 8 characters.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-007.png"
+    },
+    {
+      "id": "TC-BB-008",
+      "status": "Pass",
+      "actual": "Correct credentials opened My Tasks under login_user.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-008.png"
+    },
+    {
+      "id": "TC-BB-009",
+      "status": "Pass",
+      "actual": "Wrong password rejected: Invalid username or password.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-009.png"
+    },
+    {
+      "id": "TC-BB-010",
+      "status": "Pass",
+      "actual": "Logout cleared access; direct visit to / redirected to Login.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-010.png"
+    },
+    {
+      "id": "TC-BB-011",
+      "status": "Pass",
+      "actual": "Task saved; title/category visible and description/due date persisted in edit form.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-011.png"
+    },
+    {
+      "id": "TC-BB-012",
+      "status": "Pass",
+      "actual": "Task without optional fields saved; urgency No due date.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-012.png"
+    },
+    {
+      "id": "TC-BB-013",
+      "status": "Pass",
+      "actual": "Browser required-field validation blocked an empty title.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-013.png"
+    },
+    {
+      "id": "TC-BB-014",
+      "status": "Fail",
+      "actual": "Whitespace title was accepted: redirected to http://127.0.0.1:5001/, task rows=1, error=",
+      "screenshot": "evidence/browser_screenshots/TC-BB-014.png"
+    },
+    {
+      "id": "TC-BB-015",
+      "status": "Pass",
+      "actual": "Selected task changed title/category/due date; second task stayed unchanged.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-015.png"
+    },
+    {
+      "id": "TC-BB-016",
+      "status": "Pass",
+      "actual": "Open -> done -> open; dashboard open 0 -> 1 and recent completion 1 -> 0.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-016.png"
+    },
+    {
+      "id": "TC-BB-017",
+      "status": "Pass",
+      "actual": "Selected task deleted; other task remained; total became 1.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-017.png"
+    },
+    {
+      "id": "TC-BB-018",
+      "status": "Pass",
+      "actual": "B could not list or edit A task; A still saw it after signing back in.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-018.png"
+    },
+    {
+      "id": "TC-BB-019",
+      "status": "Pass",
+      "actual": "Due 2026-09-29: urgency Overdue.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-019.png"
+    },
+    {
+      "id": "TC-BB-020",
+      "status": "Fail",
+      "actual": "Due 2026-09-30: expected Due Today, observed Overdue",
+      "screenshot": "evidence/browser_screenshots/TC-BB-020.png"
+    },
+    {
+      "id": "TC-BB-021",
+      "status": "Pass",
+      "actual": "Due 2026-10-01: urgency Due Soon.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-021.png"
+    },
+    {
+      "id": "TC-BB-022",
+      "status": "Pass",
+      "actual": "Due 2026-10-02: urgency Due Soon.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-022.png"
+    },
+    {
+      "id": "TC-BB-023",
+      "status": "Pass",
+      "actual": "Due 2026-10-03: urgency Upcoming.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-023.png"
+    },
+    {
+      "id": "TC-BB-024",
+      "status": "Pass",
+      "actual": "Category=Work, status=open; visible: Work open A.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-024.png"
+    },
+    {
+      "id": "TC-BB-025",
+      "status": "Pass",
+      "actual": "Category=Work, status=done; visible: Work done B.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-025.png"
+    },
+    {
+      "id": "TC-BB-026",
+      "status": "Pass",
+      "actual": "Category=Personal, status=open; visible: Personal open C.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-026.png"
+    },
+    {
+      "id": "TC-BB-027",
+      "status": "Pass",
+      "actual": "Category=All, status=done; visible: Personal done D, Work done B.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-027.png"
+    },
+    {
+      "id": "TC-BB-028",
+      "status": "Pass",
+      "actual": "Search Personal returned Personal done D, Personal open C only.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-028.png"
+    },
+    {
+      "id": "TC-BB-029",
+      "status": "Pass",
+      "actual": "Dashboard counts {\"total\":4,\"open\":2,\"overdue\":0,\"soon\":0,\"completed\":2}.",
+      "screenshot": "evidence/browser_screenshots/TC-BB-029.png"
+    }
+  ]
+}

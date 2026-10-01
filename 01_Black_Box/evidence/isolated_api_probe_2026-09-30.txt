@@ -1,0 +1,14 @@
+Isolated Flask test-client API check; no application files changed
+Local time: 2026-09-30T12:05:38.197813+08:00
+Python: 3.12.10 Flask: 3.0.3
+P-01 8-char password: 400 {'error': 'invalid password'}
+P-02 9-char password: 201 {'id': 1, 'username': 'account_a'}
+second distinct account: 201 {'id': 2, 'username': 'account_b'}
+P-03 duplicate username: 201 {'id': 3, 'username': 'account_a'}
+P-04 due: 2026-09-30 status: 201 urgency: Overdue
+P-05 due: 2026-10-01 status: 201 urgency: Due Soon
+P-06 due: 2026-10-02 status: 201 urgency: Due Soon
+P-07 due: 2026-10-03 status: 201 urgency: Upcoming
+Owner task ID: 5
+P-08 account_b deletes account_a task: 200 {'result': 'ok'}
+P-09 account_a fetches after deletion: 404 {'error': 'not found'}
