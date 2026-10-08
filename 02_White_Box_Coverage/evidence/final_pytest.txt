@@ -1,0 +1,98 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\Admin\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Admin\.codex\.chatgpt-projects\g-p-6ab0a4c8bc888191ac1cd23b18217eb9\02_White_Box_Coverage
+configfile: pytest.ini
+collecting ... collected 41 items
+
+tests/test_helpers.py::test_helper_case[TC-WB-001] PASSED                [  2%]
+tests/test_helpers.py::test_helper_case[TC-WB-002] PASSED                [  4%]
+tests/test_helpers.py::test_helper_case[TC-WB-003] PASSED                [  7%]
+tests/test_helpers.py::test_helper_case[TC-WB-004] PASSED                [  9%]
+tests/test_helpers.py::test_helper_case[TC-WB-005] FAILED                [ 12%]
+tests/test_helpers.py::test_helper_case[TC-WB-006] PASSED                [ 14%]
+tests/test_helpers.py::test_helper_case[TC-WB-007] PASSED                [ 17%]
+tests/test_helpers.py::test_helper_case[TC-WB-008] PASSED                [ 19%]
+tests/test_helpers.py::test_helper_case[TC-WB-009] PASSED                [ 21%]
+tests/test_helpers.py::test_helper_case[TC-WB-010] PASSED                [ 24%]
+tests/test_helpers.py::test_helper_case[TC-WB-011] PASSED                [ 26%]
+tests/test_helpers.py::test_helper_case[TC-WB-012] PASSED                [ 29%]
+tests/test_helpers.py::test_helper_case[TC-WB-013] PASSED                [ 31%]
+tests/test_helpers.py::test_helper_case[TC-WB-014] PASSED                [ 34%]
+tests/test_helpers.py::test_helper_case[TC-WB-015] PASSED                [ 36%]
+tests/test_helpers.py::test_helper_case[TC-WB-016] PASSED                [ 39%]
+tests/test_helpers.py::test_helper_case[TC-WB-017] PASSED                [ 41%]
+tests/test_helpers.py::test_helper_case[TC-WB-018] PASSED                [ 43%]
+tests/test_helpers.py::test_helper_case[TC-WB-019] PASSED                [ 46%]
+tests/test_helpers.py::test_helper_case[TC-WB-020] PASSED                [ 48%]
+tests/test_helpers.py::test_helper_case[TC-WB-021] FAILED                [ 51%]
+tests/test_helpers.py::test_helper_case[TC-WB-022] PASSED                [ 53%]
+tests/test_helpers.py::test_helper_case[TC-WB-023] PASSED                [ 56%]
+tests/test_helpers.py::test_helper_case[TC-WB-024] PASSED                [ 58%]
+tests/test_helpers.py::test_helper_case[TC-WB-025] PASSED                [ 60%]
+tests/test_helpers.py::test_helper_case[TC-WB-026] PASSED                [ 63%]
+tests/test_helpers.py::test_helper_case[TC-WB-027] PASSED                [ 65%]
+tests/test_helpers.py::test_helper_case[TC-WB-028] PASSED                [ 68%]
+tests/test_helpers.py::test_helper_case[TC-WB-029] PASSED                [ 70%]
+tests/test_helpers.py::test_helper_case[TC-WB-030] PASSED                [ 73%]
+tests/test_helpers.py::test_helper_case[TC-WB-031] PASSED                [ 75%]
+tests/test_helpers.py::test_helper_case[TC-WB-032] FAILED                [ 78%]
+tests/test_helpers.py::test_helper_case[TC-WB-033] PASSED                [ 80%]
+tests/test_helpers.py::test_helper_case[TC-WB-034] FAILED                [ 82%]
+tests/test_helpers.py::test_helper_case[TC-WB-035] PASSED                [ 85%]
+tests/test_helpers.py::test_helper_case[TC-WB-036] PASSED                [ 87%]
+tests/test_helpers.py::test_helper_case[TC-WB-037] PASSED                [ 90%]
+tests/test_helpers.py::test_helper_case[TC-WB-038] PASSED                [ 92%]
+tests/test_helpers.py::test_helper_case[TC-WB-039] FAILED                [ 95%]
+tests/test_helpers.py::test_helper_case[TC-WB-040] PASSED                [ 97%]
+tests/test_helpers.py::test_helper_case[TC-WB-041] PASSED                [100%]
+
+================================== FAILURES ===================================
+_________________________ test_helper_case[TC-WB-005] _________________________
+tests\test_helpers.py:8: in test_helper_case
+    check_case(case)
+tests\conftest.py:48: in check
+    assert actual == case["expected"], (
+E   AssertionError: TC-WB-005 is_valid_password: expected True, observed False; specification basis: Specification
+E   assert False == True
+_________________________ test_helper_case[TC-WB-021] _________________________
+tests\test_helpers.py:8: in test_helper_case
+    check_case(case)
+tests\conftest.py:48: in check
+    assert actual == case["expected"], (
+E   AssertionError: TC-WB-021 compute_urgency: expected 'Due Today', observed 'Overdue'; specification basis: Specification
+E   assert 'Overdue' == 'Due Today'
+E     
+E     - Due Today
+E     + Overdue
+_________________________ test_helper_case[TC-WB-032] _________________________
+tests\test_helpers.py:8: in test_helper_case
+    check_case(case)
+tests\conftest.py:48: in check
+    assert actual == case["expected"], (
+E   AssertionError: TC-WB-032 completed_in_last_n_days: expected True, observed False; specification basis: Specification interpretation: within last N days includes now
+E   assert False == True
+_________________________ test_helper_case[TC-WB-034] _________________________
+tests\test_helpers.py:8: in test_helper_case
+    check_case(case)
+tests\conftest.py:48: in check
+    assert actual == case["expected"], (
+E   AssertionError: TC-WB-034 completed_in_last_n_days: expected True, observed False; specification basis: Specification
+E   assert False == True
+_________________________ test_helper_case[TC-WB-039] _________________________
+tests\test_helpers.py:8: in test_helper_case
+    check_case(case)
+tests\conftest.py:48: in check
+    assert actual == case["expected"], (
+E   AssertionError: TC-WB-039 completed_in_last_n_days: expected True, observed False; specification basis: Specification
+E   assert False == True
+- generated xml file: C:\Users\Admin\.codex\.chatgpt-projects\g-p-6ab0a4c8bc888191ac1cd23b18217eb9\02_White_Box_Coverage\evidence\final_junit.xml -
+=========================== short test summary info ===========================
+FAILED tests/test_helpers.py::test_helper_case[TC-WB-005] - AssertionError: T...
+FAILED tests/test_helpers.py::test_helper_case[TC-WB-021] - AssertionError: T...
+FAILED tests/test_helpers.py::test_helper_case[TC-WB-032] - AssertionError: T...
+FAILED tests/test_helpers.py::test_helper_case[TC-WB-034] - AssertionError: T...
+FAILED tests/test_helpers.py::test_helper_case[TC-WB-039] - AssertionError: T...
+======================== 5 failed, 36 passed in 0.57s =========================
+RECORDED SUMMARY: {"Pass": 36, "Fail": 5, "Error": 0}
+PyTest exit code: 1 (1 means assertion failures are recorded)

@@ -1,0 +1,61 @@
+{
+  "phase": "baseline",
+  "started_utc": "2026-10-07T15:52:17.322742+00:00",
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "pytest": "9.1.1",
+  "coverage": "7.16.2",
+  "source_sha256": "bf9140338277534439b38599f5ac3ef722880cced732bba8f1f313147d466d80",
+  "pytest_exit_code": 0,
+  "counts": {
+    "Pass": 4,
+    "Fail": 0,
+    "Error": 0
+  },
+  "results": [
+    {
+      "case_id": "TC-WB-006",
+      "actual": true,
+      "exception": null,
+      "expected": true,
+      "expected_exception": null,
+      "defect": null,
+      "basis": "Specification",
+      "node_id": "tests/baseline_helpers.py::test_baseline_helper_case[TC-WB-006]",
+      "status": "Pass"
+    },
+    {
+      "case_id": "TC-WB-010",
+      "actual": true,
+      "exception": null,
+      "expected": true,
+      "expected_exception": null,
+      "defect": null,
+      "basis": "Specification",
+      "node_id": "tests/baseline_helpers.py::test_baseline_helper_case[TC-WB-010]",
+      "status": "Pass"
+    },
+    {
+      "case_id": "TC-WB-024",
+      "actual": "Upcoming",
+      "exception": null,
+      "expected": "Upcoming",
+      "expected_exception": null,
+      "defect": null,
+      "basis": "Specification",
+      "node_id": "tests/baseline_helpers.py::test_baseline_helper_case[TC-WB-024]",
+      "status": "Pass"
+    },
+    {
+      "case_id": "TC-WB-031",
+      "actual": true,
+      "exception": null,
+      "expected": true,
+      "expected_exception": null,
+      "defect": null,
+      "basis": "Specification",
+      "node_id": "tests/baseline_helpers.py::test_baseline_helper_case[TC-WB-031]",
+      "status": "Pass"
+    }
+  ]
+}

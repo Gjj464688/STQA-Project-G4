@@ -11,3 +11,6 @@ agents.md
 agent.md
 .agents/
 .codex/
+.pytest_cache/
+.coverage
+.coverage.*

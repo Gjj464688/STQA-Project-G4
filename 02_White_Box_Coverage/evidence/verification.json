@@ -1,0 +1,22 @@
+{
+  "verified_date": "2026-10-07",
+  "original_helpers_unchanged": true,
+  "snapshot_matches_original": true,
+  "original_app_unchanged": true,
+  "baseline_results": {
+    "Pass": 4,
+    "Fail": 0
+  },
+  "final_results": {
+    "Pass": 36,
+    "Fail": 5
+  },
+  "statements_executed": 31,
+  "statements_total": 31,
+  "branch_outcomes_executed": 18,
+  "branch_outcomes_total": 18,
+  "case_ids_unique": true,
+  "junit_matches_results": true,
+  "document_links_valid": true,
+  "html_assets_present": true
+}

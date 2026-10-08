@@ -1,0 +1,10 @@
+{
+  "source_directory": "C:\\Users\\Admin\\Downloads\\STQA\\pytodo_pro_student",
+  "helpers_sha256": "bf9140338277534439b38599f5ac3ef722880cced732bba8f1f313147d466d80",
+  "app_sha256": "050b4ee4bb7d42f9ea835b46569185177755feee8e420f861376df4e6097f30f",
+  "snapshot_file": "target/helpers.py",
+  "captured_date": "2026-10-07",
+  "reference_today": "2026-10-07",
+  "reference_now": "2026-10-07 12:00:00",
+  "note": "Unmodified helpers.py snapshot for reproducibility; original application files and database are not edited."
+}

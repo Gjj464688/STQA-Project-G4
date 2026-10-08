@@ -1,0 +1,9 @@
+[run]
+branch = True
+source = target
+relative_files = True
+data_file = evidence/.coverage
+
+[report]
+precision = 2
+show_missing = True

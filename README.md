@@ -1,6 +1,6 @@
 # STQA group project - PyTodo Pro quality assessment
 
-This workspace contains QA artefacts for the supplied PyTodo Pro task manager. The application source is in `C:\Users\Admin\Downloads\pytodo_pro_student`; it is the test target and has not been changed for this assessment. The assignment brief is `C:\Users\Admin\Downloads\pytodo_pro_student\Group Project.pdf`. Files under this project's `sources/` directory are read-only synced references.
+This workspace contains QA artefacts for the supplied PyTodo Pro task manager. The application source is currently in `C:\Users\Admin\Downloads\STQA\pytodo_pro_student`; it is the test target and has not been changed for this assessment. The assignment brief is `C:\Users\Admin\Downloads\STQA\pytodo_pro_student\Group Project.pdf`. Week 1 records retain the original pre-relocation environment. Files under this project's `sources/` directory are read-only synced references.
 
 ## Team and status
 
@@ -16,10 +16,11 @@ Planned case executors, partners and dates are recorded with each case in `01_Bl
 | Project stage | Current status |
 |---|---|
 | Week 1 application analysis and black-box testing | 29 automated browser cases executed (26 Pass, 3 Fail); 29 manual cases observed (26 Pass, 3 Fail); original images stored for every manual case; actual tester names and some execution metadata still needed |
-| Weeks 2-8 | To be completed as the relevant course topics are covered |
-| Week 12 integration/presentation | To be completed after the evidence from all phases is available |
+| Week 2 white-box testing and coverage | Four helpers; 41 executed unit cases (36 Pass, 5 Fail); selected-module statement/branch coverage 100%; baseline and final evidence saved; group review pending |
+| Weeks 3-8 | To be completed as the relevant course topics are covered |
+| Combined submission and feedback | Submission around Week 10; feedback in Week 11; possible resubmission for evaluation in Week 12; exact dates pending |
 
-## Week 1 submission documents
+## Week 1 documents for the combined submission
 
 Keep these three documents together with `evidence/` and the reproduction scripts:
 
@@ -31,12 +32,30 @@ Keep these three documents together with `evidence/` and the reproduction script
 
 Original screenshots, their filename manifest, raw browser results and API logs remain in `01_Black_Box/evidence/`. The files support the recorded results. Student IDs belong above; tester/date details belong in the existing case records, and the manual browser/version belongs in the test repository's introductory environment paragraph.
 
+## Week 2 documents and execution
+
+| Document / artifact | Contents |
+|---|---|
+| [Week2_Report.md](02_White_Box_Coverage/Week2_Report.md) | Selected units, rationale, control-flow diagrams, branch/condition/data-flow analysis, coverage comparison, findings and reproduction instructions |
+| [Master_Test_Repository.md](02_White_Box_Coverage/Master_Test_Repository.md) | All 41 unit cases with inputs, expected/actual results, paths, statuses and defect links |
+| `02_White_Box_Coverage/tests/` | Baseline and final PyTest tests with fixed clocks |
+| `02_White_Box_Coverage/evidence/` | Test logs, JUnit, structured results, before/after coverage in text/JSON/XML/HTML, source hashes |
+
+From the repository root, use Python 3.12 and run:
+
+```powershell
+python -m pip install -r .\02_White_Box_Coverage\requirements-test.txt
+python .\02_White_Box_Coverage\run_tests.py
+```
+
+The runner checks an unchanged helper snapshot, runs both suites, and saves evidence. It returns exit code 1 for the five documented failing assertions. Coverage increased from 70.97% of statements / 50% of branch outcomes to 100% / 100% **for the selected helper module**, with no claim of whole-app coverage. Two existing defects were reproduced; a new inclusive completion-window defect is recorded in the Week 2 report. Review the interpreted zero-age expectation separately. Archive evidence before rerunning if retaining the saved execution is needed.
+
 ## Running the application on Windows
 
 Use the starter application's README and its `requirements.txt`. In PowerShell:
 
 ```powershell
-cd C:\Users\Admin\Downloads\pytodo_pro_student
+cd C:\Users\Admin\Downloads\STQA\pytodo_pro_student
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
@@ -60,11 +79,15 @@ Use a fresh isolated database for each rerun by archiving or renaming the existi
 
 ## Later project stages
 
-The brief sets the final deadline at the end of course Week 12; it gives no calendar date. Continue the shared repository as each phase is completed.
+Updated course guidance supplied by the user on 2026-10-07 sets a single combined submission around Week 10, feedback in Week 11, and a possible resubmission for evaluation in Week 12. Use this schedule for planning; exact dates and the resubmission requirement remain to be confirmed. The brief's Week 12 reference is retained below as its original integration/presentation timing. Weekly stages organize the work; the shared message does not require weekly project submissions.
+
+Lab tasks and the project carry separate course marks. A TA may have a specific arrangement to evaluate project progress during labs; confirm any such arrangement with that TA. Lab results establish performance on the lab code; project evidence must assess PyTodo itself.
+
+The project scope is to inspect PyTodo and develop a clear, proportionate QA plan and documentation using the course techniques. Keep the supplied application code and features unchanged. Record observed defects, evidence, severity, risks, and recommendations; implementation of application fixes is outside this assessment scope. Test scripts and QA documents are project deliverables.
 
 | Stage | Required deliverables from the brief | Current state / location |
 |---|---|---|
-| Week 2 - White-box | Selected units and rationale, control flow, statement/branch tests, PyTest files, coverage report and interpretation | Pending. Suggested units: `compute_urgency`, password/username validation, completed-in-last-N-days, and selected access decisions. Do not claim coverage until measured. |
+| Week 2 - White-box | Selected units and rationale, control flow, statement/branch tests, PyTest files, coverage report and interpretation | Executed in `02_White_Box_Coverage/`: four helpers, 41 cases (36 Pass/5 Fail), full measured statement/branch coverage for the selected module. Group review pending. |
 | Week 3 - GUI/compatibility/usability/accessibility | GUI checklist/results, browser/configuration matrix, usability notes, WCAG-based findings, screenshots and recommendations | Pending. Week 1 Edge screenshots are supporting material, not a structured Week 3 assessment. |
 | Week 4 - Web/API | Web scenarios, API suite, requests/data, expected versus actual status/content, evidence and defects | Pending. Week 1 `01_Black_Box/Defect_Log.md` contains exploratory API observations only; build a formal endpoint suite. |
 | Week 5 - Security/performance | STRIDE table, safe security cases/findings, controlled workload/environment, timing/throughput/error results, limitations | Pending. Carry DEF-W1-003 into the ownership threat analysis. No performance claim yet. |

@@ -3,6 +3,7 @@
 **Course:** TEB3433 / TFB3433 Software Testing and Quality Assurance, September 2026  
 **Assignment stage:** Week 1 - application analysis and black-box testing  
 **Report updated:** 2026-10-01 (Asia/Singapore)  
+**Scope clarification added:** 2026-10-07 (Asia/Singapore), from the course guidance screenshot shared by the user.
 **Team:** See the project [README](../README.md) for names, student IDs, and coordination roles.
 **Manual test assignments:** Planned executors, partners and dates are retained within each case in `Master_Test_Repository.md`. Actual tester/date confirmation is still pending.
 
@@ -80,7 +81,7 @@ The selected common workflows for login, task lifecycle, filters, and current da
 
 The main limits are: actual tester names and browser version metadata remain unconfirmed; only one browser/version was used for the automated suite; the API probe was small rather than a full endpoint suite; historical 7-day dashboard boundaries, accessibility, compatibility, performance, and broader security behavior remain untested. The whitespace-title expectation and duplicate-username policy need confirmation. The group should record student IDs before submission. Capture timestamps in screenshot filenames establish when the images were saved, but do not identify the person who tested or independently prove the execution time. The TC-BB-002 and TC-BB-004 forms clear submitted values, so those images alone do not show the rejected usernames; case mapping follows the user's recheck sequence.
 
-Prioritize these actions: (1) prevent cross-user API deletion and add owner-scope regression cases; (2) align password and due-today behavior with their stated rules; (3) reject whitespace-only task titles in both UI and server validation; (4) confirm actual tester names, dates, and browser versions for the completed manual log; (5) carry the observed risks into Weeks 2-5 and revise the RTM as evidence grows.
+The course guidance shared on 2026-10-07 confirms an inspection, QA planning, and documentation scope with the supplied PyTodo code and features unchanged. Application corrections are recommendations for its maintainer. The team's next actions are: (1) extend ownership tests and document the API deletion risk; (2) add focused unit and branch tests for password and urgency boundaries; (3) clarify the whitespace-title and duplicate-username expectations; (4) confirm actual tester names, dates, and browser versions for the completed manual log; (5) carry the observed risks into later phases and revise the RTM as evidence grows. Observed defects remain open until a changed application version is available and successfully retested.
 
 ## 6. Requirements traceability matrix (RTM)
 

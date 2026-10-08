@@ -1,0 +1,2 @@
+# Preserve the original helper snapshot for its SHA-256 integrity check.
+02_White_Box_Coverage/target/helpers.py -text

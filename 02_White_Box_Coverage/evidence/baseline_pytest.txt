@@ -1,0 +1,16 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\Admin\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Admin\.codex\.chatgpt-projects\g-p-6ab0a4c8bc888191ac1cd23b18217eb9\02_White_Box_Coverage
+configfile: pytest.ini
+collecting ... collected 4 items
+
+tests/baseline_helpers.py::test_baseline_helper_case[TC-WB-006] PASSED   [ 25%]
+tests/baseline_helpers.py::test_baseline_helper_case[TC-WB-010] PASSED   [ 50%]
+tests/baseline_helpers.py::test_baseline_helper_case[TC-WB-024] PASSED   [ 75%]
+tests/baseline_helpers.py::test_baseline_helper_case[TC-WB-031] PASSED   [100%]
+
+- generated xml file: C:\Users\Admin\.codex\.chatgpt-projects\g-p-6ab0a4c8bc888191ac1cd23b18217eb9\02_White_Box_Coverage\evidence\baseline_junit.xml -
+============================== 4 passed in 0.37s ==============================
+RECORDED SUMMARY: {"Pass": 4, "Fail": 0, "Error": 0}
+PyTest exit code: 0 (1 means assertion failures are recorded)
