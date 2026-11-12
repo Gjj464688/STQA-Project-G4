@@ -1,0 +1,151 @@
+[
+  {
+    "path": "/static/<path:filename>",
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ]
+  },
+  {
+    "path": "/register",
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS",
+      "POST"
+    ]
+  },
+  {
+    "path": "/login",
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS",
+      "POST"
+    ]
+  },
+  {
+    "path": "/logout",
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ]
+  },
+  {
+    "path": "/",
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ]
+  },
+  {
+    "path": "/tasks/new",
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS",
+      "POST"
+    ]
+  },
+  {
+    "path": "/tasks/<int:task_id>/edit",
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS",
+      "POST"
+    ]
+  },
+  {
+    "path": "/tasks/<int:task_id>/toggle",
+    "methods": [
+      "OPTIONS",
+      "POST"
+    ]
+  },
+  {
+    "path": "/tasks/<int:task_id>/delete",
+    "methods": [
+      "OPTIONS",
+      "POST"
+    ]
+  },
+  {
+    "path": "/dashboard",
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ]
+  },
+  {
+    "path": "/api/register",
+    "methods": [
+      "OPTIONS",
+      "POST"
+    ]
+  },
+  {
+    "path": "/api/login",
+    "methods": [
+      "OPTIONS",
+      "POST"
+    ]
+  },
+  {
+    "path": "/api/categories",
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ]
+  },
+  {
+    "path": "/api/tasks",
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ]
+  },
+  {
+    "path": "/api/tasks/<int:task_id>",
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ]
+  },
+  {
+    "path": "/api/tasks",
+    "methods": [
+      "OPTIONS",
+      "POST"
+    ]
+  },
+  {
+    "path": "/api/tasks/<int:task_id>",
+    "methods": [
+      "OPTIONS",
+      "PUT"
+    ]
+  },
+  {
+    "path": "/api/tasks/<int:task_id>",
+    "methods": [
+      "DELETE",
+      "OPTIONS"
+    ]
+  },
+  {
+    "path": "/api/dashboard",
+    "methods": [
+      "GET",
+      "HEAD",
+      "OPTIONS"
+    ]
+  }
+]

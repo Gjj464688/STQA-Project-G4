@@ -1,0 +1,85 @@
+{
+  "execution_counts": {
+    "week3_browser": {
+      "Pass": 28,
+      "Fail": 2
+    },
+    "week3_manual_usability": {
+      "Pass": 7
+    },
+    "week4_web": {
+      "Pass": 18,
+      "Fail": 2
+    },
+    "week4_api": {
+      "Pass": 36,
+      "Fail": 17,
+      "Error": 0
+    }
+  },
+  "Week3_Accessibility_Test_Cases_001-009.xlsx": {
+    "cases": 9,
+    "tabs": [
+      "Accessibility Testing",
+      "Summary"
+    ]
+  },
+  "Week3_Compatibility_Test_Cases_001-007.xlsx": {
+    "cases": 7,
+    "tabs": [
+      "Compatibility Testing",
+      "Summary"
+    ]
+  },
+  "Week3_GUI_Test_Cases_001-014.xlsx": {
+    "cases": 14,
+    "tabs": [
+      "GUI Testing",
+      "Summary"
+    ]
+  },
+  "Week3_Usability_Test_Cases_001-007.xlsx": {
+    "cases": 7,
+    "tabs": [
+      "Usability Testing",
+      "Summary"
+    ]
+  },
+  "API_Request_Test_Data.xlsx": {
+    "cases": 53,
+    "tabs": [
+      "API Request Test Data",
+      "API Data Notes"
+    ]
+  },
+  "API_Test_Suite.xlsx": {
+    "cases": 53,
+    "tabs": [
+      "API Test Suite",
+      "API Execution Summary"
+    ]
+  },
+  "Expected_vs_Actual.xlsx": {
+    "cases": 73,
+    "tabs": [
+      "Expected vs Actual",
+      "Summary and Interpretation"
+    ]
+  },
+  "Web_Test_Scenarios.xlsx": {
+    "cases": 20,
+    "tabs": [
+      "Web Test Cases",
+      "Execution Summary",
+      "Web Defect Log"
+    ]
+  },
+  "junit_matches_json": true,
+  "current_screenshots_present": 50,
+  "document_links_valid": true,
+  "original_source_unchanged": true,
+  "route_delete_present": true,
+  "cross_user_delete_reproduced": true,
+  "verified_date": "2026-11-12",
+  "provenance": "Independent agent verification plus separately identified original user-reported usability observations"
+}

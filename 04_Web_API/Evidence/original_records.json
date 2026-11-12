@@ -1,0 +1,1643 @@
+{
+  "provenance": "Original user-supplied workbooks before 2026-11-12 verification; historical execution identities/versions not independently established. Superseded results are not included in current totals.",
+  "workbooks": {
+    "04_Web_API/API_Request_Test_Data.xlsx": {
+      "API Request Test Data": [
+        {
+          "A": "Data ID",
+          "B": "API Endpoint",
+          "C": "HTTP Method",
+          "D": "Authentication",
+          "E": "Request / Test Data",
+          "F": "Test Category",
+          "G": "Purpose / What It Checks",
+          "H": "Data Source / Notes"
+        },
+        {
+          "A": "DATA-API-01",
+          "B": "/api/register",
+          "C": "POST",
+          "D": "Not authenticated",
+          "E": "{\"username\":\"apitest01\",\"password\":\"TestPass123\"}",
+          "F": "Valid input",
+          "G": "Register a new user using valid credentials.",
+          "H": "Manual Flask test-client execution; successful response returned HTTP 201 with user id 8."
+        },
+        {
+          "A": "DATA-API-02",
+          "B": "/api/register",
+          "C": "POST",
+          "D": "Not authenticated",
+          "E": "{\"username\":\"apitest01\"}",
+          "F": "Missing required field",
+          "G": "Check registration when password is missing.",
+          "H": "Manual test; returned HTTP 400 with error: invalid password."
+        },
+        {
+          "A": "DATA-API-03",
+          "B": "/api/register",
+          "C": "POST",
+          "D": "Not authenticated",
+          "E": "{\"username\":\"ab\",\"password\":\"TestPass123\"}",
+          "F": "Invalid boundary input",
+          "G": "Check registration using a 2-character username.",
+          "H": "Manual test; returned HTTP 400 with error: invalid username."
+        },
+        {
+          "A": "DATA-API-04",
+          "B": "/api/register",
+          "C": "POST",
+          "D": "Not authenticated",
+          "E": "{\"username\":\"apitest01\",\"password\":\"TestPass123\"} (submit again)",
+          "F": "Duplicate data",
+          "G": "Check whether an existing username is rejected.",
+          "H": "Manual test; second registration also returned HTTP 201 with user id 9. Duplicate username behaviour was observed."
+        },
+        {
+          "A": "DATA-API-05",
+          "B": "/api/login",
+          "C": "POST",
+          "D": "Not authenticated",
+          "E": "{\"username\":\"apitest01\",\"password\":\"TestPass123\"}",
+          "F": "Valid authentication data",
+          "G": "Check login using valid credentials.",
+          "H": "Manual test; returned HTTP 200 with user id 8 and username apitest01."
+        },
+        {
+          "A": "DATA-API-06",
+          "B": "/api/login",
+          "C": "POST",
+          "D": "Not authenticated",
+          "E": "{\"username\":\"apitest01\",\"password\":\"WrongPassword\"}",
+          "F": "Invalid authentication data",
+          "G": "Check login using an incorrect password.",
+          "H": "Manual test; returned HTTP 401 with error: invalid credentials."
+        },
+        {
+          "A": "DATA-API-07",
+          "B": "/api/tasks",
+          "C": "POST",
+          "D": "Not authenticated",
+          "E": "{\"title\":\"API authentication check\"}",
+          "F": "Authentication negative test",
+          "G": "Check whether task creation requires an authenticated session.",
+          "H": "Manual test; returned HTTP 401 with error: authentication required."
+        },
+        {
+          "A": "DATA-API-08",
+          "B": "/api/tasks",
+          "C": "POST",
+          "D": "Authenticated",
+          "E": "{\"title\":123}",
+          "F": "Incorrect data type",
+          "G": "Check handling of an integer instead of a string title.",
+          "H": "Manual test raised an unhandled AttributeError at app.py line 405: integer has no attribute strip."
+        },
+        {
+          "A": "DATA-API-09",
+          "B": "/api/tasks",
+          "C": "POST",
+          "D": "Authenticated",
+          "E": "{\"title\":\"Numeric description test\",\"description\":12345}",
+          "F": "Incorrect data type",
+          "G": "Check handling of a numeric description.",
+          "H": "Manual test returned HTTP 201; numeric description was converted to string '12345'."
+        },
+        {
+          "A": "DATA-API-10",
+          "B": "/api/tasks",
+          "C": "POST",
+          "D": "Authenticated",
+          "E": "{\"title\":\"\"}",
+          "F": "Empty input",
+          "G": "Check creation with an empty title.",
+          "H": "Manual test returned HTTP 400 with error: title is required."
+        },
+        {
+          "A": "DATA-API-11",
+          "B": "/api/tasks",
+          "C": "POST",
+          "D": "Authenticated",
+          "E": "{\"title\":\"   \"}",
+          "F": "Whitespace-only input",
+          "G": "Check creation with a whitespace-only title.",
+          "H": "Manual test returned HTTP 400 with error: title is required."
+        },
+        {
+          "A": "DATA-API-12",
+          "B": "/api/tasks/21",
+          "C": "PUT",
+          "D": "Authenticated; task 21 used",
+          "E": "{\"title\":12345}",
+          "F": "Incorrect data type",
+          "G": "Check updating a task with an integer title.",
+          "H": "Manual test returned HTTP 200 and stored title as string '12345'."
+        },
+        {
+          "A": "DATA-API-13",
+          "B": "/api/tasks/21",
+          "C": "PUT",
+          "D": "Authenticated; task 21 used",
+          "E": "{\"title\":\"\"}",
+          "F": "Empty input",
+          "G": "Check updating a task with an empty title.",
+          "H": "Manual test returned HTTP 200 and persisted the empty title."
+        },
+        {
+          "A": "DATA-API-14",
+          "B": "/api/tasks/21",
+          "C": "PUT",
+          "D": "Authenticated; task 21 used",
+          "E": "{\"title\":\"   \"}",
+          "F": "Whitespace-only input",
+          "G": "Check updating a task with a whitespace-only title.",
+          "H": "Manual test returned HTTP 200 and persisted the whitespace-only title."
+        },
+        {
+          "A": "DATA-API-15",
+          "B": "/api/tasks/21",
+          "C": "PUT",
+          "D": "Authenticated; task 21 used",
+          "E": "{\"description\":\"Description-only update\"}",
+          "F": "Partial update",
+          "G": "Check update request when title is omitted.",
+          "H": "Manual test returned HTTP 200; existing title remained unchanged."
+        },
+        {
+          "A": "DATA-API-16",
+          "B": "/api/tasks/21",
+          "C": "PUT",
+          "D": "Authenticated; task 21 used",
+          "E": "{\"title\":null}",
+          "F": "Null input",
+          "G": "Check updating a task with a null title.",
+          "H": "Manual test raised an unhandled sqlite3.IntegrityError (NOT NULL constraint). Subsequent GET showed the previous title remained unchanged."
+        },
+        {
+          "A": "DATA-API-17",
+          "B": "/api/tasks/abc",
+          "C": "GET",
+          "D": "Authenticated",
+          "E": "No request body; task ID = abc",
+          "F": "Invalid path parameter",
+          "G": "Check retrieval using a non-numeric task ID.",
+          "H": "Manual test returned HTTP 404 with no JSON body."
+        },
+        {
+          "A": "DATA-API-18",
+          "B": "/api/tasks/-1",
+          "C": "GET",
+          "D": "Authenticated",
+          "E": "No request body; task ID = -1",
+          "F": "Boundary path parameter",
+          "G": "Check retrieval using a negative task ID.",
+          "H": "Manual test returned HTTP 404 with no JSON body."
+        },
+        {
+          "A": "DATA-API-19",
+          "B": "/api/tasks/99999",
+          "C": "GET",
+          "D": "Authenticated",
+          "E": "No request body; task ID = 99999",
+          "F": "Nonexistent resource",
+          "G": "Check retrieval using a nonexistent positive task ID.",
+          "H": "Manual test returned HTTP 404 with error: not found."
+        },
+        {
+          "A": "DATA-API-20",
+          "B": "/api/tasks/21",
+          "C": "DELETE",
+          "D": "Authenticated; task 21 used",
+          "E": "No request body",
+          "F": "Unsupported / missing route",
+          "G": "Check whether the API supports task deletion.",
+          "H": "Manual test returned HTTP 405. Saved Flask route map did not include a DELETE API route."
+        },
+        {
+          "A": "DATA-API-21",
+          "B": "/api/tasks",
+          "C": "PUT",
+          "D": "Authenticated",
+          "E": "No request body",
+          "F": "Unsupported method",
+          "G": "Check PUT against the task collection endpoint.",
+          "H": "Manual test returned HTTP 405."
+        },
+        {
+          "A": "DATA-API-22",
+          "B": "/api/login",
+          "C": "PUT",
+          "D": "Not authenticated",
+          "E": "No request body",
+          "F": "Unsupported method",
+          "G": "Check PUT against the login endpoint.",
+          "H": "Manual test returned HTTP 405."
+        },
+        {
+          "A": "DATA-API-23",
+          "B": "/api/tasks",
+          "C": "POST",
+          "D": "Authenticated",
+          "E": "Malformed JSON body",
+          "F": "Malformed request",
+          "G": "Check handling of malformed JSON input.",
+          "H": "Manual test returned HTTP 400 with generic error: title is required."
+        },
+        {
+          "A": "DATA-API-24",
+          "B": "/api/tasks",
+          "C": "POST",
+          "D": "Authenticated",
+          "E": "Body: title=Example; Content-Type: text/plain",
+          "F": "Incorrect content type",
+          "G": "Check handling of a request using text/plain instead of JSON.",
+          "H": "Manual test returned HTTP 400 with generic error: title is required."
+        },
+        {
+          "A": "DATA-API-25",
+          "B": "/api/tasks",
+          "C": "POST",
+          "D": "Authenticated",
+          "E": "{\"title\":\"Invalid Date Test\",\"due_date\":\"not-a-date\"}",
+          "F": "Invalid date format / edge case",
+          "G": "Check handling of an invalid due date.",
+          "H": "Manual test raised ValueError in helpers.py line 31 during urgency calculation. Task was inserted before the exception."
+        },
+        {
+          "A": "DATA-API-26",
+          "B": "/api/tasks",
+          "C": "GET",
+          "D": "Authenticated",
+          "E": "GET task list after DATA-API-25",
+          "F": "Persistence / follow-on impact",
+          "G": "Check whether task listing remains available after invalid due date was submitted.",
+          "H": "Manual GET also raised ValueError because the invalid task remained in the database. Read-only DB inspection found task ID 22 with due_date 'not-a-date'."
+        },
+        {
+          "A": "DATA-API-27",
+          "B": "/api/tasks/21",
+          "C": "PUT",
+          "D": "Authenticated; task 21 used",
+          "E": "{\"done\":true}",
+          "F": "State update",
+          "G": "Check whether a task can be marked completed through the API.",
+          "H": "Manual test returned HTTP 200 with done=true, urgency='Done', and a completed_at timestamp."
+        }
+      ],
+      "API Data Notes": [
+        {
+          "A": "Item",
+          "B": "Details"
+        },
+        {
+          "A": "Automated suite file",
+          "B": "tests/test_api.py"
+        },
+        {
+          "A": "Execution command",
+          "B": "pytest tests/test_api.py -v"
+        },
+        {
+          "A": "Automated test count",
+          "B": "36 tests: 23 passed and 13 failed."
+        },
+        {
+          "A": "Automated fixtures",
+          "B": "The suite uses pytest fixtures including tmp_path and monkeypatch to point flask_app.DATABASE to a temporary test database, initialize the database, and provide a test client. An authenticated_client fixture registers a test user and supplies an authenticated client."
+        },
+        {
+          "A": "Known limitation of this data sheet",
+          "B": "The exact JSON payloads and fixture values for every individual automated test were not all present in the captured execution summary. This sheet therefore records the exact manual request data that was observed and does not invent missing automated fixture payloads."
+        },
+        {
+          "A": "Manual test environment",
+          "B": "Windows PowerShell; Python 3.14.8; pytest 9.1.1; Flask 3.0.3; SQLite; Flask test client."
+        },
+        {
+          "A": "Data handling note",
+          "B": "Task ID 21 was used for several update tests. An invalid due-date test created task ID 22 and left an invalid date value in the database. These are test-environment observations; do not assume the database was reset."
+        }
+      ]
+    },
+    "04_Web_API/API_Test_Suite.xlsx": {
+      "API Test Suite": [
+        {
+          "A": "Test Case ID",
+          "B": "Test Function / Test Name",
+          "C": "API Area",
+          "D": "Test Type",
+          "E": "Test Objective",
+          "F": "Expected Result / Assertion",
+          "G": "Actual Result",
+          "H": "Status",
+          "I": "Evidence / Reference",
+          "J": "Defect / Observation"
+        },
+        {
+          "A": "API-01",
+          "B": "test_get_categories",
+          "C": "Categories",
+          "D": "Functional",
+          "E": "Verify that the categories endpoint returns category data.",
+          "F": "Response satisfies the test's expected category response.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-02",
+          "B": "test_get_tasks_requires_authentication",
+          "C": "Task retrieval / authentication",
+          "D": "Security / negative",
+          "E": "Verify that task retrieval requires authentication.",
+          "F": "Unauthenticated request is rejected as expected by the test.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-03",
+          "B": "test_register_valid_user",
+          "C": "Registration",
+          "D": "Functional",
+          "E": "Verify registration using valid user data.",
+          "F": "Valid registration returns the expected successful response.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-04",
+          "B": "test_register_invalid_username",
+          "C": "Registration",
+          "D": "Negative / validation",
+          "E": "Verify invalid usernames are rejected.",
+          "F": "Invalid username is rejected as expected by the test.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-05",
+          "B": "test_register_invalid_password",
+          "C": "Registration",
+          "D": "Negative / validation",
+          "E": "Verify invalid passwords are rejected.",
+          "F": "Invalid password is rejected as expected by the test.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-06",
+          "B": "test_login_valid_credentials",
+          "C": "Login",
+          "D": "Functional / authentication",
+          "E": "Verify login using valid credentials.",
+          "F": "Valid credentials authenticate successfully.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-07",
+          "B": "test_login_invalid_credentials",
+          "C": "Login",
+          "D": "Negative / authentication",
+          "E": "Verify login rejects invalid credentials.",
+          "F": "Invalid credentials are rejected as expected by the test.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-08",
+          "B": "test_create_task_valid_data",
+          "C": "Task creation",
+          "D": "Functional",
+          "E": "Verify a task can be created using valid data.",
+          "F": "Task creation returns the expected successful response.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-09",
+          "B": "test_create_task_missing_title",
+          "C": "Task creation",
+          "D": "Negative / validation",
+          "E": "Verify task creation rejects a missing title.",
+          "F": "Missing title is rejected as expected by the test.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-10",
+          "B": "test_get_tasks_returns_json_list",
+          "C": "Task retrieval",
+          "D": "Functional / response validation",
+          "E": "Verify task retrieval returns a JSON list.",
+          "F": "Response is a JSON list as asserted by the test.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-11",
+          "B": "test_get_task_by_id",
+          "C": "Single-task retrieval",
+          "D": "Functional",
+          "E": "Verify retrieval of a task by its ID.",
+          "F": "Existing task is returned as expected.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-12",
+          "B": "test_get_nonexistent_task",
+          "C": "Single-task retrieval",
+          "D": "Negative",
+          "E": "Verify retrieval of a nonexistent task.",
+          "F": "Nonexistent task is handled as expected by the test.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-13",
+          "B": "test_update_task",
+          "C": "Task update",
+          "D": "Functional",
+          "E": "Verify an existing task can be updated.",
+          "F": "Task update succeeds and expected values are returned.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-14",
+          "B": "test_update_nonexistent_task",
+          "C": "Task update",
+          "D": "Negative",
+          "E": "Verify updating a nonexistent task is handled correctly.",
+          "F": "Nonexistent task update is handled as expected by the test.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-15",
+          "B": "test_dashboard_requires_authentication",
+          "C": "Dashboard / authentication",
+          "D": "Security / negative",
+          "E": "Verify dashboard access requires authentication.",
+          "F": "Unauthenticated dashboard request is rejected as expected.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-16",
+          "B": "test_dashboard_returns_statistics",
+          "C": "Dashboard",
+          "D": "Functional / response validation",
+          "E": "Verify dashboard endpoint returns statistics.",
+          "F": "Dashboard statistics response satisfies assertions.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-17",
+          "B": "test_dashboard_statistics_with_task",
+          "C": "Dashboard",
+          "D": "Functional / data validation",
+          "E": "Verify dashboard statistics when a task exists.",
+          "F": "Statistics reflect task data as asserted by the test.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-18",
+          "B": "test_get_tasks_filter_by_status",
+          "C": "Task filtering",
+          "D": "Functional",
+          "E": "Verify tasks can be filtered by status.",
+          "F": "Filtered response satisfies the test assertion.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-19",
+          "B": "test_get_tasks_search_by_title",
+          "C": "Task search",
+          "D": "Functional",
+          "E": "Verify tasks can be searched by title.",
+          "F": "Search response satisfies the test assertion.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-20",
+          "B": "test_get_tasks_pagination",
+          "C": "Task pagination",
+          "D": "Functional / boundary",
+          "E": "Verify task listing supports pagination.",
+          "F": "First-page pagination behaviour satisfies the test assertion.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-21",
+          "B": "test_get_tasks_second_page",
+          "C": "Task pagination",
+          "D": "Functional / boundary",
+          "E": "Verify retrieval of the second page of tasks.",
+          "F": "Second-page response satisfies the test assertion.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-22",
+          "B": "test_create_task_null_title",
+          "C": "Task creation",
+          "D": "Negative / validation",
+          "E": "Verify task creation handles a null title.",
+          "F": "Null title is rejected as expected by the test.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-23",
+          "B": "test_create_task_whitespace_title",
+          "C": "Task creation",
+          "D": "Negative / validation",
+          "E": "Verify task creation handles a whitespace-only title.",
+          "F": "Whitespace-only title is rejected as expected by the test.",
+          "G": "Test passed; assertions satisfied.",
+          "H": "Pass",
+          "I": "",
+          "J": ""
+        },
+        {
+          "A": "API-24",
+          "B": "test_delete_task",
+          "C": "Task deletion",
+          "D": "Functional",
+          "E": "Verify an existing task can be deleted through the API.",
+          "F": "Expected HTTP 200; actual HTTP 405.",
+          "G": "Expected 200 but received 405. The API DELETE route is not implemented in the saved route map.",
+          "H": "Fail",
+          "I": "pytest failure output",
+          "J": "API-OBS-01"
+        },
+        {
+          "A": "API-25",
+          "B": "test_user_cannot_delete_another_users_task",
+          "C": "Task deletion / authorization",
+          "D": "Security / negative",
+          "E": "Verify a user cannot delete another user's task.",
+          "F": "Test expected HTTP 404; actual HTTP 405.",
+          "G": "Expected 404 but received 405 because the DELETE route is unavailable; cross-user delete authorization was not established by this test.",
+          "H": "Fail",
+          "I": "pytest failure output",
+          "J": "API-OBS-01"
+        },
+        {
+          "A": "API-26",
+          "B": "test_delete_nonexistent_task",
+          "C": "Task deletion",
+          "D": "Negative",
+          "E": "Verify deleting a nonexistent task returns the expected response.",
+          "F": "Test expected HTTP 404; actual HTTP 405.",
+          "G": "Expected 404 but received 405 because the DELETE route is unavailable.",
+          "H": "Fail",
+          "I": "pytest failure output",
+          "J": "API-OBS-01"
+        },
+        {
+          "A": "API-27",
+          "B": "test_get_tasks_invalid_page",
+          "C": "Task pagination",
+          "D": "Negative / input validation",
+          "E": "Verify invalid page input is rejected.",
+          "F": "Test expected HTTP 400; actual HTTP 200.",
+          "G": "Invalid page value fell back to default pagination and returned HTTP 200.",
+          "H": "Fail",
+          "I": "pytest failure output",
+          "J": "API-OBS-02"
+        },
+        {
+          "A": "API-28",
+          "B": "test_get_tasks_invalid_per_page",
+          "C": "Task pagination",
+          "D": "Negative / input validation",
+          "E": "Verify invalid per_page input is rejected.",
+          "F": "Test expected HTTP 400; actual HTTP 200.",
+          "G": "Invalid per_page value fell back to default pagination and returned HTTP 200.",
+          "H": "Fail",
+          "I": "pytest failure output",
+          "J": "API-OBS-02"
+        },
+        {
+          "A": "API-29",
+          "B": "test_get_tasks_negative_page",
+          "C": "Task pagination",
+          "D": "Boundary / input validation",
+          "E": "Verify a negative page value is rejected.",
+          "F": "Test expected HTTP 400; actual HTTP 200.",
+          "G": "Negative page value returned HTTP 200 using fallback behaviour.",
+          "H": "Fail",
+          "I": "pytest failure output",
+          "J": "API-OBS-02"
+        },
+        {
+          "A": "API-30",
+          "B": "test_get_tasks_zero_per_page",
+          "C": "Task pagination",
+          "D": "Boundary / input validation",
+          "E": "Verify per_page equal to zero is rejected.",
+          "F": "Test expected HTTP 400; actual HTTP 200.",
+          "G": "Zero per_page value returned HTTP 200 using fallback behaviour.",
+          "H": "Fail",
+          "I": "pytest failure output",
+          "J": "API-OBS-02"
+        },
+        {
+          "A": "API-31",
+          "B": "test_get_tasks_excessive_per_page",
+          "C": "Task pagination",
+          "D": "Boundary / input validation",
+          "E": "Verify an excessive per_page value is handled according to the test assertion.",
+          "F": "Test expected HTTP 400; actual HTTP 200.",
+          "G": "Excessive per_page value returned HTTP 200. No documented maximum has been confirmed, so treat this as an assertion/design observation rather than a confirmed defect.",
+          "H": "Fail",
+          "I": "pytest failure output",
+          "J": "API-OBS-02"
+        },
+        {
+          "A": "API-32",
+          "B": "test_create_task_invalid_title_type",
+          "C": "Task creation",
+          "D": "Negative / data type validation",
+          "E": "Verify a non-string title is rejected gracefully.",
+          "F": "Test expected a controlled client error; actual unhandled AttributeError.",
+          "G": "Passing an integer title caused AttributeError: 'int' object has no attribute 'strip' (app.py line 405).",
+          "H": "Fail",
+          "I": "pytest failure output / app.py line 405",
+          "J": "API-OBS-03"
+        },
+        {
+          "A": "API-33",
+          "B": "test_create_task_invalid_description_type",
+          "C": "Task creation",
+          "D": "Negative / data type validation",
+          "E": "Verify a non-string description is rejected.",
+          "F": "Test expected HTTP 400; actual HTTP 201.",
+          "G": "Numeric description was accepted and converted to string '12345'. The expected 400 is the test's assertion; a formal requirement was not confirmed.",
+          "H": "Fail",
+          "I": "pytest failure output",
+          "J": "API-OBS-04"
+        },
+        {
+          "A": "API-34",
+          "B": "test_create_task_null_description",
+          "C": "Task creation",
+          "D": "Negative / null-value validation",
+          "E": "Verify a null description is handled according to the test assertion.",
+          "F": "Test expected HTTP 400; actual HTTP 201.",
+          "G": "Null description was accepted with HTTP 201. Treat the expected 400 as a test assertion unless the specification requires a description.",
+          "H": "Fail",
+          "I": "pytest failure output",
+          "J": "API-OBS-04"
+        },
+        {
+          "A": "API-35",
+          "B": "test_update_task_invalid_title_type",
+          "C": "Task update",
+          "D": "Negative / data type validation",
+          "E": "Verify a non-string update title is rejected.",
+          "F": "Test expected HTTP 400; actual HTTP 200.",
+          "G": "Numeric title was accepted and stored as '12345'.",
+          "H": "Fail",
+          "I": "pytest failure output",
+          "J": "API-OBS-05"
+        },
+        {
+          "A": "API-36",
+          "B": "test_update_task_invalid_title_changes_task",
+          "C": "Task update",
+          "D": "Negative / data integrity",
+          "E": "Verify an invalid title does not modify the existing task.",
+          "F": "Test expected original title to remain unchanged; actual title became '12345'.",
+          "G": "Invalid numeric title changed the stored task title from 'Original task' to '12345'.",
+          "H": "Fail",
+          "I": "pytest failure output",
+          "J": "API-OBS-05"
+        }
+      ],
+      "API Execution Summary": [
+        {
+          "A": "Metric",
+          "B": "Result"
+        },
+        {
+          "A": "Application under test",
+          "B": "PyTodo Pro"
+        },
+        {
+          "A": "Test file",
+          "B": "tests/test_api.py"
+        },
+        {
+          "A": "Execution command",
+          "B": "pytest tests/test_api.py -v"
+        },
+        {
+          "A": "Environment",
+          "B": "Windows PowerShell; Python 3.14.8; pytest 9.1.1; Flask 3.0.3; SQLite"
+        },
+        {
+          "A": "Total automated API tests",
+          "B": "36"
+        },
+        {
+          "A": "Passed",
+          "B": "23"
+        },
+        {
+          "A": "Failed",
+          "B": "13"
+        },
+        {
+          "A": "Pass rate",
+          "B": "63.9%"
+        },
+        {
+          "A": "Failed test areas",
+          "B": "API task deletion; pagination input validation; task title/description data type and null validation."
+        },
+        {
+          "A": "Important interpretation",
+          "B": "A failed test means the actual behaviour did not satisfy that test's expected assertion. Where a formal requirement is not confirmed (for example, a maximum per_page or mandatory description), record it as an observation/design question rather than a confirmed defect."
+        },
+        {
+          "A": "Evidence",
+          "B": "Use the captured pytest terminal output showing 36 collected, 23 passed and 13 failed. Attach the full terminal screenshot/output in the evidence section of the report."
+        }
+      ]
+    },
+    "04_Web_API/Expected_vs_Actual.xlsx": {
+      "Expected vs Actual": [
+        {
+          "A": "Record ID",
+          "B": "Source / Test",
+          "C": "Endpoint / Feature",
+          "D": "Input / Condition",
+          "E": "Expected Status / Response",
+          "F": "Actual Status / Response",
+          "G": "Result",
+          "H": "Interpretation / Notes"
+        },
+        {
+          "A": "EXP-01",
+          "B": "Manual API",
+          "C": "POST /api/register",
+          "D": "Valid username and password",
+          "E": "HTTP 201; user registration succeeds.",
+          "F": "HTTP 201; response contained user id 8 and username apitest01.",
+          "G": "Pass",
+          "H": "Observed response matched successful registration behaviour."
+        },
+        {
+          "A": "EXP-02",
+          "B": "Manual API",
+          "C": "POST /api/register",
+          "D": "Password omitted",
+          "E": "HTTP 400; invalid password error.",
+          "F": "HTTP 400; {'error':'invalid password'}.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-03",
+          "B": "Manual API",
+          "C": "POST /api/register",
+          "D": "Username has 2 characters",
+          "E": "HTTP 400; invalid username error.",
+          "F": "HTTP 400; {'error':'invalid username'}.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-04",
+          "B": "Manual API",
+          "C": "POST /api/register",
+          "D": "Register username apitest01 a second time",
+          "E": "Duplicate username should be rejected (expected from uniqueness validation).",
+          "F": "HTTP 201; second registration created user id 9 with same username.",
+          "G": "Fail / Observation",
+          "H": "Duplicate registration was accepted. Confirm the uniqueness requirement against the project specification before final defect classification."
+        },
+        {
+          "A": "EXP-05",
+          "B": "Manual API",
+          "C": "POST /api/login",
+          "D": "Valid credentials",
+          "E": "HTTP 200; authentication succeeds.",
+          "F": "HTTP 200; response contained id 8 and username apitest01.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-06",
+          "B": "Manual API",
+          "C": "POST /api/login",
+          "D": "Incorrect password",
+          "E": "HTTP 401; invalid credentials error.",
+          "F": "HTTP 401; {'error':'invalid credentials'}.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-07",
+          "B": "Manual API",
+          "C": "POST /api/tasks",
+          "D": "Request without authentication",
+          "E": "HTTP 401; authentication required.",
+          "F": "HTTP 401; {'error':'authentication required'}.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-08",
+          "B": "Manual API",
+          "C": "POST /api/tasks",
+          "D": "title is integer 123",
+          "E": "Controlled client error (test expectation: reject invalid title type).",
+          "F": "Unhandled AttributeError: 'int' object has no attribute 'strip' at app.py line 405; no normal HTTP response observed in TESTING mode.",
+          "G": "Fail",
+          "H": "The application raises an exception instead of gracefully validating the data type."
+        },
+        {
+          "A": "EXP-09",
+          "B": "Manual API",
+          "C": "POST /api/tasks",
+          "D": "Numeric description 12345",
+          "E": "The test expectation was HTTP 400 for invalid description type.",
+          "F": "HTTP 201; numeric description was converted to string '12345'.",
+          "G": "Fail / Assertion",
+          "H": "Expected 400 was asserted by the test; a formal requirement that descriptions must be strings was not confirmed."
+        },
+        {
+          "A": "EXP-10",
+          "B": "Manual API",
+          "C": "POST /api/tasks",
+          "D": "Empty title",
+          "E": "HTTP 400; title is required.",
+          "F": "HTTP 400; {'error':'title is required'}.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-11",
+          "B": "Manual API",
+          "C": "POST /api/tasks",
+          "D": "Whitespace-only title",
+          "E": "HTTP 400; title is required.",
+          "F": "HTTP 400; {'error':'title is required'}.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-12",
+          "B": "Manual API",
+          "C": "PUT /api/tasks/21",
+          "D": "Numeric title 12345",
+          "E": "Invalid title type should be rejected (automated test expected HTTP 400).",
+          "F": "HTTP 200; title was stored as string '12345'.",
+          "G": "Fail",
+          "H": ""
+        },
+        {
+          "A": "EXP-13",
+          "B": "Manual API",
+          "C": "PUT /api/tasks/21",
+          "D": "Empty title",
+          "E": "Validation should reject an empty title (no explicit formal status code confirmed).",
+          "F": "HTTP 200; empty title persisted.",
+          "G": "Observation",
+          "H": "Do not classify as a confirmed defect until expected validation behaviour is confirmed."
+        },
+        {
+          "A": "EXP-14",
+          "B": "Manual API",
+          "C": "PUT /api/tasks/21",
+          "D": "Whitespace-only title",
+          "E": "Validation should reject a whitespace-only title (no explicit formal status code confirmed).",
+          "F": "HTTP 200; whitespace-only title persisted.",
+          "G": "Observation",
+          "H": ""
+        },
+        {
+          "A": "EXP-15",
+          "B": "Manual API",
+          "C": "PUT /api/tasks/21",
+          "D": "Title omitted; description supplied",
+          "E": "Partial update should preserve omitted fields.",
+          "F": "HTTP 200; previous title remained unchanged.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-16",
+          "B": "Manual API",
+          "C": "PUT /api/tasks/21",
+          "D": "title is null",
+          "E": "Graceful validation response expected; test encountered database constraint failure.",
+          "F": "Unhandled sqlite3.IntegrityError: NOT NULL constraint failed: tasks.title. Subsequent GET showed previous title unchanged.",
+          "G": "Fail",
+          "H": "Application exception surfaced instead of a controlled validation response."
+        },
+        {
+          "A": "EXP-17",
+          "B": "Manual API",
+          "C": "GET /api/tasks/abc",
+          "D": "Non-numeric task ID",
+          "E": "HTTP 404 expected for invalid/nonexistent task.",
+          "F": "HTTP 404; response body was None.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-18",
+          "B": "Manual API",
+          "C": "GET /api/tasks/-1",
+          "D": "Negative task ID",
+          "E": "HTTP 404 expected for invalid/nonexistent task.",
+          "F": "HTTP 404; response body was None.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-19",
+          "B": "Manual API",
+          "C": "GET /api/tasks/99999",
+          "D": "Nonexistent positive task ID",
+          "E": "HTTP 404; not found error.",
+          "F": "HTTP 404; {'error':'not found'}.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-20",
+          "B": "Manual API",
+          "C": "DELETE /api/tasks/21",
+          "D": "Delete existing task",
+          "E": "Automated test expected HTTP 200.",
+          "F": "HTTP 405; route/method unavailable. Saved route map did not include a DELETE API route.",
+          "G": "Fail",
+          "H": "DELETE is not implemented on this API route. UI deletion uses a separate POST route."
+        },
+        {
+          "A": "EXP-21",
+          "B": "Manual API",
+          "C": "PUT /api/tasks",
+          "D": "Unsupported method on collection route",
+          "E": "HTTP 405 expected.",
+          "F": "HTTP 405.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-22",
+          "B": "Manual API",
+          "C": "PUT /api/login",
+          "D": "Unsupported method on login route",
+          "E": "HTTP 405 expected.",
+          "F": "HTTP 405.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-23",
+          "B": "Manual API",
+          "C": "POST /api/tasks",
+          "D": "Malformed JSON body",
+          "E": "Controlled HTTP 400 response expected.",
+          "F": "HTTP 400; {'error':'title is required'}.",
+          "G": "Pass / Observation",
+          "H": "A generic title-required message was returned; malformed JSON was not identified with a specific error."
+        },
+        {
+          "A": "EXP-24",
+          "B": "Manual API",
+          "C": "POST /api/tasks",
+          "D": "Content-Type text/plain",
+          "E": "Unsupported/non-JSON content should be rejected.",
+          "F": "HTTP 400; {'error':'title is required'}.",
+          "G": "Pass / Observation",
+          "H": "A generic title-required message was returned."
+        },
+        {
+          "A": "EXP-25",
+          "B": "Manual API",
+          "C": "POST /api/tasks",
+          "D": "due_date='not-a-date'",
+          "E": "Invalid date should be rejected without creating a malformed task.",
+          "F": "Unhandled ValueError in helpers.py line 31 during urgency calculation; task was inserted before exception.",
+          "G": "Fail",
+          "H": "The invalid record remained in SQLite as task ID 22 with due_date 'not-a-date'."
+        },
+        {
+          "A": "EXP-26",
+          "B": "Manual API",
+          "C": "GET /api/tasks",
+          "D": "List tasks after invalid due-date request",
+          "E": "Task list should remain retrievable and return JSON list.",
+          "F": "GET raised ValueError because the invalid task persisted in the database.",
+          "G": "Fail",
+          "H": "Follow-on impact: one invalid date record caused task listing to fail."
+        },
+        {
+          "A": "EXP-27",
+          "B": "Manual API",
+          "C": "PUT /api/tasks/21",
+          "D": "done=true",
+          "E": "HTTP 200; task status updated to completed.",
+          "F": "HTTP 200; done=true, urgency='Done', and completed_at timestamp returned.",
+          "G": "Pass",
+          "H": ""
+        },
+        {
+          "A": "EXP-28",
+          "B": "Automated API test",
+          "C": "DELETE /api/tasks/<task_id>",
+          "D": "test_delete_task",
+          "E": "HTTP 200 expected by test.",
+          "F": "HTTP 405; assertion failed (expected 200, received 405).",
+          "G": "Fail",
+          "H": "DELETE API route unavailable."
+        },
+        {
+          "A": "EXP-29",
+          "B": "Automated API test",
+          "C": "DELETE /api/tasks/<task_id>",
+          "D": "test_user_cannot_delete_another_users_task",
+          "E": "HTTP 404 expected by test.",
+          "F": "HTTP 405; assertion failed (expected 404, received 405).",
+          "G": "Fail / Inconclusive",
+          "H": "The route is unavailable, so cross-user delete authorization was not actually established."
+        },
+        {
+          "A": "EXP-30",
+          "B": "Automated API test",
+          "C": "DELETE /api/tasks/<task_id>",
+          "D": "test_delete_nonexistent_task",
+          "E": "HTTP 404 expected by test.",
+          "F": "HTTP 405; assertion failed (expected 404, received 405).",
+          "G": "Fail",
+          "H": "DELETE API route unavailable."
+        },
+        {
+          "A": "EXP-31",
+          "B": "Automated API test",
+          "C": "GET /api/tasks",
+          "D": "test_get_tasks_invalid_page",
+          "E": "HTTP 400 expected by test.",
+          "F": "HTTP 200; invalid page value fell back to default pagination.",
+          "G": "Fail / Assertion",
+          "H": "No formal invalid-page status requirement was confirmed."
+        },
+        {
+          "A": "EXP-32",
+          "B": "Automated API test",
+          "C": "GET /api/tasks",
+          "D": "test_get_tasks_invalid_per_page",
+          "E": "HTTP 400 expected by test.",
+          "F": "HTTP 200; invalid per_page value fell back to default pagination.",
+          "G": "Fail / Assertion",
+          "H": ""
+        },
+        {
+          "A": "EXP-33",
+          "B": "Automated API test",
+          "C": "GET /api/tasks",
+          "D": "test_get_tasks_negative_page",
+          "E": "HTTP 400 expected by test.",
+          "F": "HTTP 200; negative page value fell back to default pagination.",
+          "G": "Fail / Assertion",
+          "H": ""
+        },
+        {
+          "A": "EXP-34",
+          "B": "Automated API test",
+          "C": "GET /api/tasks",
+          "D": "test_get_tasks_zero_per_page",
+          "E": "HTTP 400 expected by test.",
+          "F": "HTTP 200; zero per_page value fell back to default pagination.",
+          "G": "Fail / Assertion",
+          "H": ""
+        },
+        {
+          "A": "EXP-35",
+          "B": "Automated API test",
+          "C": "GET /api/tasks",
+          "D": "test_get_tasks_excessive_per_page",
+          "E": "HTTP 400 expected by test.",
+          "F": "HTTP 200; excessive per_page value returned HTTP 200.",
+          "G": "Fail / Assertion",
+          "H": "No documented maximum per_page was confirmed; treat as a design/expectation question."
+        },
+        {
+          "A": "EXP-36",
+          "B": "Automated API test",
+          "C": "POST /api/tasks",
+          "D": "test_create_task_invalid_title_type",
+          "E": "Test expected controlled rejection of integer title.",
+          "F": "Unhandled AttributeError: integer has no attribute strip.",
+          "G": "Fail",
+          "H": "Same behaviour as manual DATA-API-08."
+        },
+        {
+          "A": "EXP-37",
+          "B": "Automated API test",
+          "C": "POST /api/tasks",
+          "D": "test_create_task_invalid_description_type",
+          "E": "HTTP 400 expected by test.",
+          "F": "HTTP 201; numeric description accepted.",
+          "G": "Fail / Assertion",
+          "H": "Formal description type requirement not confirmed."
+        },
+        {
+          "A": "EXP-38",
+          "B": "Automated API test",
+          "C": "POST /api/tasks",
+          "D": "test_create_task_null_description",
+          "E": "HTTP 400 expected by test.",
+          "F": "HTTP 201; null description accepted.",
+          "G": "Fail / Assertion",
+          "H": "Formal requirement that description is mandatory/non-null not confirmed."
+        },
+        {
+          "A": "EXP-39",
+          "B": "Automated API test",
+          "C": "PUT /api/tasks/<task_id>",
+          "D": "test_update_task_invalid_title_type",
+          "E": "HTTP 400 expected by test.",
+          "F": "HTTP 200; numeric title accepted and stored as '12345'.",
+          "G": "Fail",
+          "H": ""
+        },
+        {
+          "A": "EXP-40",
+          "B": "Automated API test",
+          "C": "PUT /api/tasks/<task_id>",
+          "D": "test_update_task_invalid_title_changes_task",
+          "E": "Existing title should remain 'Original task'.",
+          "F": "Actual title became '12345'.",
+          "G": "Fail",
+          "H": "Invalid numeric title modified stored task data."
+        },
+        {
+          "A": "EXP-41",
+          "B": "Manual Web test",
+          "C": "Registration form",
+          "D": "8-character password boundary",
+          "E": "Password should be accepted because UI text says at least 8 characters.",
+          "F": "Password was rejected; 9-character password was accepted.",
+          "G": "Fail",
+          "H": "WEB-DEF-01; expectation based on displayed UI validation wording."
+        }
+      ],
+      "Summary and Interpretation": [
+        {
+          "A": "Item",
+          "B": "Details"
+        },
+        {
+          "A": "Scope",
+          "B": "Expected versus actual status/response comparisons for observed manual API tests, failed automated API assertions, and the observed web password boundary case."
+        },
+        {
+          "A": "Automated API execution",
+          "B": "36 tests collected; 23 passed; 13 failed; pass rate 63.9%."
+        },
+        {
+          "A": "Manual API coverage",
+          "B": "27 recorded manual request/test-data cases are represented in the separate Deliverable 3 workbook. This deliverable captures their expected-versus-actual comparison where evidence is available."
+        },
+        {
+          "A": "Important distinction",
+          "B": "The expected HTTP codes in failed automated tests are the test suite's assertions. They are not automatically confirmed application requirements unless supported by the project specification."
+        },
+        {
+          "A": "Confirmed behaviour requiring attention",
+          "B": "Invalid due date caused an unhandled ValueError after insertion and subsequently caused GET /api/tasks to fail. Integer task title caused an unhandled AttributeError. Null update title caused an unhandled SQLite IntegrityError. API DELETE route returned 405."
+        },
+        {
+          "A": "Observations requiring specification confirmation",
+          "B": "Duplicate username acceptance; numeric/null descriptions; pagination invalid-input status expectations; maximum per_page; empty or whitespace task title on update."
+        },
+        {
+          "A": "Evidence to attach",
+          "B": "Pytest terminal output and screenshots/recordings of manual test-client requests and responses. The workbook records the observed results but does not embed screenshots."
+        },
+        {
+          "A": "Caution",
+          "B": "Manual API calls ran with Flask TESTING=True, which propagates application exceptions to the test client rather than presenting a normal production HTTP 500 response."
+        }
+      ]
+    },
+    "04_Web_API/Web_Test_Scenarios.xlsx": {
+      "Web Test Cases": [
+        {
+          "A": "Test Case ID",
+          "B": "Feature",
+          "C": "Technique / Test Type",
+          "D": "Objective",
+          "E": "Preconditions",
+          "F": "Test Data",
+          "G": "Test Steps",
+          "H": "Expected Result",
+          "I": "Actual Result",
+          "J": "Status",
+          "K": "Evidence",
+          "L": "Defect ID"
+        },
+        {
+          "A": "WEB-01",
+          "B": "User registration",
+          "C": "Functional testing",
+          "D": "Verify registration with valid credentials.",
+          "E": "User is not registered with the selected username.",
+          "F": "webtest01 / TestPass123",
+          "G": "1. Open registration page.\n2. Enter credentials.\n3. Submit form.",
+          "H": "Account is created and user is redirected to task page.",
+          "I": "Registration succeeded and redirected to Tasks page.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-02",
+          "B": "Duplicate username validation",
+          "C": "Negative / validation testing",
+          "D": "Verify duplicate usernames are rejected.",
+          "E": "Username webtest01 already exists.",
+          "F": "Username: webtest01",
+          "G": "1. Open registration page.\n2. Enter existing username.\n3. Submit.",
+          "H": "Registration is rejected.",
+          "I": "Generic \u201cInvalid username or password\u201d message appeared.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-03",
+          "B": "Required field validation",
+          "C": "Negative / validation testing",
+          "D": "Verify empty registration fields are rejected.",
+          "E": "Registration page is accessible.",
+          "F": "Empty username and password",
+          "G": "1. Leave both fields empty.\n2. Submit.",
+          "H": "Incomplete submission is prevented.",
+          "I": "Browser displayed \u201cPlease fill out this field.\u201d",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-04",
+          "B": "Password length validation",
+          "C": "Boundary Value Analysis",
+          "D": "Verify passwords below the stated minimum are rejected.",
+          "E": "Registration page is accessible.",
+          "F": "Password: 123 (3 characters)",
+          "G": "1. Enter valid username.\n2. Enter 3-character password.\n3. Submit.",
+          "H": "Password is rejected because it is shorter than 8 characters.",
+          "I": "Password rejected with minimum-length validation message.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-05",
+          "B": "Password length validation",
+          "C": "Boundary Value Analysis",
+          "D": "Verify acceptance at the stated minimum password length.",
+          "E": "Registration page is accessible.",
+          "F": "Password: Test1234 (8 characters)",
+          "G": "1. Enter valid username.\n2. Enter 8-character password.\n3. Submit.",
+          "H": "Password should be accepted because the displayed rule says at least 8 characters.",
+          "I": "Password was rejected with the same minimum-length message.",
+          "J": "Fail",
+          "K": "8-character password validation screenshot (WEB-DEF-01.png)",
+          "L": "WEB-DEF-01"
+        },
+        {
+          "A": "WEB-06",
+          "B": "Password length validation",
+          "C": "Boundary Value Analysis",
+          "D": "Verify acceptance above the stated minimum password length.",
+          "E": "Registration page is accessible.",
+          "F": "Password: Test12345 (9 characters)",
+          "G": "1. Enter valid username.\n2. Enter 9-character password.\n3. Submit.",
+          "H": "Password is accepted.",
+          "I": "Registration proceeded successfully.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-07",
+          "B": "Username validation",
+          "C": "Negative / validation testing",
+          "D": "Verify usernames shorter than allowed length are rejected.",
+          "E": "Registration page is accessible.",
+          "F": "Username: ab",
+          "G": "1. Enter 2-character username.\n2. Submit.",
+          "H": "Username is rejected because minimum length is 3.",
+          "I": "Message indicated username must be 3\u201320 characters.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-08",
+          "B": "Username validation",
+          "C": "Negative / validation testing",
+          "D": "Verify disallowed special characters are rejected.",
+          "E": "Registration page is accessible.",
+          "F": "Username: web@test",
+          "G": "1. Enter username with special character.\n2. Submit.",
+          "H": "Username is rejected.",
+          "I": "Invalid username format message appeared.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-09",
+          "B": "Username validation",
+          "C": "Boundary Value Analysis",
+          "D": "Verify usernames exceeding maximum length are rejected.",
+          "E": "Registration page is accessible.",
+          "F": "Username containing 26 characters",
+          "G": "1. Enter 26-character username.\n2. Submit.",
+          "H": "Username is rejected because maximum length is 20.",
+          "I": "Message indicated username must be 3\u201320 characters.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-10",
+          "B": "User login",
+          "C": "Functional testing",
+          "D": "Verify successful authentication using valid credentials.",
+          "E": "Account webtest02 exists.",
+          "F": "webtest02 / Test12345",
+          "G": "1. Open login page.\n2. Enter valid credentials.\n3. Submit.",
+          "H": "User is authenticated and redirected to Tasks page.",
+          "I": "Login succeeded and Tasks page was displayed.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-11",
+          "B": "User login",
+          "C": "Negative / authentication testing",
+          "D": "Verify incorrect credentials are rejected.",
+          "E": "Login page is accessible.",
+          "F": "Existing username with incorrect password",
+          "G": "1. Enter username.\n2. Enter incorrect password.\n3. Submit.",
+          "H": "Authentication is rejected.",
+          "I": "Generic invalid username or password message appeared.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-12",
+          "B": "Task creation",
+          "C": "Functional testing",
+          "D": "Verify users can create a task.",
+          "E": "User is logged in.",
+          "F": "Prepare STQA Web Testing Report",
+          "G": "1. Open Tasks page.\n2. Enter task details.\n3. Submit.",
+          "H": "New task appears in task list.",
+          "I": "Task was created and displayed successfully.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-13",
+          "B": "Task completion",
+          "C": "State-transition testing",
+          "D": "Verify a task transitions from open to completed.",
+          "E": "An open task exists.",
+          "F": "Prepare STQA Web Testing Report",
+          "G": "1. Locate task.\n2. Mark it completed.",
+          "H": "Task status changes to completed.",
+          "I": "Title displayed strikethrough formatting and completed status.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-14",
+          "B": "Task editing",
+          "C": "Functional testing",
+          "D": "Verify users can modify task details.",
+          "E": "An existing task is available.",
+          "F": "Original: Prepare STQA Web Testing Report; updated: Prepare STQA Final Testing Report",
+          "G": "1. Open task editing page.\n2. Modify title.\n3. Save.",
+          "H": "Updated task details are displayed.",
+          "I": "Updated title appeared successfully.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-15",
+          "B": "Task deletion",
+          "C": "Functional testing",
+          "D": "Verify users can delete an existing task.",
+          "E": "An existing task is available.",
+          "F": "Existing task selected for deletion",
+          "G": "1. Select delete.\n2. Confirm deletion.",
+          "H": "Task is removed from task list.",
+          "I": "Confirmation prompt appeared and task disappeared after confirmation.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-16",
+          "B": "Task search",
+          "C": "Functional testing",
+          "D": "Verify users can search tasks using keywords.",
+          "E": "Multiple tasks exist.",
+          "F": "Keyword STQA; tasks include Complete STQA Assignment and Study Software Testing",
+          "G": "1. Open task list.\n2. Enter STQA in search.",
+          "H": "Only matching tasks are displayed.",
+          "I": "Complete STQA Assignment was displayed as the matching result.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-17",
+          "B": "Task status filtering",
+          "C": "Functional testing",
+          "D": "Verify tasks can be filtered by completion status.",
+          "E": "User had no remaining completed tasks at test time.",
+          "F": "Status: Done",
+          "G": "1. Open task list.\n2. Select Done filter.",
+          "H": "Only completed tasks are displayed.",
+          "I": "No tasks displayed, consistent with there being no completed tasks at that point.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-18",
+          "B": "Dashboard statistics",
+          "C": "Functional testing",
+          "D": "Verify dashboard statistics reflect user's tasks.",
+          "E": "User webtest01 has two tasks.",
+          "F": "Total tasks: 2; open tasks: 2",
+          "G": "1. Log in as webtest01.\n2. Open dashboard.\n3. Observe statistics.",
+          "H": "Dashboard displays correct task statistics.",
+          "I": "Dashboard displayed 2 total tasks and 2 open tasks.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-19",
+          "B": "Logout and authentication",
+          "C": "Security / authentication testing",
+          "D": "Verify unauthenticated users cannot access protected pages after logout.",
+          "E": "User is logged in.",
+          "F": "Logout, then access /",
+          "G": "1. Log out.\n2. Attempt to access home page.",
+          "H": "User is redirected to login page.",
+          "I": "Access to / redirected to login.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        },
+        {
+          "A": "WEB-20",
+          "B": "User task ownership",
+          "C": "Security / authorization testing",
+          "D": "Verify one user cannot access another user's task editing page.",
+          "E": "webtest01 owns task ID 20; webtest02 is logged in separately.",
+          "F": "/tasks/20/edit",
+          "G": "1. Create task as webtest01.\n2. Log in as webtest02.\n3. Access /tasks/20/edit.",
+          "H": "Access to another user's task is denied.",
+          "I": "User was redirected to Tasks page.",
+          "J": "Pass",
+          "K": "N/A",
+          "L": ""
+        }
+      ],
+      "Execution Summary": [
+        {
+          "A": "Metric",
+          "B": "Result"
+        },
+        {
+          "A": "Application under test",
+          "B": "PyTodo Pro"
+        },
+        {
+          "A": "Testing scope",
+          "B": "Manual web workflow testing"
+        },
+        {
+          "A": "Total test cases",
+          "B": "20"
+        },
+        {
+          "A": "Passed",
+          "B": "19"
+        },
+        {
+          "A": "Failed",
+          "B": "1"
+        },
+        {
+          "A": "Blocked",
+          "B": "0"
+        },
+        {
+          "A": "Not run",
+          "B": "0"
+        },
+        {
+          "A": "Execution pass rate",
+          "B": "95%"
+        },
+        {
+          "A": "Main finding",
+          "B": "An 8-character password was rejected although the displayed rule states at least 8 characters."
+        }
+      ],
+      "Web Defect Log": [
+        {
+          "A": "Defect ID",
+          "B": "Title",
+          "C": "Affected Feature",
+          "D": "Expected Result",
+          "E": "Actual Result",
+          "F": "Impact",
+          "G": "Status"
+        },
+        {
+          "A": "WEB-DEF-01",
+          "B": "Password validation rejects an 8-character password",
+          "C": "User registration",
+          "D": "An 8-character password should be accepted according to the displayed minimum-length rule.",
+          "E": "An 8-character password was rejected, while a 9-character password was accepted.",
+          "F": "Users may be prevented from registering with a password that satisfies the stated requirement.",
+          "G": "Open \u2014 pending investigation"
+        }
+      ]
+    }
+  }
+}

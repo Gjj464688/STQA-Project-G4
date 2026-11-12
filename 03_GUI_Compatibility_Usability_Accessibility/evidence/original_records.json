@@ -1,0 +1,555 @@
+{
+  "provenance": "Original user-supplied workbooks before 2026-11-12 verification; historical execution identities/versions not independently established. Superseded results are not included in current totals.",
+  "workbooks": {
+    "03_GUI_Compatibility_Usability_Accessibility/Week3_Accessibility_Test_Cases_001-007.xlsx": {
+      "Accessibility Testing": [
+        {
+          "A": "Test Case ID",
+          "B": "Test Scenario",
+          "C": "Test Steps",
+          "D": "Expected Result",
+          "E": "Actual Result",
+          "F": "Status",
+          "G": "Evidence",
+          "H": "Remarks"
+        },
+        {
+          "A": "ACC-TC-001",
+          "B": "Evaluate text readability",
+          "C": "Inspect page headings, task titles, descriptions, table headings, navigation links, buttons and smaller text on My Tasks.",
+          "D": "Text should be readable and presented clearly without difficulty.",
+          "E": "All inspected text elements were generally readable, with font sizes and appearances that allowed the information to be understood without difficulty.",
+          "F": "PASS",
+          "G": "N/A",
+          "H": "Readable text improves accessibility and helps users understand the information presented."
+        },
+        {
+          "A": "ACC-TC-002",
+          "B": "Evaluate colour contrast and distinguishability",
+          "C": "Inspect text and background colours, buttons and task status indicators on My Tasks.",
+          "D": "Text and status indicators should be sufficiently distinguishable to support readability and accessibility.",
+          "E": "The Done and Open statuses have similar background colours, making them difficult to distinguish by colour alone. However, the strikethrough applied to completed task titles provides an additional visual indicator.",
+          "F": "PARTIAL PASS",
+          "G": "N/A",
+          "H": "Improve the visual distinction between Open and Done statuses using more distinguishable colours while retaining the strikethrough indicator."
+        },
+        {
+          "A": "ACC-TC-003",
+          "B": "Evaluate keyboard accessibility",
+          "C": "Navigate through interactive elements using Tab and Shift + Tab without using a mouse. Observe keyboard focus indicators.",
+          "D": "Users should be able to navigate interactive elements using the keyboard, with a visible focus indicator.",
+          "E": "The interactive elements could be navigated using Tab and Shift + Tab, and the currently focused element was visibly highlighted.",
+          "F": "PASS",
+          "G": "N/A",
+          "H": "Keyboard navigation and visible focus indicators support users who rely on keyboard interaction."
+        },
+        {
+          "A": "ACC-TC-004",
+          "B": "Evaluate form labels",
+          "C": "Inspect the Title, Description, Category and Due Date fields on the New Task page.",
+          "D": "Each form field should have a clear, visible label identifying its purpose.",
+          "E": "All inspected form fields had clear and visible labels that identified the information users needed to enter.",
+          "F": "PASS",
+          "G": "N/A",
+          "H": "Clear form labels help users identify the purpose of each input field."
+        },
+        {
+          "A": "ACC-TC-005",
+          "B": "Evaluate clarity of input validation messages",
+          "C": "Submit the New Task form without entering any details and observe the validation message.",
+          "D": "Validation messages should clearly explain the input requirements and guide users on how to correct invalid submissions.",
+          "E": "The browser displayed \u201cPlease fill out this field\u201d and prevented submission. However, the message only highlighted the Title field and did not provide broader guidance that a task title is required before submission.",
+          "F": "PARTIAL PASS",
+          "G": "N/A",
+          "H": "Provide clearer and more informative validation feedback, such as \u201cPlease enter a task title before creating the task.\u201d"
+        },
+        {
+          "A": "ACC-TC-006",
+          "B": "Evaluate interface structure",
+          "C": "Inspect headings, page sections and grouping of information on My Tasks and Dashboard.",
+          "D": "Headings and page sections should be organised logically to help users understand the interface structure.",
+          "E": "The headings and page sections were logically organised, making the information easy to follow and understand.",
+          "F": "PASS",
+          "G": "N/A",
+          "H": "A clear interface structure helps users locate information and understand the organisation of the application."
+        },
+        {
+          "A": "ACC-TC-007",
+          "B": "Evaluate interactive elements",
+          "C": "Inspect buttons and links on My Tasks and New Task pages, including their labels and purposes.",
+          "D": "Buttons and links should be identifiable and have understandable labels describing their purposes.",
+          "E": "The buttons and links were clearly identifiable, with text that explained their purposes.",
+          "F": "PASS",
+          "G": "N/A",
+          "H": "Clearly labelled interactive elements help users understand and interact with the application."
+        }
+      ],
+      "Summary": [
+        {
+          "A": "Week 3 \u2013 Accessibility Testing Summary"
+        },
+        {
+          "A": "Total test cases",
+          "B": "7"
+        },
+        {
+          "A": "Pass",
+          "B": "5"
+        },
+        {
+          "A": "Partial Pass",
+          "B": "2"
+        },
+        {
+          "A": "Fail",
+          "B": "0"
+        },
+        {
+          "A": "Result distribution"
+        },
+        {
+          "A": "PASS rate",
+          "B": "0.7142857142857143"
+        },
+        {
+          "A": "Partial pass rate",
+          "B": "0.2857142857142857"
+        },
+        {
+          "A": "Key findings"
+        },
+        {
+          "A": "1. Open and Done task statuses have similar background colours; the strikethrough provides an additional visual indicator."
+        },
+        {
+          "A": "2. The empty-title validation message prevents submission but could provide more informative guidance."
+        },
+        {
+          "A": "Evidence note"
+        },
+        {
+          "A": "Evidence filenames are suggested references. Use screenshots only if they were actually captured and saved. Relevant GUI screenshots may be reused when they genuinely support the accessibility observation; otherwise enter N/A."
+        },
+        {
+          "A": "Scope note"
+        },
+        {
+          "A": "This is a basic accessibility review using selected WCAG-related concepts. It is not a full WCAG conformance audit or certification."
+        }
+      ]
+    },
+    "03_GUI_Compatibility_Usability_Accessibility/Week3_Compatibility_Test_Cases_001-007.xlsx": {
+      "Compatibility Testing": [
+        {
+          "A": "Test Case ID",
+          "B": "Test Scenario",
+          "C": "Test Steps",
+          "D": "Expected Result",
+          "E": "Actual Result",
+          "F": "Status",
+          "G": "Evidence",
+          "H": "Remarks"
+        },
+        {
+          "A": "COMP-TC-001",
+          "B": "Verify application display in Google Chrome",
+          "C": "Open Google Chrome \u2192 Navigate to http://127.0.0.1:5000/ \u2192 Log in \u2192 Open My Tasks.",
+          "D": "Application interface should display correctly without visual issues.",
+          "E": "Application displayed correctly in Google Chrome with no noticeable visual changes or layout issues.",
+          "F": "PASS",
+          "G": "COMP-TC-001_Chrome_Display.png",
+          "H": "Google Chrome is used as the baseline browser for compatibility testing."
+        },
+        {
+          "A": "COMP-TC-002",
+          "B": "Verify application functionality in Google Chrome",
+          "C": "Open My Tasks \u2192 Click New Task \u2192 Enter valid task details (Chrome Compatibility Test; Personal; leave Due Date blank) \u2192 Click Create Task.",
+          "D": "The task should be created successfully and displayed in the task list.",
+          "E": "The task was successfully created and appeared in My Tasks.",
+          "F": "PASS",
+          "G": "COMP-TC-002_Chrome_Functionality.png",
+          "H": "Task creation functionality works correctly in Google Chrome."
+        },
+        {
+          "A": "COMP-TC-003",
+          "B": "Verify application display in Microsoft Edge",
+          "C": "Open Microsoft Edge \u2192 Navigate to http://127.0.0.1:5000/ \u2192 Log in \u2192 Open My Tasks.",
+          "D": "Application interface should display correctly without visual or layout issues.",
+          "E": "Application displayed properly in Microsoft Edge, with no noticeable differences compared to Google Chrome.",
+          "F": "PASS",
+          "G": "COMP-TC-003_Edge_Display.png",
+          "H": "The application interface is visually consistent across Google Chrome and Microsoft Edge."
+        },
+        {
+          "A": "COMP-TC-004",
+          "B": "Verify application functionality in Microsoft Edge",
+          "C": "Open My Tasks in Edge \u2192 Click New Task \u2192 Enter valid task details (Edge Compatibility Test; Personal; leave Due Date blank) \u2192 Click Create Task.",
+          "D": "The task should be created successfully and displayed in the task list.",
+          "E": "The task was successfully created and appeared in My Tasks.",
+          "F": "PASS",
+          "G": "COMP-TC-004_Edge_Functionality.png",
+          "H": "Task creation functionality works correctly in Microsoft Edge."
+        },
+        {
+          "A": "COMP-TC-005",
+          "B": "Verify layout at desktop resolution",
+          "C": "Maximise Microsoft Edge \u2192 Set browser zoom to 100% \u2192 Open My Tasks \u2192 Inspect interface elements.",
+          "D": "Application elements should display properly without overlapping, clipping or horizontal scrolling.",
+          "E": "The interface displayed properly at 100% zoom. Navigation, task table, buttons, dropdowns and text were visible and aligned.",
+          "F": "PASS",
+          "G": "COMP-TC-005_Desktop_Resolution.png",
+          "H": "The application layout is suitable for the tested desktop browser configuration."
+        },
+        {
+          "A": "COMP-TC-006",
+          "B": "Verify layout at smaller screen resolution",
+          "C": "Restore browser window \u2192 Resize to a narrower width \u2192 Keep zoom at 100% \u2192 Open My Tasks.",
+          "D": "Application elements should remain accessible and adjust to the smaller browser window without major overlapping or clipping.",
+          "E": "Task information and action links remained visible. Text wrapped onto multiple lines, and a vertical scrollbar appeared.",
+          "F": "PASS",
+          "G": "COMP-TC-006_Smaller_Window.png",
+          "H": "The layout remained usable at a smaller window width, although some elements became cramped and text wrapping affected readability."
+        },
+        {
+          "A": "COMP-TC-007",
+          "B": "Verify form and button alignment at smaller window size",
+          "C": "Resize browser window \u2192 Open New Task \u2192 Inspect form fields and buttons.",
+          "D": "Form fields and buttons should remain visible, aligned and accessible without overlapping or horizontal clipping.",
+          "E": "All form fields and buttons remained visible and properly aligned. No overlapping or horizontal scrolling was observed.",
+          "F": "PASS",
+          "G": "COMP-TC-007_Small_Window_Form.png",
+          "H": "The form maintained its alignment and usability at the tested smaller browser window size. A vertical scrollbar was available."
+        }
+      ],
+      "Summary": [
+        {
+          "A": "Compatibility Testing Summary"
+        },
+        {
+          "A": "Total test cases",
+          "B": "7"
+        },
+        {
+          "A": "Passed",
+          "B": "7"
+        },
+        {
+          "A": "Failed",
+          "B": "0"
+        },
+        {
+          "A": "Blocked",
+          "B": "0"
+        },
+        {
+          "A": "Not Run",
+          "B": "0"
+        },
+        {
+          "A": "Coverage note",
+          "B": "Two browsers (Google Chrome and Microsoft Edge) and desktop/smaller browser-window configurations were tested. Physical mobile devices and multiple native screen resolutions were not tested."
+        }
+      ]
+    },
+    "03_GUI_Compatibility_Usability_Accessibility/Week3_GUI_Test_Cases_001-014.xlsx": {
+      "GUI Testing": [
+        {
+          "A": "Test Case ID",
+          "B": "Test Scenario",
+          "C": "Test Steps",
+          "D": "Expected Result",
+          "E": "Actual Result",
+          "F": "Status",
+          "G": "Evidence",
+          "H": "Remarks"
+        },
+        {
+          "A": "GUI-TC-001",
+          "B": "Submit empty New Task form",
+          "C": "Open New Task; leave all fields empty; click Create Task.",
+          "D": "Empty submission is prevented and validation feedback is displayed.",
+          "E": "Browser displayed \u201cPlease fill out this field.\u201d and prevented submission.",
+          "F": "PASS",
+          "G": "GUI-TC-001_Empty_Form_Validation.png",
+          "H": "Native browser validation was triggered on the required Title field."
+        },
+        {
+          "A": "GUI-TC-002",
+          "B": "Create task without due date",
+          "C": "Enter Complete STQA Week 3; description Perform GUI and usability testing; category Study; leave Due Date blank; create task.",
+          "D": "Task is created successfully without a due date.",
+          "E": "Task was created. Due Date showed \u201c\u2014\u201d and Urgency showed \u201cNo due date\u201d.",
+          "F": "PASS",
+          "G": "GUI-TC-002_Create_Task.png",
+          "H": "The application allows task creation without a due date."
+        },
+        {
+          "A": "GUI-TC-003",
+          "B": "Create task with due date",
+          "C": "Enter Submit STQA Assignment; description Complete and submit the Week 3 report; category Study; due date 30/11/2026; create task.",
+          "D": "Task is created successfully with the selected due date.",
+          "E": "Task was created. The list displayed 2026-11-30 and urgency Upcoming.",
+          "F": "PASS",
+          "G": "GUI-TC-003_Create_Task_With_Due_Date.png",
+          "H": "The list uses YYYY-MM-DD while the form placeholder uses dd/mm/yyyy."
+        },
+        {
+          "A": "GUI-TC-004",
+          "B": "Edit existing task",
+          "C": "Edit Complete STQA Week 3; change title to Complete STQA Week 3 - Updated and description to Complete GUI testing documentation; save.",
+          "D": "Edit form loads existing values and saves updated details.",
+          "E": "Existing values were populated; updated title appeared in the task list after saving.",
+          "F": "PASS",
+          "G": "GUI-TC-004_Edit_Task_Form.png; GUI-TC-004_Updated_Task.png",
+          "H": "The edit form loads existing values and reflects saved changes."
+        },
+        {
+          "A": "GUI-TC-005",
+          "B": "Delete existing task",
+          "C": "Choose Submit STQA Assignment; select Delete; confirm deletion.",
+          "D": "Confirmation is requested and the selected task is deleted after confirmation.",
+          "E": "A confirmation prompt appeared. After confirmation, the task was deleted.",
+          "F": "PASS",
+          "G": "GUI-TC-005_Delete_Confirmation.png; GUI-TC-005_After_Deletion.png",
+          "H": "Confirmation helps prevent accidental deletion. Evidence filenames are suggested; include screenshots only if saved."
+        },
+        {
+          "A": "GUI-TC-006",
+          "B": "Filter tasks by category",
+          "C": "Select Study in Category; click Filter.",
+          "D": "Only tasks belonging to the selected category are displayed.",
+          "E": "The only remaining Study task, Complete STQA Week 3 - Updated, was displayed.",
+          "F": "PASS",
+          "G": "GUI-TC-006_Filter_By_Category.png",
+          "H": "Only one task remained in Study after Submit STQA Assignment was deleted."
+        },
+        {
+          "A": "GUI-TC-007",
+          "B": "Verify category filtering with multiple categories",
+          "C": "Create a Personal task titled Buy groceries; filter by Study and then Personal.",
+          "D": "Each category filter displays matching tasks and excludes other categories.",
+          "E": "Study displayed the Study task; Personal displayed Buy groceries.",
+          "F": "PASS",
+          "G": "GUI-TC-007_Multiple_Category_Filter.png",
+          "H": "Category filtering correctly includes matching tasks and excludes non-matching tasks."
+        },
+        {
+          "A": "GUI-TC-008",
+          "B": "Filter tasks by Open status",
+          "C": "Select All categories; select Open in Status; click Filter.",
+          "D": "Only tasks with Open status are displayed.",
+          "E": "Both existing tasks were displayed, and both had Open status.",
+          "F": "PASS",
+          "G": "GUI-TC-008_Filter_Open_Status.png",
+          "H": "Both remaining tasks were identified as Open at the time of testing."
+        },
+        {
+          "A": "GUI-TC-009",
+          "B": "Filter tasks by Done status",
+          "C": "Select All categories; select Done in Status; click Filter.",
+          "D": "Only tasks with Done status are displayed.",
+          "E": "Only Complete STQA Week 3 - Updated, marked Done, was displayed.",
+          "F": "PASS",
+          "G": "GUI-TC-009_Filter_Done_Status.png",
+          "H": "The application correctly filters and displays tasks marked Done."
+        },
+        {
+          "A": "GUI-TC-010",
+          "B": "Search for an existing task",
+          "C": "Select All categories and All statuses; search Buy groceries; click Filter.",
+          "D": "Only the task matching the search keyword is displayed.",
+          "E": "Only Buy groceries was displayed.",
+          "F": "PASS",
+          "G": "GUI-TC-010_Search_Task.png",
+          "H": "Search correctly retrieves the matching task."
+        },
+        {
+          "A": "GUI-TC-011",
+          "B": "Search for a non-existing task",
+          "C": "Select All categories and All statuses; search Nonexistent Task 123; click Filter.",
+          "D": "No matching tasks appear and an appropriate empty-state message is displayed.",
+          "E": "The application displayed: \u201cNo tasks match your filters.\u201d",
+          "F": "PASS",
+          "G": "GUI-TC-011_No_Search_Results.png",
+          "H": "Clear feedback is provided when no tasks match the search criteria."
+        },
+        {
+          "A": "GUI-TC-012",
+          "B": "Verify navigation between Tasks and Dashboard",
+          "C": "Click Dashboard and verify it loads; click Tasks and verify My Tasks loads.",
+          "D": "Both navigation links direct users to their respective pages without errors.",
+          "E": "Dashboard loaded successfully, and navigation back to My Tasks worked correctly.",
+          "F": "PASS",
+          "G": "GUI-TC-012_Dashboard_Navigation.png",
+          "H": "Navigation links allow users to switch between application pages."
+        },
+        {
+          "A": "GUI-TC-013",
+          "B": "Verify Dashboard summary accuracy",
+          "C": "Open Dashboard; compare statistics with actual task statuses in My Tasks.",
+          "D": "Dashboard statistics accurately reflect actual task records and statuses.",
+          "E": "Dashboard showed 2 Total Tasks, 1 Open, 0 Overdue, 0 Due Soon, and 1 Completed (last 7 days), matching the task list.",
+          "F": "PASS",
+          "G": "GUI-TC-013_Dashboard_Summary.png",
+          "H": "Dashboard statistics matched the task records at the time of testing."
+        },
+        {
+          "A": "GUI-TC-014",
+          "B": "Verify session protection after logout",
+          "C": "Log out; enter http://127.0.0.1:5000/dashboard in the browser address bar; press Enter.",
+          "D": "Unauthenticated users are prevented from accessing the Dashboard.",
+          "E": "The user remained on the login page and could not access the Dashboard.",
+          "F": "PASS",
+          "G": "GUI-TC-014_Session_Protection.png",
+          "H": "Unauthenticated users cannot access protected pages after logout."
+        }
+      ],
+      "Summary": [
+        {
+          "A": "GUI Testing Summary"
+        },
+        {
+          "A": "Total test cases",
+          "B": "14"
+        },
+        {
+          "A": "Passed",
+          "B": "14"
+        },
+        {
+          "A": "Failed",
+          "B": "0"
+        },
+        {
+          "A": "Blocked",
+          "B": "0"
+        },
+        {
+          "A": "Not Run",
+          "B": "0"
+        },
+        {
+          "A": "Overall result",
+          "B": "All 14 recorded GUI test cases passed based on the observed results reported during testing."
+        }
+      ]
+    },
+    "03_GUI_Compatibility_Usability_Accessibility/Week3_Usability_Test_Cases_001-007.xlsx": {
+      "Usability Testing": [
+        {
+          "A": "Test Case ID",
+          "B": "Test Scenario",
+          "C": "Test Steps",
+          "D": "Expected Result",
+          "E": "Actual Result",
+          "F": "Status",
+          "G": "Evidence",
+          "H": "Remarks"
+        },
+        {
+          "A": "USAB-TC-001",
+          "B": "Evaluate ease of navigation",
+          "C": "Open My Tasks; locate Dashboard; navigate to Dashboard; return to My Tasks.",
+          "D": "Users should be able to identify navigation links and move between pages easily.",
+          "E": "Navigation between My Tasks and Dashboard was easy and straightforward.",
+          "F": "PASS",
+          "G": "N/A",
+          "H": "Navigation links were accessible and allowed movement between the main pages."
+        },
+        {
+          "A": "USAB-TC-002",
+          "B": "Evaluate clarity of labels and instructions",
+          "C": "Inspect labels on the My Tasks and New Task pages.",
+          "D": "Labels and instructions should be clear, understandable and easy to interpret.",
+          "E": "All inspected labels were clear and understandable without requiring additional explanation.",
+          "F": "PASS",
+          "G": "N/A",
+          "H": "Clear labels help users understand the purpose of each interface element."
+        },
+        {
+          "A": "USAB-TC-003",
+          "B": "Evaluate system feedback after user actions",
+          "C": "Create, edit and delete tasks, then search for a non-existing task. Observe the system responses.",
+          "D": "The system should provide clear feedback to help users understand the outcome of their actions.",
+          "E": "Created and updated tasks appeared in the task list, a confirmation prompt appeared before deletion, and a message was displayed when no search results were found.",
+          "F": "PASS",
+          "G": "N/A",
+          "H": "The system provides visual feedback and confirmation to communicate the outcome of user actions."
+        },
+        {
+          "A": "USAB-TC-004",
+          "B": "Evaluate interface consistency",
+          "C": "Compare navigation elements, buttons, links, text styles, spacing and colours across My Tasks, New Task and Dashboard.",
+          "D": "The interface should maintain a consistent appearance and behaviour across different pages.",
+          "E": "The interface elements appeared reasonably consistent across the pages, providing a uniform user experience.",
+          "F": "PASS",
+          "G": "N/A",
+          "H": "Consistent interface elements help users become familiar with the system."
+        },
+        {
+          "A": "USAB-TC-005",
+          "B": "Evaluate error prevention and validation",
+          "C": "Submit the New Task form without a title and attempt to delete an existing task. Observe validation and confirmation mechanisms.",
+          "D": "The system should prevent invalid submissions and provide confirmation before potentially destructive actions.",
+          "E": "The browser displayed a required-field validation message when the title was empty, preventing submission. A confirmation prompt was displayed before deleting a task.",
+          "F": "PASS",
+          "G": "N/A",
+          "H": "Validation and deletion confirmation help prevent incomplete submissions and accidental deletion."
+        },
+        {
+          "A": "USAB-TC-006",
+          "B": "Evaluate ease of task creation",
+          "C": "Open the New Task form, enter task details, select a category, leave the due date blank and submit the form.",
+          "D": "Users should be able to create a task easily using the available form fields and controls.",
+          "E": "The task creation process was straightforward. The form fields and controls were easy to understand, and the task was successfully created without additional guidance.",
+          "F": "PASS",
+          "G": "N/A",
+          "H": "The simple task creation form supports a straightforward user experience."
+        },
+        {
+          "A": "USAB-TC-007",
+          "B": "Evaluate readability and information presentation",
+          "C": "Inspect My Tasks and Dashboard pages for text readability, information organisation, task details, statuses and dashboard figures.",
+          "D": "Information should be readable, clearly organised and easy for users to understand.",
+          "E": "The information was readable and clearly presented. Task details, statuses and dashboard figures were easy to identify and understand.",
+          "F": "PASS",
+          "G": "N/A",
+          "H": "Clear information presentation helps users understand task details and monitor their progress."
+        }
+      ],
+      "Summary": [
+        {
+          "A": "Week 3 \u2013 Usability Testing Summary"
+        },
+        {
+          "A": "Total test cases",
+          "B": "7"
+        },
+        {
+          "A": "Passed",
+          "B": "7"
+        },
+        {
+          "A": "Failed",
+          "B": "0"
+        },
+        {
+          "A": "Pass rate",
+          "B": "1"
+        },
+        {
+          "A": "Evidence note"
+        },
+        {
+          "A": "Separate screenshots are not mandatory unless required by the lecturer. Relevant GUI testing screenshots may be reused when they genuinely support the usability observation. If no evidence is available, record N/A rather than claiming a screenshot exists."
+        },
+        {
+          "A": "Scope note"
+        },
+        {
+          "A": "Results are based on the user's reported observations during interaction with the application. The workbook does not represent a formal survey with multiple participants."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,595 @@
+{
+  "started_utc": "2026-11-12T05:42:10.164Z",
+  "source": "Unmodified original app; http://127.0.0.1:5014; temporary DB",
+  "counts": {
+    "Pass": 28,
+    "Fail": 2
+  },
+  "results": [
+    {
+      "case_id": "GUI-TC-001",
+      "objective": "Empty New Task form",
+      "expected": "Required Title blocks submission",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:12.361Z",
+      "actual": {
+        "valid": false,
+        "missing": true,
+        "message": "Please fill out this field."
+      },
+      "status": "Pass",
+      "evidence": "GUI-TC-001.png"
+    },
+    {
+      "case_id": "GUI-TC-002",
+      "objective": "Create no-date task",
+      "expected": "Title/category shown, no due date",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:12.772Z",
+      "actual": "○\n\tComplete STQA Week 3\tStudy\t—\tNo due date\tEdit\nDelete",
+      "status": "Pass",
+      "evidence": "GUI-TC-002.png"
+    },
+    {
+      "case_id": "GUI-TC-003",
+      "objective": "Create dated task",
+      "expected": "Selected date appears",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:13.191Z",
+      "actual": "○\n\tSubmit STQA Assignment\tStudy\t2099-11-30\tUpcoming\tEdit\nDelete",
+      "status": "Pass",
+      "evidence": "GUI-TC-003.png"
+    },
+    {
+      "case_id": "GUI-TC-004",
+      "objective": "Edit existing task",
+      "expected": "Existing fields load and title/description changes persist",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:13.488Z",
+      "actual": {
+        "title": "Complete STQA Week 3 - Updated",
+        "description": "Complete GUI testing documentation"
+      },
+      "status": "Pass",
+      "evidence": "GUI-TC-004.png"
+    },
+    {
+      "case_id": "GUI-TC-005",
+      "objective": "Delete with confirmation",
+      "expected": "Selected task removed after confirmation",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:13.966Z",
+      "actual": {
+        "confirmation": "Delete this task?",
+        "removed": true
+      },
+      "status": "Pass",
+      "evidence": "GUI-TC-005.png"
+    },
+    {
+      "case_id": "GUI-TC-006",
+      "objective": "Category Study",
+      "expected": "Only Study task displayed",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:14.204Z",
+      "actual": "○\n\tComplete STQA Week 3 - Updated\tStudy\t—\tNo due date\tEdit\nDelete",
+      "status": "Pass",
+      "evidence": "GUI-TC-006.png"
+    },
+    {
+      "case_id": "GUI-TC-007",
+      "objective": "Sequential category filters",
+      "expected": "Study and Personal each exclude other categories",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:14.566Z",
+      "actual": "Study and Personal checked separately",
+      "status": "Pass",
+      "evidence": "GUI-TC-007.png"
+    },
+    {
+      "case_id": "GUI-TC-008",
+      "objective": "Open status filter",
+      "expected": "Both open tasks appear",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:14.781Z",
+      "actual": "○\n\tBuy groceries\tPersonal\t—\tNo due date\tEdit\nDelete\n\n\n○\n\tComplete STQA Week 3 - Updated\tStudy\t—\tNo due date\tEdit\nDelete",
+      "status": "Pass",
+      "evidence": "GUI-TC-008.png"
+    },
+    {
+      "case_id": "GUI-TC-009",
+      "objective": "Done status filter",
+      "expected": "Only explicitly completed task appears",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:15.146Z",
+      "actual": "✓\n\tComplete STQA Week 3 - Updated\tStudy\t—\tDone\tEdit\nDelete",
+      "status": "Pass",
+      "evidence": "GUI-TC-009.png"
+    },
+    {
+      "case_id": "GUI-TC-010",
+      "objective": "Search matching task",
+      "expected": "Only Buy groceries appears",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:15.307Z",
+      "actual": "○\n\tBuy groceries\tPersonal\t—\tNo due date\tEdit\nDelete",
+      "status": "Pass",
+      "evidence": "GUI-TC-010.png"
+    },
+    {
+      "case_id": "GUI-TC-011",
+      "objective": "Search missing task",
+      "expected": "Empty-state message appears",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:15.455Z",
+      "actual": "No tasks match your filters.",
+      "status": "Pass",
+      "evidence": "GUI-TC-011.png"
+    },
+    {
+      "case_id": "GUI-TC-012",
+      "objective": "Tasks Dashboard navigation",
+      "expected": "Both links open their respective pages",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:15.604Z",
+      "actual": "Dashboard and My Tasks both opened",
+      "status": "Pass",
+      "evidence": "GUI-TC-012.png"
+    },
+    {
+      "case_id": "GUI-TC-013",
+      "objective": "Dashboard counters",
+      "expected": "2 total, 1 open, 0 overdue, 0 due soon, 1 recent completion",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:17.013Z",
+      "actual": [
+        "2",
+        "1",
+        "0",
+        "0",
+        "1"
+      ],
+      "status": "Pass",
+      "evidence": "GUI-TC-013.png"
+    },
+    {
+      "case_id": "GUI-TC-014",
+      "objective": "Logout session protection",
+      "expected": "Dashboard redirects to login",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:17.172Z",
+      "actual": "http://127.0.0.1:5014/login",
+      "status": "Pass",
+      "evidence": "GUI-TC-014.png"
+    },
+    {
+      "case_id": "COMP-TC-001",
+      "objective": "Desktop display in Chrome",
+      "expected": "Heading/table/buttons visible at 1280 x 900",
+      "browser": "Chrome",
+      "version": "157.0.8103.51",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:19.879Z",
+      "actual": {
+        "width": 1280,
+        "scrollWidth": 1280
+      },
+      "status": "Pass",
+      "evidence": "COMP-TC-001.png"
+    },
+    {
+      "case_id": "COMP-TC-002",
+      "objective": "Task creation in Chrome",
+      "expected": "Browser-created task appears",
+      "browser": "Chrome",
+      "version": "157.0.8103.51",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:20.009Z",
+      "actual": "○\n\tChrome Compatibility Test\tPersonal\t—\tNo due date\tEdit\nDelete",
+      "status": "Pass",
+      "evidence": "COMP-TC-002.png"
+    },
+    {
+      "case_id": "COMP-TC-003",
+      "objective": "Desktop display in Edge",
+      "expected": "Heading/table/buttons visible at 1280 x 900",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:21.592Z",
+      "actual": {
+        "width": 1280,
+        "scrollWidth": 1280
+      },
+      "status": "Pass",
+      "evidence": "COMP-TC-003.png"
+    },
+    {
+      "case_id": "COMP-TC-004",
+      "objective": "Task creation in Edge",
+      "expected": "Browser-created task appears",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:21.741Z",
+      "actual": "○\n\tEdge Compatibility Test\tPersonal\t—\tNo due date\tEdit\nDelete",
+      "status": "Pass",
+      "evidence": "COMP-TC-004.png"
+    },
+    {
+      "case_id": "COMP-TC-005",
+      "objective": "Desktop layout",
+      "expected": "No horizontal overflow at 1280 x 900",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:22.063Z",
+      "actual": {
+        "width": 1280,
+        "height": 900,
+        "scrollWidth": 1280
+      },
+      "status": "Pass",
+      "evidence": "COMP-TC-005.png"
+    },
+    {
+      "case_id": "COMP-TC-006",
+      "objective": "Narrow task list",
+      "expected": "Table and action controls fit horizontally at 600 x 700",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 600,
+        "height": 700
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:22.231Z",
+      "actual": {
+        "width": 600,
+        "scrollWidth": 600,
+        "tableRight": 576
+      },
+      "status": "Pass",
+      "evidence": "COMP-TC-006.png"
+    },
+    {
+      "case_id": "COMP-TC-007",
+      "objective": "Narrow task form",
+      "expected": "Fields/buttons fit at 600 x 700",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 600,
+        "height": 700
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:22.357Z",
+      "actual": {
+        "width": 600,
+        "scrollWidth": 600
+      },
+      "status": "Pass",
+      "evidence": "COMP-TC-007.png"
+    },
+    {
+      "case_id": "ACC-TC-001",
+      "objective": "Text legibility sample",
+      "expected": "Main heading/table text present and nonzero font size",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:22.505Z",
+      "actual": {
+        "text": "My Tasks",
+        "size": "32px",
+        "scope": "Mechanical sample; subjective readability retained in usability observations"
+      },
+      "status": "Pass",
+      "evidence": "ACC-TC-001.png"
+    },
+    {
+      "case_id": "ACC-TC-002",
+      "objective": "Text contrast",
+      "expected": "Normal-size completed task text meets 4.5:1 contrast",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:22.652Z",
+      "status": "Fail",
+      "actual": "Completed title contrast 2.85:1 (rgb(153, 153, 153) on rgb(255, 255, 255)); below 4.5:1",
+      "evidence": "ACC-TC-002.png"
+    },
+    {
+      "case_id": "ACC-TC-003",
+      "objective": "Keyboard focus traversal",
+      "expected": "Keyboard reaches controls, visibly outlined, and activates New Task",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:22.839Z",
+      "actual": [
+        {
+          "tag": "A",
+          "text": "PyTodo Pro",
+          "outline": "auto",
+          "width": "1px"
+        },
+        {
+          "tag": "A",
+          "text": "Tasks",
+          "outline": "auto",
+          "width": "1px"
+        },
+        {
+          "tag": "A",
+          "text": "Dashboard",
+          "outline": "auto",
+          "width": "1px"
+        },
+        {
+          "tag": "A",
+          "text": "Log out",
+          "outline": "auto",
+          "width": "1px"
+        },
+        {
+          "tag": "A",
+          "text": "+ New Task",
+          "outline": "auto",
+          "width": "1px"
+        }
+      ],
+      "status": "Pass",
+      "evidence": "ACC-TC-003.png"
+    },
+    {
+      "case_id": "ACC-TC-004",
+      "objective": "Visible form labels",
+      "expected": "Title Description Category Due Date labels present",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:23.079Z",
+      "actual": {
+        "labels": [
+          "Title",
+          "Description",
+          "Category",
+          "Due Date"
+        ],
+        "scope": "Visible labels only; programmatic association assessed separately in ACC-TC-008"
+      },
+      "status": "Pass",
+      "evidence": "ACC-TC-004.png"
+    },
+    {
+      "case_id": "ACC-TC-005",
+      "objective": "Validation feedback",
+      "expected": "Missing Title is focused and submission blocked",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:23.248Z",
+      "actual": {
+        "valid": false,
+        "missing": true,
+        "message": "Please fill out this field.",
+        "recommendation": "Optional clearer task-title wording; generic browser text alone is not a confirmed defect"
+      },
+      "status": "Pass",
+      "evidence": "ACC-TC-005.png"
+    },
+    {
+      "case_id": "ACC-TC-006",
+      "objective": "Heading structure",
+      "expected": "Each inspected page has a descriptive h1",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:23.519Z",
+      "actual": [
+        {
+          "url": "/",
+          "h": [
+            "My Tasks"
+          ]
+        },
+        {
+          "url": "/dashboard",
+          "h": [
+            "Dashboard"
+          ]
+        },
+        {
+          "url": "/tasks/new",
+          "h": [
+            "New Task"
+          ]
+        }
+      ],
+      "status": "Pass",
+      "evidence": "ACC-TC-006.png"
+    },
+    {
+      "case_id": "ACC-TC-007",
+      "objective": "Text action labels",
+      "expected": "Create Save Cancel links/buttons have descriptive visible text",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:23.865Z",
+      "actual": "Create Task and Cancel have descriptive text; icon-only completion control not assessed here",
+      "status": "Pass",
+      "evidence": "ACC-TC-007.png"
+    },
+    {
+      "case_id": "ACC-TC-008",
+      "objective": "Programmatic form labels",
+      "expected": "All four fields have associated labels or aria-label",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:24.005Z",
+      "status": "Fail",
+      "actual": "Fields lack programmatic labels: [{\"name\":\"title\",\"labels\":0,\"aria\":null,\"labelledby\":null},{\"name\":\"description\",\"labels\":0,\"aria\":null,\"labelledby\":null},{\"name\":\"category_id\",\"labels\":0,\"aria\":null,\"labelledby\":null},{\"name\":\"due_date\",\"labels\":0,\"aria\":null,\"labelledby\":null}]",
+      "evidence": "ACC-TC-008.png"
+    },
+    {
+      "case_id": "ACC-TC-009",
+      "objective": "Text enlargement",
+      "expected": "New Task controls remain available at 200% CSS zoom",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:24.152Z",
+      "actual": {
+        "width": 1280,
+        "scrollWidth": 1280,
+        "zoom": "2",
+        "scope": "CSS zoom simulation; no physical-device or full reflow conformance claim"
+      },
+      "status": "Pass",
+      "evidence": "ACC-TC-009.png"
+    }
+  ]
+}

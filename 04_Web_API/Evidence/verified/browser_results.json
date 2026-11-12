@@ -1,0 +1,368 @@
+{
+  "started_utc": "2026-11-12T05:42:10.164Z",
+  "source": "Unmodified original app; http://127.0.0.1:5014; temporary DB",
+  "counts": {
+    "Pass": 18,
+    "Fail": 2
+  },
+  "results": [
+    {
+      "case_id": "WEB-01",
+      "objective": "Valid web registration",
+      "expected": "Redirect to task list",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:24.599Z",
+      "actual": "http://127.0.0.1:5014/",
+      "status": "Pass",
+      "evidence": "WEB-01.png"
+    },
+    {
+      "case_id": "WEB-02",
+      "objective": "Duplicate web username",
+      "expected": "Reject duplicate registration (unconfirmed uniqueness assumption)",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:25.615Z",
+      "status": "Fail",
+      "actual": "Duplicate registration accepted; username uniqueness requirement unconfirmed",
+      "evidence": "WEB-02.png"
+    },
+    {
+      "case_id": "WEB-03",
+      "objective": "Required registration fields",
+      "expected": "Native validation blocks empty registration",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:26.612Z",
+      "actual": {
+        "missing": true,
+        "message": "Please fill out this field."
+      },
+      "status": "Pass",
+      "evidence": "WEB-03.png"
+    },
+    {
+      "case_id": "WEB-04",
+      "objective": "Registration boundary WEB-04",
+      "expected": "Invalid input rejected",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:26.792Z",
+      "actual": {
+        "accepted": false,
+        "message": [
+          "Password must be at least 8 characters."
+        ]
+      },
+      "status": "Pass",
+      "evidence": "WEB-04.png"
+    },
+    {
+      "case_id": "WEB-05",
+      "objective": "Registration boundary WEB-05",
+      "expected": "Valid boundary accepted",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:27.033Z",
+      "status": "Fail",
+      "actual": "accepted=false; message=Password must be at least 8 characters.",
+      "evidence": "WEB-05.png"
+    },
+    {
+      "case_id": "WEB-06",
+      "objective": "Registration boundary WEB-06",
+      "expected": "Valid boundary accepted",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:27.341Z",
+      "actual": {
+        "accepted": true,
+        "message": []
+      },
+      "status": "Pass",
+      "evidence": "WEB-06.png"
+    },
+    {
+      "case_id": "WEB-07",
+      "objective": "Registration boundary WEB-07",
+      "expected": "Invalid input rejected",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:28.364Z",
+      "actual": {
+        "accepted": false,
+        "message": [
+          "Username must be 3-20 characters (letters, numbers, underscore)."
+        ]
+      },
+      "status": "Pass",
+      "evidence": "WEB-07.png"
+    },
+    {
+      "case_id": "WEB-08",
+      "objective": "Registration boundary WEB-08",
+      "expected": "Invalid input rejected",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:28.699Z",
+      "actual": {
+        "accepted": false,
+        "message": [
+          "Username must be 3-20 characters (letters, numbers, underscore)."
+        ]
+      },
+      "status": "Pass",
+      "evidence": "WEB-08.png"
+    },
+    {
+      "case_id": "WEB-09",
+      "objective": "Registration boundary WEB-09",
+      "expected": "Invalid input rejected",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:29.046Z",
+      "actual": {
+        "accepted": false,
+        "message": [
+          "Username must be 3-20 characters (letters, numbers, underscore)."
+        ]
+      },
+      "status": "Pass",
+      "evidence": "WEB-09.png"
+    },
+    {
+      "case_id": "WEB-10",
+      "objective": "Valid web login",
+      "expected": "User reaches task list",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:29.460Z",
+      "actual": "http://127.0.0.1:5014/",
+      "status": "Pass",
+      "evidence": "WEB-10.png"
+    },
+    {
+      "case_id": "WEB-11",
+      "objective": "Invalid web login",
+      "expected": "Error shown",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:30.671Z",
+      "actual": "Invalid username or password.",
+      "status": "Pass",
+      "evidence": "WEB-11.png"
+    },
+    {
+      "case_id": "WEB-12",
+      "objective": "Create task",
+      "expected": "New task listed",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:32.737Z",
+      "actual": "○\n\tPrepare STQA Web Testing Report\t—\t—\tNo due date\tEdit\nDelete",
+      "status": "Pass",
+      "evidence": "WEB-12.png"
+    },
+    {
+      "case_id": "WEB-13",
+      "objective": "Complete task",
+      "expected": "Task changes to Done",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:33.124Z",
+      "actual": "✓\n\tPrepare STQA Web Testing Report\t—\t—\tDone\tEdit\nDelete",
+      "status": "Pass",
+      "evidence": "WEB-13.png"
+    },
+    {
+      "case_id": "WEB-14",
+      "objective": "Edit task",
+      "expected": "Updated title listed",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:33.344Z",
+      "actual": "✓\n\tPrepare STQA Final Testing Report\t—\t—\tDone\tEdit\nDelete",
+      "status": "Pass",
+      "evidence": "WEB-14.png"
+    },
+    {
+      "case_id": "WEB-15",
+      "objective": "Delete task",
+      "expected": "Task removed after confirmation",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:33.743Z",
+      "actual": {
+        "confirmation": "Delete this task?",
+        "removed": true
+      },
+      "status": "Pass",
+      "evidence": "WEB-15.png"
+    },
+    {
+      "case_id": "WEB-16",
+      "objective": "Search title",
+      "expected": "Only STQA match appears",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:34.534Z",
+      "actual": "○\n\tComplete STQA Assignment\t—\t—\tNo due date\tEdit\nDelete",
+      "status": "Pass",
+      "evidence": "WEB-16.png"
+    },
+    {
+      "case_id": "WEB-17",
+      "objective": "Done filter empty state",
+      "expected": "No completed tasks shown",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:34.707Z",
+      "actual": "No tasks match your filters.",
+      "status": "Pass",
+      "evidence": "WEB-17.png"
+    },
+    {
+      "case_id": "WEB-18",
+      "objective": "Dashboard data",
+      "expected": "2 total and 2 open",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:34.854Z",
+      "actual": [
+        "2",
+        "2",
+        "0",
+        "0",
+        "0"
+      ],
+      "status": "Pass",
+      "evidence": "WEB-18.png"
+    },
+    {
+      "case_id": "WEB-19",
+      "objective": "Logout protects Tasks",
+      "expected": "Unauthenticated task page redirects to login",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:35.028Z",
+      "actual": "http://127.0.0.1:5014/login",
+      "status": "Pass",
+      "evidence": "WEB-19.png"
+    },
+    {
+      "case_id": "WEB-20",
+      "objective": "Cross-user edit protection",
+      "expected": "Another account cannot edit owner task",
+      "browser": "Edge",
+      "version": "157.0.4341.42",
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "execution": "Agent-executed automated verification",
+      "started_utc": "2026-11-12T05:42:37.425Z",
+      "actual": {
+        "attempted": "/tasks/7/edit",
+        "redirect": "http://127.0.0.1:5014/"
+      },
+      "status": "Pass",
+      "evidence": "WEB-20.png"
+    }
+  ]
+}

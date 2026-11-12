@@ -1,0 +1,2805 @@
+{
+  "started_utc": "2026-11-12T05:55:31.967907+00:00",
+  "python": "3.12.14",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "pytest": "9.1.1",
+  "flask": "3.0.3",
+  "source_directory": "C:\\Users\\Admin\\Downloads\\STQA\\pytodo_pro_student",
+  "source_hashes": {
+    "app.py": "050b4ee4bb7d42f9ea835b46569185177755feee8e420f861376df4e6097f30f",
+    "helpers.py": "bf9140338277534439b38599f5ac3ef722880cced732bba8f1f313147d466d80",
+    "static\\style.css": "c650b33967fa54b0bd74f1f860f458626141495232f5069368c0d1fa4999a6a9",
+    "templates\\base.html": "b3df0abd178da51a58a15b67ee3f090271b04a556757b24964b5fec0688e634e",
+    "templates\\dashboard.html": "b03621ad4cad3ffb538ae1f9339eb93937f5b36f95d9bd5b1bf4091b89709b6f",
+    "templates\\index.html": "12b17334b2e70543cfad1dce2d2e1ffc3e537e80a476ed230027fe69141464e0",
+    "templates\\login.html": "24ab53763ff0885f4985fd38f3169e38788713d12aff216b1dcf89c68bb92652",
+    "templates\\register.html": "9e2fd1a9d3ba1f601b4c64346dea49df3b3181839d39b66b9b1651ce8940c4a7",
+    "templates\\task_form.html": "063d3065b87ebefb6301e456ac3d2f7e5c4e9f255832616b4cdd4039aa8ee168"
+  },
+  "source_unchanged": true,
+  "execution": "Agent-executed verification; original manual tester identity not recorded",
+  "exit_code": 1,
+  "counts": {
+    "Pass": 36,
+    "Fail": 17,
+    "Error": 0
+  },
+  "results": [
+    {
+      "case_id": "API-01",
+      "scenario": "categories",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/categories",
+          "input": {},
+          "authenticated": false,
+          "status": 200,
+          "json": [
+            {
+              "id": 2,
+              "name": "Personal"
+            },
+            {
+              "id": 3,
+              "name": "Study"
+            },
+            {
+              "id": 4,
+              "name": "Urgent"
+            },
+            {
+              "id": 1,
+              "name": "Work"
+            }
+          ],
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": [
+        {
+          "id": 2,
+          "name": "Personal"
+        },
+        {
+          "id": 3,
+          "name": "Study"
+        },
+        {
+          "id": 4,
+          "name": "Urgent"
+        },
+        {
+          "id": 1,
+          "name": "Work"
+        }
+      ],
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-01]"
+    },
+    {
+      "case_id": "API-02",
+      "scenario": "unauth_tasks",
+      "expected_status": 401,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/tasks",
+          "input": {},
+          "authenticated": false,
+          "status": 401,
+          "json": {
+            "error": "authentication required"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "error": "authentication required"
+      },
+      "actual_status": 401,
+      "actual_body": {
+        "error": "authentication required"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-02]"
+    },
+    {
+      "case_id": "API-03",
+      "scenario": "register",
+      "expected_status": 201,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/register",
+          "input": {
+            "json": {
+              "username": "new_user",
+              "password": "TestPass123"
+            }
+          },
+          "authenticated": false,
+          "status": 201,
+          "json": {
+            "id": 2,
+            "username": "new_user"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "username": "new_user"
+      },
+      "actual_status": 201,
+      "actual_body": {
+        "id": 2,
+        "username": "new_user"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-03]"
+    },
+    {
+      "case_id": "API-04",
+      "scenario": "bad_username",
+      "expected_status": 400,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/register",
+          "input": {
+            "json": {
+              "username": "ab",
+              "password": "TestPass123"
+            }
+          },
+          "authenticated": false,
+          "status": 400,
+          "json": {
+            "error": "invalid username"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "error": "invalid username"
+      },
+      "actual_status": 400,
+      "actual_body": {
+        "error": "invalid username"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-04]"
+    },
+    {
+      "case_id": "API-05",
+      "scenario": "bad_password",
+      "expected_status": 400,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/register",
+          "input": {
+            "json": {
+              "username": "new_user",
+              "password": "1234567"
+            }
+          },
+          "authenticated": false,
+          "status": 400,
+          "json": {
+            "error": "invalid password"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "error": "invalid password"
+      },
+      "actual_status": 400,
+      "actual_body": {
+        "error": "invalid password"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-05]"
+    },
+    {
+      "case_id": "API-06",
+      "scenario": "login",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/login",
+          "input": {
+            "json": {
+              "username": "qa_user",
+              "password": "TestPass123"
+            }
+          },
+          "authenticated": false,
+          "status": 200,
+          "json": {
+            "id": 1,
+            "username": "qa_user"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "username": "qa_user"
+      },
+      "actual_status": 200,
+      "actual_body": {
+        "id": 1,
+        "username": "qa_user"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-06]"
+    },
+    {
+      "case_id": "API-07",
+      "scenario": "bad_login",
+      "expected_status": 401,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/login",
+          "input": {
+            "json": {
+              "username": "qa_user",
+              "password": "WrongPassword"
+            }
+          },
+          "authenticated": false,
+          "status": 401,
+          "json": {
+            "error": "invalid credentials"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "error": "invalid credentials"
+      },
+      "actual_status": 401,
+      "actual_body": {
+        "error": "invalid credentials"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-07]"
+    },
+    {
+      "case_id": "API-08",
+      "scenario": "create",
+      "expected_status": 201,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "API created task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:39.835821",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "API created task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 201,
+      "actual_body": {
+        "category": null,
+        "category_id": null,
+        "completed_at": null,
+        "created_at": "2026-11-12T13:55:39.835821",
+        "description": "",
+        "done": false,
+        "due_date": null,
+        "id": 1,
+        "title": "API created task",
+        "urgency": "No due date"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-08]"
+    },
+    {
+      "case_id": "API-09",
+      "scenario": "missing_title",
+      "expected_status": 400,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {}
+          },
+          "authenticated": true,
+          "status": 400,
+          "json": {
+            "error": "title is required"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 400,
+      "actual_body": {
+        "error": "title is required"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-09]"
+    },
+    {
+      "case_id": "API-10",
+      "scenario": "list",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:41.328856",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": [
+            {
+              "category": null,
+              "category_id": null,
+              "completed_at": null,
+              "created_at": "2026-11-12T13:55:41.328856",
+              "description": "",
+              "done": false,
+              "due_date": null,
+              "id": 1,
+              "title": "Original task",
+              "urgency": "No due date"
+            }
+          ],
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": [
+        {
+          "category": null,
+          "category_id": null,
+          "completed_at": null,
+          "created_at": "2026-11-12T13:55:41.328856",
+          "description": "",
+          "done": false,
+          "due_date": null,
+          "id": 1,
+          "title": "Original task",
+          "urgency": "No due date"
+        }
+      ],
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-10]"
+    },
+    {
+      "case_id": "API-11",
+      "scenario": "get",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:42.000598",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks/1",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:42.000598",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "title": "Original task"
+      },
+      "actual_status": 200,
+      "actual_body": {
+        "category": null,
+        "category_id": null,
+        "completed_at": null,
+        "created_at": "2026-11-12T13:55:42.000598",
+        "description": "",
+        "done": false,
+        "due_date": null,
+        "id": 1,
+        "title": "Original task",
+        "urgency": "No due date"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-11]"
+    },
+    {
+      "case_id": "API-12",
+      "scenario": "get_missing",
+      "expected_status": 404,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:42.703290",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks/99999",
+          "input": {},
+          "authenticated": true,
+          "status": 404,
+          "json": {
+            "error": "not found"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "error": "not found"
+      },
+      "actual_status": 404,
+      "actual_body": {
+        "error": "not found"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-12]"
+    },
+    {
+      "case_id": "API-13",
+      "scenario": "update",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:43.389960",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/tasks/1",
+          "input": {
+            "json": {
+              "title": "Updated task"
+            }
+          },
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:43.389960",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Updated task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "title": "Updated task"
+      },
+      "actual_status": 200,
+      "actual_body": {
+        "category": null,
+        "category_id": null,
+        "completed_at": null,
+        "created_at": "2026-11-12T13:55:43.389960",
+        "description": "",
+        "done": false,
+        "due_date": null,
+        "id": 1,
+        "title": "Updated task",
+        "urgency": "No due date"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-13]"
+    },
+    {
+      "case_id": "API-14",
+      "scenario": "update_missing",
+      "expected_status": 404,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:44.085979",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/tasks/99999",
+          "input": {
+            "json": {
+              "title": "Updated"
+            }
+          },
+          "authenticated": true,
+          "status": 404,
+          "json": {
+            "error": "not found"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "error": "not found"
+      },
+      "actual_status": 404,
+      "actual_body": {
+        "error": "not found"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-14]"
+    },
+    {
+      "case_id": "API-15",
+      "scenario": "unauth_dashboard",
+      "expected_status": 401,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/dashboard",
+          "input": {},
+          "authenticated": false,
+          "status": 401,
+          "json": {
+            "error": "authentication required"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "error": "authentication required"
+      },
+      "actual_status": 401,
+      "actual_body": {
+        "error": "authentication required"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-15]"
+    },
+    {
+      "case_id": "API-16",
+      "scenario": "dashboard",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/dashboard",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "completed_this_week": 0,
+            "due_soon": 0,
+            "open": 0,
+            "overdue": 0,
+            "total": 0
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "total": 0,
+        "open": 0,
+        "overdue": 0,
+        "due_soon": 0,
+        "completed_this_week": 0
+      },
+      "actual_status": 200,
+      "actual_body": {
+        "completed_this_week": 0,
+        "due_soon": 0,
+        "open": 0,
+        "overdue": 0,
+        "total": 0
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-16]"
+    },
+    {
+      "case_id": "API-17",
+      "scenario": "dashboard_task",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:46.752241",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/dashboard",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "completed_this_week": 0,
+            "due_soon": 0,
+            "open": 1,
+            "overdue": 0,
+            "total": 1
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "total": 1,
+        "open": 1,
+        "overdue": 0,
+        "due_soon": 0,
+        "completed_this_week": 0
+      },
+      "actual_status": 200,
+      "actual_body": {
+        "completed_this_week": 0,
+        "due_soon": 0,
+        "open": 1,
+        "overdue": 0,
+        "total": 1
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-17]"
+    },
+    {
+      "case_id": "API-18",
+      "scenario": "filter",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "First target"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:47.546210",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "First target",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Second target"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:47.557951",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 2,
+            "title": "Second target",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/tasks/1",
+          "input": {
+            "json": {
+              "done": true
+            }
+          },
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": "2026-11-12 13:55:47",
+            "created_at": "2026-11-12T13:55:47.546210",
+            "description": "",
+            "done": true,
+            "due_date": null,
+            "id": 1,
+            "title": "First target",
+            "urgency": "Done"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks?status=done",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": [
+            {
+              "category": null,
+              "category_id": null,
+              "completed_at": "2026-11-12 13:55:47",
+              "created_at": "2026-11-12T13:55:47.546210",
+              "description": "",
+              "done": true,
+              "due_date": null,
+              "id": 1,
+              "title": "First target",
+              "urgency": "Done"
+            }
+          ],
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": [
+        {
+          "category": null,
+          "category_id": null,
+          "completed_at": "2026-11-12 13:55:47",
+          "created_at": "2026-11-12T13:55:47.546210",
+          "description": "",
+          "done": true,
+          "due_date": null,
+          "id": 1,
+          "title": "First target",
+          "urgency": "Done"
+        }
+      ],
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-18]"
+    },
+    {
+      "case_id": "API-19",
+      "scenario": "search",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "First target"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:48.235201",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "First target",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Second target"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:48.248203",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 2,
+            "title": "Second target",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks?q=First",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": [
+            {
+              "category": null,
+              "category_id": null,
+              "completed_at": null,
+              "created_at": "2026-11-12T13:55:48.235201",
+              "description": "",
+              "done": false,
+              "due_date": null,
+              "id": 1,
+              "title": "First target",
+              "urgency": "No due date"
+            }
+          ],
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": [
+        {
+          "category": null,
+          "category_id": null,
+          "completed_at": null,
+          "created_at": "2026-11-12T13:55:48.235201",
+          "description": "",
+          "done": false,
+          "due_date": null,
+          "id": 1,
+          "title": "First target",
+          "urgency": "No due date"
+        }
+      ],
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-19]"
+    },
+    {
+      "case_id": "API-20",
+      "scenario": "page0",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "First target"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:48.905170",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "First target",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Second target"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:48.918278",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 2,
+            "title": "Second target",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks?page=0&per_page=1",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": [
+            {
+              "category": null,
+              "category_id": null,
+              "completed_at": null,
+              "created_at": "2026-11-12T13:55:48.918278",
+              "description": "",
+              "done": false,
+              "due_date": null,
+              "id": 2,
+              "title": "Second target",
+              "urgency": "No due date"
+            }
+          ],
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": [
+        {
+          "category": null,
+          "category_id": null,
+          "completed_at": null,
+          "created_at": "2026-11-12T13:55:48.918278",
+          "description": "",
+          "done": false,
+          "due_date": null,
+          "id": 2,
+          "title": "Second target",
+          "urgency": "No due date"
+        }
+      ],
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-20]"
+    },
+    {
+      "case_id": "API-21",
+      "scenario": "page1",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "First target"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:49.675529",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "First target",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Second target"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:49.690998",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 2,
+            "title": "Second target",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks?page=1&per_page=1",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": [
+            {
+              "category": null,
+              "category_id": null,
+              "completed_at": null,
+              "created_at": "2026-11-12T13:55:49.675529",
+              "description": "",
+              "done": false,
+              "due_date": null,
+              "id": 1,
+              "title": "First target",
+              "urgency": "No due date"
+            }
+          ],
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": [
+        {
+          "category": null,
+          "category_id": null,
+          "completed_at": null,
+          "created_at": "2026-11-12T13:55:49.675529",
+          "description": "",
+          "done": false,
+          "due_date": null,
+          "id": 1,
+          "title": "First target",
+          "urgency": "No due date"
+        }
+      ],
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-21]"
+    },
+    {
+      "case_id": "API-22",
+      "scenario": "null_title",
+      "expected_status": 400,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": null
+            }
+          },
+          "authenticated": true,
+          "status": 400,
+          "json": {
+            "error": "title is required"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 400,
+      "actual_body": {
+        "error": "title is required"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-22]"
+    },
+    {
+      "case_id": "API-23",
+      "scenario": "spaces_title",
+      "expected_status": 400,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "   "
+            }
+          },
+          "authenticated": true,
+          "status": 400,
+          "json": {
+            "error": "title is required"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 400,
+      "actual_body": {
+        "error": "title is required"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-23]"
+    },
+    {
+      "case_id": "API-24",
+      "scenario": "delete",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:52.020202",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/tasks/1",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "result": "ok"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks/1",
+          "input": {},
+          "authenticated": true,
+          "status": 404,
+          "json": {
+            "error": "not found"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "result": "ok"
+      },
+      "actual_status": 200,
+      "actual_body": {
+        "result": "ok"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-24]"
+    },
+    {
+      "case_id": "API-25",
+      "scenario": "delete_other",
+      "expected_status": 404,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:52.931935",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/tasks/1",
+          "input": {},
+          "authenticated": false,
+          "status": 200,
+          "json": {
+            "result": "ok"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": {
+        "result": "ok"
+      },
+      "owner_record_exists": false,
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-25]",
+      "failure": "assert 200 == 404\n +  where 200 = <WrapperTestResponse 16 bytes [200 OK]>.status_code"
+    },
+    {
+      "case_id": "API-26",
+      "scenario": "delete_missing",
+      "expected_status": 404,
+      "basis": "Assumption",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:57.227136",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "DELETE",
+          "path": "/api/tasks/99999",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "result": "ok"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": {
+        "result": "ok"
+      },
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-26]",
+      "failure": "assert 200 == 404\n +  where 200 = <WrapperTestResponse 16 bytes [200 OK]>.status_code"
+    },
+    {
+      "case_id": "API-27",
+      "scenario": "bad_page",
+      "expected_status": 400,
+      "basis": "Assumption",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:57.977777",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks?page=abc",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": [
+            {
+              "category": null,
+              "category_id": null,
+              "completed_at": null,
+              "created_at": "2026-11-12T13:55:57.977777",
+              "description": "",
+              "done": false,
+              "due_date": null,
+              "id": 1,
+              "title": "Original task",
+              "urgency": "No due date"
+            }
+          ],
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": [
+        {
+          "category": null,
+          "category_id": null,
+          "completed_at": null,
+          "created_at": "2026-11-12T13:55:57.977777",
+          "description": "",
+          "done": false,
+          "due_date": null,
+          "id": 1,
+          "title": "Original task",
+          "urgency": "No due date"
+        }
+      ],
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-27]",
+      "failure": "assert 200 == 400\n +  where 200 = <WrapperTestResponse 202 bytes [200 OK]>.status_code"
+    },
+    {
+      "case_id": "API-28",
+      "scenario": "bad_perpage",
+      "expected_status": 400,
+      "basis": "Assumption",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:58.762740",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks?per_page=abc",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": [
+            {
+              "category": null,
+              "category_id": null,
+              "completed_at": null,
+              "created_at": "2026-11-12T13:55:58.762740",
+              "description": "",
+              "done": false,
+              "due_date": null,
+              "id": 1,
+              "title": "Original task",
+              "urgency": "No due date"
+            }
+          ],
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": [
+        {
+          "category": null,
+          "category_id": null,
+          "completed_at": null,
+          "created_at": "2026-11-12T13:55:58.762740",
+          "description": "",
+          "done": false,
+          "due_date": null,
+          "id": 1,
+          "title": "Original task",
+          "urgency": "No due date"
+        }
+      ],
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-28]",
+      "failure": "assert 200 == 400\n +  where 200 = <WrapperTestResponse 202 bytes [200 OK]>.status_code"
+    },
+    {
+      "case_id": "API-29",
+      "scenario": "negative_page",
+      "expected_status": 400,
+      "basis": "Assumption",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:55:59.487949",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks?page=-1",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": [
+            {
+              "category": null,
+              "category_id": null,
+              "completed_at": null,
+              "created_at": "2026-11-12T13:55:59.487949",
+              "description": "",
+              "done": false,
+              "due_date": null,
+              "id": 1,
+              "title": "Original task",
+              "urgency": "No due date"
+            }
+          ],
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": [
+        {
+          "category": null,
+          "category_id": null,
+          "completed_at": null,
+          "created_at": "2026-11-12T13:55:59.487949",
+          "description": "",
+          "done": false,
+          "due_date": null,
+          "id": 1,
+          "title": "Original task",
+          "urgency": "No due date"
+        }
+      ],
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-29]",
+      "failure": "assert 200 == 400\n +  where 200 = <WrapperTestResponse 202 bytes [200 OK]>.status_code"
+    },
+    {
+      "case_id": "API-30",
+      "scenario": "zero_perpage",
+      "expected_status": 400,
+      "basis": "Assumption",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:00.236967",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks?per_page=0",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": [],
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": [],
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-30]",
+      "failure": "assert 200 == 400\n +  where 200 = <WrapperTestResponse 3 bytes [200 OK]>.status_code"
+    },
+    {
+      "case_id": "API-31",
+      "scenario": "large_perpage",
+      "expected_status": 400,
+      "basis": "Assumption",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:00.963579",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks?per_page=1000000",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": [
+            {
+              "category": null,
+              "category_id": null,
+              "completed_at": null,
+              "created_at": "2026-11-12T13:56:00.963579",
+              "description": "",
+              "done": false,
+              "due_date": null,
+              "id": 1,
+              "title": "Original task",
+              "urgency": "No due date"
+            }
+          ],
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": [
+        {
+          "category": null,
+          "category_id": null,
+          "completed_at": null,
+          "created_at": "2026-11-12T13:56:00.963579",
+          "description": "",
+          "done": false,
+          "due_date": null,
+          "id": 1,
+          "title": "Original task",
+          "urgency": "No due date"
+        }
+      ],
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-31]",
+      "failure": "assert 200 == 400\n +  where 200 = <WrapperTestResponse 202 bytes [200 OK]>.status_code"
+    },
+    {
+      "case_id": "API-32",
+      "scenario": "integer_title",
+      "expected_status": 400,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": 123
+            }
+          },
+          "authenticated": true,
+          "exception": "AttributeError: 'int' object has no attribute 'strip'"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": null,
+      "actual_body": "AttributeError: 'int' object has no attribute 'strip'",
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-32]",
+      "failure": "'int' object has no attribute 'strip'"
+    },
+    {
+      "case_id": "API-33",
+      "scenario": "integer_description",
+      "expected_status": 400,
+      "basis": "Assumption",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "API created task",
+              "description": 12345
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:02.510205",
+            "description": "12345",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "API created task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 201,
+      "actual_body": {
+        "category": null,
+        "category_id": null,
+        "completed_at": null,
+        "created_at": "2026-11-12T13:56:02.510205",
+        "description": "12345",
+        "done": false,
+        "due_date": null,
+        "id": 1,
+        "title": "API created task",
+        "urgency": "No due date"
+      },
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-33]",
+      "failure": "assert 201 == 400\n +  where 201 = <WrapperTestResponse 208 bytes [201 CREATED]>.status_code"
+    },
+    {
+      "case_id": "API-34",
+      "scenario": "null_description",
+      "expected_status": 400,
+      "basis": "Assumption",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "API created task",
+              "description": null
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:03.187893",
+            "description": null,
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "API created task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 201,
+      "actual_body": {
+        "category": null,
+        "category_id": null,
+        "completed_at": null,
+        "created_at": "2026-11-12T13:56:03.187893",
+        "description": null,
+        "done": false,
+        "due_date": null,
+        "id": 1,
+        "title": "API created task",
+        "urgency": "No due date"
+      },
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-34]",
+      "failure": "assert 201 == 400\n +  where 201 = <WrapperTestResponse 205 bytes [201 CREATED]>.status_code"
+    },
+    {
+      "case_id": "API-35",
+      "scenario": "update_integer",
+      "expected_status": 400,
+      "basis": "Assumption",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:03.913365",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/tasks/1",
+          "input": {
+            "json": {
+              "title": 12345
+            }
+          },
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:03.913365",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "12345",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": {
+        "category": null,
+        "category_id": null,
+        "completed_at": null,
+        "created_at": "2026-11-12T13:56:03.913365",
+        "description": "",
+        "done": false,
+        "due_date": null,
+        "id": 1,
+        "title": "12345",
+        "urgency": "No due date"
+      },
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-35]",
+      "failure": "assert 200 == 400\n +  where 200 = <WrapperTestResponse 192 bytes [200 OK]>.status_code"
+    },
+    {
+      "case_id": "API-36",
+      "scenario": "update_preserves_title",
+      "expected_status": 200,
+      "basis": "Assumption",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:04.624844",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/tasks/1",
+          "input": {
+            "json": {
+              "title": 12345
+            }
+          },
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:04.624844",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "12345",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks/1",
+          "input": {},
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:04.624844",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "12345",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "title": "Original task"
+      },
+      "actual_status": 200,
+      "actual_body": {
+        "category": null,
+        "category_id": null,
+        "completed_at": null,
+        "created_at": "2026-11-12T13:56:04.624844",
+        "description": "",
+        "done": false,
+        "due_date": null,
+        "id": 1,
+        "title": "12345",
+        "urgency": "No due date"
+      },
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-36]",
+      "failure": "assert '12345' == 'Original task'\n  \n  - Original task\n  + 12345"
+    },
+    {
+      "case_id": "API-37",
+      "scenario": "duplicate_username",
+      "expected_status": 201,
+      "basis": "Characterization",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/register",
+          "input": {
+            "json": {
+              "username": "qa_user",
+              "password": "TestPass123"
+            }
+          },
+          "authenticated": false,
+          "status": 201,
+          "json": {
+            "id": 2,
+            "username": "qa_user"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "username": "qa_user"
+      },
+      "actual_status": 201,
+      "actual_body": {
+        "id": 2,
+        "username": "qa_user"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-37]"
+    },
+    {
+      "case_id": "API-38",
+      "scenario": "unauth_create",
+      "expected_status": 401,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Auth check"
+            }
+          },
+          "authenticated": false,
+          "status": 401,
+          "json": {
+            "error": "authentication required"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "error": "authentication required"
+      },
+      "actual_status": 401,
+      "actual_body": {
+        "error": "authentication required"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-38]"
+    },
+    {
+      "case_id": "API-39",
+      "scenario": "update_empty",
+      "expected_status": 400,
+      "basis": "Assumption",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:07.290607",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/tasks/1",
+          "input": {
+            "json": {
+              "title": ""
+            }
+          },
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:07.290607",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": {
+        "category": null,
+        "category_id": null,
+        "completed_at": null,
+        "created_at": "2026-11-12T13:56:07.290607",
+        "description": "",
+        "done": false,
+        "due_date": null,
+        "id": 1,
+        "title": "",
+        "urgency": "No due date"
+      },
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-39]",
+      "failure": "assert 200 == 400\n +  where 200 = <WrapperTestResponse 187 bytes [200 OK]>.status_code"
+    },
+    {
+      "case_id": "API-40",
+      "scenario": "update_spaces",
+      "expected_status": 400,
+      "basis": "Assumption",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:08.002405",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/tasks/1",
+          "input": {
+            "json": {
+              "title": "   "
+            }
+          },
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:08.002405",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "   ",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 200,
+      "actual_body": {
+        "category": null,
+        "category_id": null,
+        "completed_at": null,
+        "created_at": "2026-11-12T13:56:08.002405",
+        "description": "",
+        "done": false,
+        "due_date": null,
+        "id": 1,
+        "title": "   ",
+        "urgency": "No due date"
+      },
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-40]",
+      "failure": "assert 200 == 400\n +  where 200 = <WrapperTestResponse 190 bytes [200 OK]>.status_code"
+    },
+    {
+      "case_id": "API-41",
+      "scenario": "partial_update",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:08.725244",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/tasks/1",
+          "input": {
+            "json": {
+              "description": "Description-only update"
+            }
+          },
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:08.725244",
+            "description": "Description-only update",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "title": "Original task",
+        "description": "Description-only update"
+      },
+      "actual_status": 200,
+      "actual_body": {
+        "category": null,
+        "category_id": null,
+        "completed_at": null,
+        "created_at": "2026-11-12T13:56:08.725244",
+        "description": "Description-only update",
+        "done": false,
+        "due_date": null,
+        "id": 1,
+        "title": "Original task",
+        "urgency": "No due date"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-41]"
+    },
+    {
+      "case_id": "API-42",
+      "scenario": "update_null",
+      "expected_status": 400,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:09.378753",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/tasks/1",
+          "input": {
+            "json": {
+              "title": null
+            }
+          },
+          "authenticated": true,
+          "exception": "IntegrityError: NOT NULL constraint failed: tasks.title"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": null,
+      "actual_body": "IntegrityError: NOT NULL constraint failed: tasks.title",
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-42]",
+      "failure": "NOT NULL constraint failed: tasks.title"
+    },
+    {
+      "case_id": "API-43",
+      "scenario": "nonnumeric_id",
+      "expected_status": 404,
+      "basis": "Characterization",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/tasks/abc",
+          "input": {},
+          "authenticated": true,
+          "status": 404,
+          "json": null,
+          "content_type": "text/html; charset=utf-8"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 404,
+      "actual_body": null,
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-43]"
+    },
+    {
+      "case_id": "API-44",
+      "scenario": "negative_id",
+      "expected_status": 404,
+      "basis": "Characterization",
+      "requests": [
+        {
+          "method": "GET",
+          "path": "/api/tasks/-1",
+          "input": {},
+          "authenticated": true,
+          "status": 404,
+          "json": null,
+          "content_type": "text/html; charset=utf-8"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 404,
+      "actual_body": null,
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-44]"
+    },
+    {
+      "case_id": "API-45",
+      "scenario": "unsupported_collection",
+      "expected_status": 405,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "PUT",
+          "path": "/api/tasks",
+          "input": {},
+          "authenticated": true,
+          "status": 405,
+          "json": null,
+          "content_type": "text/html; charset=utf-8"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 405,
+      "actual_body": null,
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-45]"
+    },
+    {
+      "case_id": "API-46",
+      "scenario": "unsupported_login",
+      "expected_status": 405,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "PUT",
+          "path": "/api/login",
+          "input": {},
+          "authenticated": true,
+          "status": 405,
+          "json": null,
+          "content_type": "text/html; charset=utf-8"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 405,
+      "actual_body": null,
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-46]"
+    },
+    {
+      "case_id": "API-47",
+      "scenario": "malformed",
+      "expected_status": 400,
+      "basis": "Characterization",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "data": "{\"title\":",
+            "content_type": "application/json"
+          },
+          "authenticated": true,
+          "status": 400,
+          "json": {
+            "error": "title is required"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 400,
+      "actual_body": {
+        "error": "title is required"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-47]"
+    },
+    {
+      "case_id": "API-48",
+      "scenario": "text_plain",
+      "expected_status": 400,
+      "basis": "Characterization",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "data": "title=Example",
+            "content_type": "text/plain"
+          },
+          "authenticated": true,
+          "status": 400,
+          "json": {
+            "error": "title is required"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 400,
+      "actual_body": {
+        "error": "title is required"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-48]"
+    },
+    {
+      "case_id": "API-49",
+      "scenario": "invalid_date",
+      "expected_status": 400,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Invalid Date Test",
+              "due_date": "not-a-date"
+            }
+          },
+          "authenticated": true,
+          "exception": "ValueError: time data 'not-a-date' does not match format '%Y-%m-%d'"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": null,
+      "actual_body": "ValueError: time data 'not-a-date' does not match format '%Y-%m-%d'",
+      "invalid_record_persisted": 1,
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-49]",
+      "failure": "time data 'not-a-date' does not match format '%Y-%m-%d'"
+    },
+    {
+      "case_id": "API-50",
+      "scenario": "list_after_invalid_date",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Invalid Date Test",
+              "due_date": "not-a-date"
+            }
+          },
+          "authenticated": true,
+          "exception": "ValueError: time data 'not-a-date' does not match format '%Y-%m-%d'"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks",
+          "input": {},
+          "authenticated": true,
+          "exception": "ValueError: time data 'not-a-date' does not match format '%Y-%m-%d'"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": null,
+      "actual_body": "ValueError: time data 'not-a-date' does not match format '%Y-%m-%d'",
+      "invalid_record_persisted": 1,
+      "status": "Fail",
+      "node_id": "tests/test_api.py::test_api_case[API-50]",
+      "failure": "time data 'not-a-date' does not match format '%Y-%m-%d'"
+    },
+    {
+      "case_id": "API-51",
+      "scenario": "complete",
+      "expected_status": 200,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:17.172327",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/tasks/1",
+          "input": {
+            "json": {
+              "done": true
+            }
+          },
+          "authenticated": true,
+          "status": 200,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": "2026-11-12 13:56:17",
+            "created_at": "2026-11-12T13:56:17.172327",
+            "description": "",
+            "done": true,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "Done"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": {
+        "done": true,
+        "urgency": "Done"
+      },
+      "actual_status": 200,
+      "actual_body": {
+        "category": null,
+        "category_id": null,
+        "completed_at": "2026-11-12 13:56:17",
+        "created_at": "2026-11-12T13:56:17.172327",
+        "description": "",
+        "done": true,
+        "due_date": null,
+        "id": 1,
+        "title": "Original task",
+        "urgency": "Done"
+      },
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-51]"
+    },
+    {
+      "case_id": "API-52",
+      "scenario": "get_other",
+      "expected_status": 404,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:17.932001",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "GET",
+          "path": "/api/tasks/1",
+          "input": {},
+          "authenticated": false,
+          "status": 404,
+          "json": {
+            "error": "not found"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 404,
+      "actual_body": {
+        "error": "not found"
+      },
+      "owner_record_exists": true,
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-52]"
+    },
+    {
+      "case_id": "API-53",
+      "scenario": "update_other",
+      "expected_status": 404,
+      "basis": "Specification / robustness",
+      "requests": [
+        {
+          "method": "POST",
+          "path": "/api/tasks",
+          "input": {
+            "json": {
+              "title": "Original task"
+            }
+          },
+          "authenticated": true,
+          "status": 201,
+          "json": {
+            "category": null,
+            "category_id": null,
+            "completed_at": null,
+            "created_at": "2026-11-12T13:56:19.379873",
+            "description": "",
+            "done": false,
+            "due_date": null,
+            "id": 1,
+            "title": "Original task",
+            "urgency": "No due date"
+          },
+          "content_type": "application/json"
+        },
+        {
+          "method": "PUT",
+          "path": "/api/tasks/1",
+          "input": {
+            "json": {
+              "title": "Stolen"
+            }
+          },
+          "authenticated": false,
+          "status": 404,
+          "json": {
+            "error": "not found"
+          },
+          "content_type": "application/json"
+        }
+      ],
+      "expected_body": null,
+      "actual_status": 404,
+      "actual_body": {
+        "error": "not found"
+      },
+      "owner_record_exists": true,
+      "status": "Pass",
+      "node_id": "tests/test_api.py::test_api_case[API-53]"
+    }
+  ]
+}

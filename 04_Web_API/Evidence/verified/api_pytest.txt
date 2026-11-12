@@ -1,0 +1,369 @@
+============================= test session starts =============================
+platform win32 -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Scripts\python.exe
+rootdir: C:\Users\Admin\.codex\.chatgpt-projects\g-p-6ab0a4c8bc888191ac1cd23b18217eb9\.tmp\finalize34\stage\04_Web_API
+collecting ... collected 53 items
+
+tests/test_api.py::test_api_case[API-01] PASSED                          [  1%]
+tests/test_api.py::test_api_case[API-02] PASSED                          [  3%]
+tests/test_api.py::test_api_case[API-03] PASSED                          [  5%]
+tests/test_api.py::test_api_case[API-04] PASSED                          [  7%]
+tests/test_api.py::test_api_case[API-05] PASSED                          [  9%]
+tests/test_api.py::test_api_case[API-06] PASSED                          [ 11%]
+tests/test_api.py::test_api_case[API-07] PASSED                          [ 13%]
+tests/test_api.py::test_api_case[API-08] PASSED                          [ 15%]
+tests/test_api.py::test_api_case[API-09] PASSED                          [ 16%]
+tests/test_api.py::test_api_case[API-10] PASSED                          [ 18%]
+tests/test_api.py::test_api_case[API-11] PASSED                          [ 20%]
+tests/test_api.py::test_api_case[API-12] PASSED                          [ 22%]
+tests/test_api.py::test_api_case[API-13] PASSED                          [ 24%]
+tests/test_api.py::test_api_case[API-14] PASSED                          [ 26%]
+tests/test_api.py::test_api_case[API-15] PASSED                          [ 28%]
+tests/test_api.py::test_api_case[API-16] PASSED                          [ 30%]
+tests/test_api.py::test_api_case[API-17] PASSED                          [ 32%]
+tests/test_api.py::test_api_case[API-18] PASSED                          [ 33%]
+tests/test_api.py::test_api_case[API-19] PASSED                          [ 35%]
+tests/test_api.py::test_api_case[API-20] PASSED                          [ 37%]
+tests/test_api.py::test_api_case[API-21] PASSED                          [ 39%]
+tests/test_api.py::test_api_case[API-22] PASSED                          [ 41%]
+tests/test_api.py::test_api_case[API-23] PASSED                          [ 43%]
+tests/test_api.py::test_api_case[API-24] PASSED                          [ 45%]
+tests/test_api.py::test_api_case[API-25] FAILED                          [ 47%]
+tests/test_api.py::test_api_case[API-26] FAILED                          [ 49%]
+tests/test_api.py::test_api_case[API-27] FAILED                          [ 50%]
+tests/test_api.py::test_api_case[API-28] FAILED                          [ 52%]
+tests/test_api.py::test_api_case[API-29] FAILED                          [ 54%]
+tests/test_api.py::test_api_case[API-30] FAILED                          [ 56%]
+tests/test_api.py::test_api_case[API-31] FAILED                          [ 58%]
+tests/test_api.py::test_api_case[API-32] FAILED                          [ 60%]
+tests/test_api.py::test_api_case[API-33] FAILED                          [ 62%]
+tests/test_api.py::test_api_case[API-34] FAILED                          [ 64%]
+tests/test_api.py::test_api_case[API-35] FAILED                          [ 66%]
+tests/test_api.py::test_api_case[API-36] FAILED                          [ 67%]
+tests/test_api.py::test_api_case[API-37] PASSED                          [ 69%]
+tests/test_api.py::test_api_case[API-38] PASSED                          [ 71%]
+tests/test_api.py::test_api_case[API-39] FAILED                          [ 73%]
+tests/test_api.py::test_api_case[API-40] FAILED                          [ 75%]
+tests/test_api.py::test_api_case[API-41] PASSED                          [ 77%]
+tests/test_api.py::test_api_case[API-42] FAILED                          [ 79%]
+tests/test_api.py::test_api_case[API-43] PASSED                          [ 81%]
+tests/test_api.py::test_api_case[API-44] PASSED                          [ 83%]
+tests/test_api.py::test_api_case[API-45] PASSED                          [ 84%]
+tests/test_api.py::test_api_case[API-46] PASSED                          [ 86%]
+tests/test_api.py::test_api_case[API-47] PASSED                          [ 88%]
+tests/test_api.py::test_api_case[API-48] PASSED                          [ 90%]
+tests/test_api.py::test_api_case[API-49] FAILED                          [ 92%]
+tests/test_api.py::test_api_case[API-50] FAILED                          [ 94%]
+tests/test_api.py::test_api_case[API-51] PASSED                          [ 96%]
+tests/test_api.py::test_api_case[API-52] PASSED                          [ 98%]
+tests/test_api.py::test_api_case[API-53] PASSED                          [100%]
+
+================================== FAILURES ===================================
+____________________________ test_api_case[API-25] ____________________________
+tests\test_api.py:132: in test_api_case
+    check(response)
+tests\test_api.py:60: in check
+    assert response.status_code==expected_status
+E   assert 200 == 404
+E    +  where 200 = <WrapperTestResponse 16 bytes [200 OK]>.status_code
+____________________________ test_api_case[API-26] ____________________________
+tests\test_api.py:104: in test_api_case
+    elif s=='delete_missing':check(call('DELETE','/api/tasks/99999'))
+                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_api.py:60: in check
+    assert response.status_code==expected_status
+E   assert 200 == 404
+E    +  where 200 = <WrapperTestResponse 16 bytes [200 OK]>.status_code
+____________________________ test_api_case[API-27] ____________________________
+tests\test_api.py:125: in test_api_case
+    check(call('GET','/api/tasks?'+query))
+tests\test_api.py:60: in check
+    assert response.status_code==expected_status
+E   assert 200 == 400
+E    +  where 200 = <WrapperTestResponse 202 bytes [200 OK]>.status_code
+____________________________ test_api_case[API-28] ____________________________
+tests\test_api.py:125: in test_api_case
+    check(call('GET','/api/tasks?'+query))
+tests\test_api.py:60: in check
+    assert response.status_code==expected_status
+E   assert 200 == 400
+E    +  where 200 = <WrapperTestResponse 202 bytes [200 OK]>.status_code
+____________________________ test_api_case[API-29] ____________________________
+tests\test_api.py:125: in test_api_case
+    check(call('GET','/api/tasks?'+query))
+tests\test_api.py:60: in check
+    assert response.status_code==expected_status
+E   assert 200 == 400
+E    +  where 200 = <WrapperTestResponse 202 bytes [200 OK]>.status_code
+____________________________ test_api_case[API-30] ____________________________
+tests\test_api.py:125: in test_api_case
+    check(call('GET','/api/tasks?'+query))
+tests\test_api.py:60: in check
+    assert response.status_code==expected_status
+E   assert 200 == 400
+E    +  where 200 = <WrapperTestResponse 3 bytes [200 OK]>.status_code
+____________________________ test_api_case[API-31] ____________________________
+tests\test_api.py:125: in test_api_case
+    check(call('GET','/api/tasks?'+query))
+tests\test_api.py:60: in check
+    assert response.status_code==expected_status
+E   assert 200 == 400
+E    +  where 200 = <WrapperTestResponse 202 bytes [200 OK]>.status_code
+____________________________ test_api_case[API-32] ____________________________
+tests\test_api.py:92: in test_api_case
+    check(call('POST','/api/tasks',json=payload))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_api.py:45: in call
+    response=c.open(path,method=method,**kw)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\testing.py:235: in open
+    response = super().open(
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\werkzeug\test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\werkzeug\test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\werkzeug\test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:1498: in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:1476: in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:1473: in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:882: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:880: in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:865: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\pytodo_pro_student\app.py:130: in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\pytodo_pro_student\app.py:405: in api_create_task
+    title = (data.get("title") or "").strip()
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E   AttributeError: 'int' object has no attribute 'strip'
+____________________________ test_api_case[API-33] ____________________________
+tests\test_api.py:92: in test_api_case
+    check(call('POST','/api/tasks',json=payload))
+tests\test_api.py:60: in check
+    assert response.status_code==expected_status
+E   assert 201 == 400
+E    +  where 201 = <WrapperTestResponse 208 bytes [201 CREATED]>.status_code
+____________________________ test_api_case[API-34] ____________________________
+tests\test_api.py:92: in test_api_case
+    check(call('POST','/api/tasks',json=payload))
+tests\test_api.py:60: in check
+    assert response.status_code==expected_status
+E   assert 201 == 400
+E    +  where 201 = <WrapperTestResponse 205 bytes [201 CREATED]>.status_code
+____________________________ test_api_case[API-35] ____________________________
+tests\test_api.py:112: in test_api_case
+    else:check(response,{'title':'Updated task'} if s=='update' else {'title':'Original task','description':'Description-only update'} if s=='partial_update' else None)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_api.py:60: in check
+    assert response.status_code==expected_status
+E   assert 200 == 400
+E    +  where 200 = <WrapperTestResponse 192 bytes [200 OK]>.status_code
+____________________________ test_api_case[API-36] ____________________________
+tests\test_api.py:111: in test_api_case
+    assert after.get_json()['title']=='Original task'
+E   AssertionError: assert '12345' == 'Original task'
+E     
+E     - Original task
+E     + 12345
+____________________________ test_api_case[API-39] ____________________________
+tests\test_api.py:112: in test_api_case
+    else:check(response,{'title':'Updated task'} if s=='update' else {'title':'Original task','description':'Description-only update'} if s=='partial_update' else None)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_api.py:60: in check
+    assert response.status_code==expected_status
+E   assert 200 == 400
+E    +  where 200 = <WrapperTestResponse 187 bytes [200 OK]>.status_code
+____________________________ test_api_case[API-40] ____________________________
+tests\test_api.py:112: in test_api_case
+    else:check(response,{'title':'Updated task'} if s=='update' else {'title':'Original task','description':'Description-only update'} if s=='partial_update' else None)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_api.py:60: in check
+    assert response.status_code==expected_status
+E   assert 200 == 400
+E    +  where 200 = <WrapperTestResponse 190 bytes [200 OK]>.status_code
+____________________________ test_api_case[API-42] ____________________________
+tests\test_api.py:108: in test_api_case
+    response=call('PUT',path,json=payload)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_api.py:45: in call
+    response=c.open(path,method=method,**kw)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\testing.py:235: in open
+    response = super().open(
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\werkzeug\test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\werkzeug\test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\werkzeug\test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:1498: in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:1476: in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:1473: in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:882: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:880: in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:865: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\pytodo_pro_student\app.py:130: in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\pytodo_pro_student\app.py:445: in api_update_task
+    db.execute(
+E   sqlite3.IntegrityError: NOT NULL constraint failed: tasks.title
+____________________________ test_api_case[API-49] ____________________________
+tests\test_api.py:137: in test_api_case
+    try:response=call('POST','/api/tasks',json={'title':'Invalid Date Test','due_date':'not-a-date'})
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_api.py:45: in call
+    response=c.open(path,method=method,**kw)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\testing.py:235: in open
+    response = super().open(
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\werkzeug\test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\werkzeug\test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\werkzeug\test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:1498: in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:1476: in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:1473: in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:882: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:880: in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:865: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\pytodo_pro_student\app.py:130: in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\pytodo_pro_student\app.py:420: in api_create_task
+    return jsonify(row_to_task(row, get_category_name(db, row["category_id"]))), 201
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\pytodo_pro_student\app.py:94: in row_to_task
+    "urgency": compute_urgency(row["due_date"]) if not row["done"] else "Done",
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\pytodo_pro_student\helpers.py:31: in compute_urgency
+    due = datetime.strptime(due_date_str, "%Y-%m-%d").date()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\_strptime.py:653: in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\_strptime.py:432: in _strptime
+    raise ValueError("time data %r does not match format %r" %
+E   ValueError: time data 'not-a-date' does not match format '%Y-%m-%d'
+____________________________ test_api_case[API-50] ____________________________
+tests\test_api.py:142: in test_api_case
+    else:check(call('GET','/api/tasks'))
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+tests\test_api.py:45: in call
+    response=c.open(path,method=method,**kw)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\testing.py:235: in open
+    response = super().open(
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\werkzeug\test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\werkzeug\test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\werkzeug\test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:1498: in __call__
+    return self.wsgi_app(environ, start_response)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:1476: in wsgi_app
+    response = self.handle_exception(e)
+               ^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:1473: in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:882: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:880: in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\STQA-Project-G4\.venv\Lib\site-packages\flask\app.py:865: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\pytodo_pro_student\app.py:130: in wrapper
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\pytodo_pro_student\app.py:385: in api_list_tasks
+    tasks = [row_to_task(r, get_category_name(db, r["category_id"])) for r in rows]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\pytodo_pro_student\app.py:94: in row_to_task
+    "urgency": compute_urgency(row["due_date"]) if not row["done"] else "Done",
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\Downloads\STQA\pytodo_pro_student\helpers.py:31: in compute_urgency
+    due = datetime.strptime(due_date_str, "%Y-%m-%d").date()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\_strptime.py:653: in _strptime_datetime
+    tt, fraction, gmtoff_fraction = _strptime(data_string, format)
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+C:\Users\Admin\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\_strptime.py:432: in _strptime
+    raise ValueError("time data %r does not match format %r" %
+E   ValueError: time data 'not-a-date' does not match format '%Y-%m-%d'
+- generated xml file: C:\Users\Admin\.codex\.chatgpt-projects\g-p-6ab0a4c8bc888191ac1cd23b18217eb9\.tmp\finalize34\stage\04_Web_API\Evidence\verified\api_junit.xml -
+=========================== short test summary info ===========================
+FAILED tests/test_api.py::test_api_case[API-25] - assert 200 == 404
+FAILED tests/test_api.py::test_api_case[API-26] - assert 200 == 404
+FAILED tests/test_api.py::test_api_case[API-27] - assert 200 == 400
+FAILED tests/test_api.py::test_api_case[API-28] - assert 200 == 400
+FAILED tests/test_api.py::test_api_case[API-29] - assert 200 == 400
+FAILED tests/test_api.py::test_api_case[API-30] - assert 200 == 400
+FAILED tests/test_api.py::test_api_case[API-31] - assert 200 == 400
+FAILED tests/test_api.py::test_api_case[API-32] - AttributeError: 'int' objec...
+FAILED tests/test_api.py::test_api_case[API-33] - assert 201 == 400
+FAILED tests/test_api.py::test_api_case[API-34] - assert 201 == 400
+FAILED tests/test_api.py::test_api_case[API-35] - assert 200 == 400
+FAILED tests/test_api.py::test_api_case[API-36] - AssertionError: assert '123...
+FAILED tests/test_api.py::test_api_case[API-39] - assert 200 == 400
+FAILED tests/test_api.py::test_api_case[API-40] - assert 200 == 400
+FAILED tests/test_api.py::test_api_case[API-42] - sqlite3.IntegrityError: NOT...
+FAILED tests/test_api.py::test_api_case[API-49] - ValueError: time data 'not-...
+FAILED tests/test_api.py::test_api_case[API-50] - ValueError: time data 'not-...
+======================= 17 failed, 36 passed in 48.14s ========================
+RECORDED {'Pass': 36, 'Fail': 17, 'Error': 0}
