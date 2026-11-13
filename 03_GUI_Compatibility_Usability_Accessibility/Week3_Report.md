@@ -88,10 +88,10 @@ Keyboard evidence covers one representative Tab/Enter navigation path with a vis
 
 Install the original app's Python requirements and Playwright in your own test environment. Set PYTODO_SOURCE_DIR to the original supplied app folder; the runner enforces the original app hash. Install browser channels Edge and Chrome. Node dependency: Playwright 1.62.1, pinned in package.json.
 
-From the repository root, start the server in one PowerShell terminal:
+Place the original `pytodo_pro_student` folder beside the cloned repository. From the repository root, start the server in one PowerShell terminal. The relative example below resolves the sibling folder; if your app is elsewhere, set `PYTODO_SOURCE_DIR` to that folder instead:
 
 ```powershell
-$env:PYTODO_SOURCE_DIR = 'C:\Users\Admin\Downloads\STQA\pytodo_pro_student'
+$env:PYTODO_SOURCE_DIR = (Resolve-Path '..\pytodo_pro_student').Path
 python .\03_GUI_Compatibility_Usability_Accessibility\run_isolated_server.py
 ```
 

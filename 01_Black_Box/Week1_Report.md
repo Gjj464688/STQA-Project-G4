@@ -121,4 +121,4 @@ The requirement IDs are working testable statements derived from the supplied ap
 
 The brief specifies deliverable contents rather than a separate file for each content type. Its RTM requirement is met by section 6. Setup, tools, team details and automated-run instructions are in the root `README.md`.
 
-**Source:** `Group Project.pdf`, pages 1-2 and 5-7, supplied at `C:\Users\Admin\Downloads\pytodo_pro_student\Group Project.pdf`; starter README, application forms and helper specifications. No application code was changed.
+**Source:** `Group Project.pdf`, pages 1-2 and 5-7, supplied with the original `pytodo_pro_student` application; starter README, application forms and helper specifications. No application code was changed.

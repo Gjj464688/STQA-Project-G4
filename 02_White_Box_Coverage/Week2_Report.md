@@ -22,7 +22,7 @@ The selected module contains four functions. Flask routes, database access, HTTP
 
 Windows, Python 3.12.14, PyTest 9.1.1, coverage.py 7.16.2; exact platform and UTC start times are in the [baseline](evidence/baseline_results.json) and [final](evidence/final_results.json) records. The test clock is fixed to date `2026-10-07` and timestamp `2026-10-07 12:00:00`, so time boundaries do not depend on the execution machine's date. Tests use second precision, matching the documented input format.
 
-The original source is at `C:\Users\Admin\Downloads\STQA\pytodo_pro_student`. The old application virtual environment no longer starts after relocation, so execution used a separate Python runtime and workspace-local test dependencies. A teammate can use an ordinary Python 3.12 environment with the pinned requirements. Neither Flask nor a running app is needed for these pure-function tests.
+The original source is in the supplied `pytodo_pro_student` folder. The old application virtual environment no longer starts after relocation, so execution used a separate Python runtime and workspace-local test dependencies. A teammate can use an ordinary Python 3.12 environment with the pinned requirements. Neither Flask nor a running app is needed for these pure-function tests.
 
 The [source manifest](evidence/source_manifest.json) records original and snapshot SHA-256 values. Helpers SHA-256: `bf9140338277534439b38599f5ac3ef722880cced732bba8f1f313147d466d80`. Original `app.py`: `050b4ee4bb7d42f9ea835b46569185177755feee8e420f861376df4e6097f30f`. The runner verifies the helper snapshot before and after each phase. The original files were also checked after execution.
 
@@ -199,4 +199,4 @@ That direct command is useful for investigation; use `run_tests.py` when regener
 
 The selection is deliberately limited to four helpers. HTTP integration, historical dashboard counts in a running app, broad Unicode/input-type policies, timezone semantics, accessibility, security, performance, and compatibility are not established by these results. PyTest execution is automated evidence; named group members have not yet reviewed or reproduced this run. Student IDs and the group reviewer should be completed before the combined submission. Weekly deliverables remain part of the planned combined submission around Week 10.
 
-**Sources:** Supplied `Group Project.pdf`, pages 2-3, at `C:\Users\Admin\Downloads\STQA\pytodo_pro_student\Group Project.pdf`; preserved helper source/docstrings; course guidance supplied by the user on 2026-10-07. Test outcomes and coverage figures come from the linked execution artifacts, not estimates.
+**Sources:** Supplied `Group Project.pdf`, pages 2-3, included in the supplied `pytodo_pro_student` folder; preserved helper source/docstrings; course guidance supplied by the user on 2026-10-07. Test outcomes and coverage figures come from the linked execution artifacts, not estimates.

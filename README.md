@@ -1,6 +1,6 @@
 # STQA group project - PyTodo Pro quality assessment
 
-This workspace contains QA artefacts for the supplied PyTodo Pro task manager. The application source is currently in `C:\Users\Admin\Downloads\STQA\pytodo_pro_student`; it is the test target and has not been changed for this assessment. The assignment brief is `C:\Users\Admin\Downloads\STQA\pytodo_pro_student\Group Project.pdf`. Week 1 records retain the original pre-relocation environment. Files under this project's `sources/` directory are read-only synced references.
+This workspace contains QA artefacts for the supplied PyTodo Pro task manager. The original `pytodo_pro_student` folder is the test target and has not been changed for this assessment. It contains the supplied `Group Project.pdf` assignment brief. Week 1 records retain the original pre-relocation environment. Files under this project's `sources/` directory are read-only synced references.
 
 ## Team and status
 
@@ -54,10 +54,10 @@ The runner checks an unchanged helper snapshot, runs both suites, and saves evid
 
 ## Running the application on Windows
 
-Use the starter application's README and its `requirements.txt`. In PowerShell:
+Place the original `pytodo_pro_student` folder beside this repository. From the repository root, use the starter application's README and its `requirements.txt`. In PowerShell:
 
 ```powershell
-cd C:\Users\Admin\Downloads\STQA\pytodo_pro_student
+cd ..\pytodo_pro_student
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
@@ -105,10 +105,10 @@ For final submission, maintain unique case IDs, consistent expected/actual/evide
 
 Updated 2026-11-12. Start with [Week 3 report](03_GUI_Compatibility_Usability_Accessibility/Week3_Report.md) and [Week 4 report](04_Web_API/Week4_Report.md). Each report indexes the existing Excel records and evidence, including limitations and open defects. One consolidated report is kept per phase; the former Word summary is superseded by the current Week 3 Markdown report. Original workbook records are retained as evidence JSON, not counted as extra tests.
 
-The fresh verification uses the original unchanged application. Install API dependencies and run:
+The fresh verification uses the original unchanged application. Place `pytodo_pro_student` beside the repository, then run these commands from the repository root. If your app is elsewhere, set `PYTODO_SOURCE_DIR` to that folder instead of the sibling-folder example. Install API dependencies and run:
 
 ```powershell
-$env:PYTODO_SOURCE_DIR = 'C:\Users\Admin\Downloads\STQA\pytodo_pro_student'
+$env:PYTODO_SOURCE_DIR = (Resolve-Path '..\pytodo_pro_student').Path
 python -m pip install -r .\04_Web_API\requirements-test.txt
 python .\04_Web_API\run_api_tests.py
 ```

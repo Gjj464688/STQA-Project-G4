@@ -100,10 +100,10 @@ The twelve assumption failures cover missing-task DELETE status, invalid/negativ
 
 ## Reproduction
 
-The repository contains tests, not a modified or bundled application. Obtain the original supplied pytodo_pro_student folder and set its path:
+Place the original supplied `pytodo_pro_student` folder beside the cloned repository. From the repository root, resolve that sibling folder and run the tests below. If your app is elsewhere, set `PYTODO_SOURCE_DIR` to that folder instead:
 
 ```powershell
-$env:PYTODO_SOURCE_DIR = 'C:\Users\Admin\Downloads\STQA\pytodo_pro_student'
+$env:PYTODO_SOURCE_DIR = (Resolve-Path '..\pytodo_pro_student').Path
 python -m pip install -r .\04_Web_API\requirements-test.txt
 python .\04_Web_API\run_api_tests.py
 ```
