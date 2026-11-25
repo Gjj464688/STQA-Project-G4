@@ -27,7 +27,7 @@ Not in this suite, by design:
 | Week 4 web and API | 20 browser checks (Playwright), 53 API cases (PyTest) | Automated |
 | Open defects | DEF-W1-001 to 004, DEF-W2-001, DEF-W3-001/002, DEF-W4-001 to 003 | Each week's runner checks only its own defects |
 
-**The Week 1 Playwright script** (`01_Black_Box/run_browser_cases.mjs`) was reviewed and not extended. It loads Playwright from one computer's AI-tool cache, uses a hard-coded Edge path and needs a manual database reset. It also runs all 29 cases in the browser, the slowest and most fragile layer. The brief and Lab 5 name PyTest and Selenium for this stage. The script stays as Week 1 evidence, and its 29 cases are moved to the cheapest layer that can check each rule.
+**The Week 1 Playwright script** (`01_Black_Box/run_browser_cases.mjs`) was reviewed and not extended. It loads Playwright from one computer's a tool-cache folder on one computer, uses a hard-coded Edge path and needs a manual database reset. It also runs all 29 cases in the browser, the slowest and most fragile layer. The brief and Lab 5 name PyTest and Selenium for this stage. The script stays as Week 1 evidence, and its 29 cases are moved to the cheapest layer that can check each rule.
 
 ## 3. Automation candidate selection
 
