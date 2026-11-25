@@ -1,0 +1,9 @@
+users,page,median_ms,p95_ms,error_pct
+400,02 Task list page,7,102.5,0.0
+400,03 Dashboard page,5,62,0.0
+400,04 API list tasks,5,58,0.0
+400,05 API create task,6,106,0.0
+800,02 Task list page,294.5,1898.5,14.8
+800,03 Dashboard page,178.5,1348.5,14.7
+800,04 API list tasks,175,1339,14.59
+800,05 API create task,2380.5,5402.5,45.77

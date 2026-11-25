@@ -1,0 +1,45 @@
+HTTP 500 responses logged: 2601
+
+Exception lines (count, text):
+   2601  sqlite3.OperationalError: database is locked
+
+First tracebacks:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.13/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.13/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.13/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/claude/src/app.py", line 130, in wrapper
+    return f(*args, **kwargs)
+  File "/home/claude/src/app.py", line 413, in api_create_task
+    cur = db.execute(
+        "INSERT INTO tasks (user_id, title, description, category_id, due_date, done, created_at) "
+        "VALUES (?, ?, ?, ?, ?, 0, ?)",
+        (session["user_id"], title, description, category_id, due_date, datetime.now().isoformat()),
+    )
+sqlite3.OperationalError: database is locked
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.13/site-packages/flask/app.py", line 1473, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.13/site-packages/flask/app.py", line 882, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.13/site-packages/flask/app.py", line 880, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.13/site-packages/flask/app.py", line 865, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/claude/src/app.py", line 130, in wrapper
+    return f(*args, **kwargs)
+  File "/home/claude/src/app.py", line 413, in api_create_task
+    cur = db.execute(
+        "INSERT INTO tasks (user_id, title, description, category_id, due_date, done, created_at) "
+        "VALUES (?, ?, ?, ?, ?, 0, ?)",
+        (session["user_id"], title, description, category_id, due_date, datetime.now().isoformat()),
+    )
+sqlite3.OperationalError: database is locked

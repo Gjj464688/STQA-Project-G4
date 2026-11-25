@@ -1,0 +1,29 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.1.1, pluggy-1.6.0
+PyTodo Pro under test: /home/claude/src (matches Week 1/2 baseline)
+rootdir: /home/claude/work/STQA_Week5_6/06_Automation_Regression
+configfile: pytest.ini
+testpaths: tests
+plugins: platformdirs-4.13.5, anyio-4.15.1, metadata-3.1.1, html-4.2.0
+collected 104 items / 75 deselected / 29 selected
+
+tests/api/test_api_regression.py .x.....x.xxx                            [ 41%]
+tests/ui/test_ui_regression.py ...x                                      [ 55%]
+tests/unit/test_unit_regression.py x..x..x                               [ 79%]
+tests/web/test_web_regression.py ..x.x.                                  [100%]
+
+- generated xml file: /home/claude/work/STQA_Week5_6/06_Automation_Regression/evidence/20261125-185821_smoke_agent-run-2/junit.xml -
+- Generated html report: file:///home/claude/work/STQA_Week5_6/06_Automation_Regression/evidence/20261125-185821_smoke_agent-run-2/report.html -
+=========================== short test summary info ============================
+XFAIL tests/api/test_api_regression.py::test_register_accepts_eight_char_password - DEF-W1-001 is open; this test confirms it is still present
+XFAIL tests/api/test_api_regression.py::test_urgency_label[today] - DEF-W1-002 is open; this test confirms it is still present
+XFAIL tests/api/test_api_regression.py::test_number_title_is_rejected_cleanly - DEF-W4-001 is open; this test confirms it is still present
+XFAIL tests/api/test_api_regression.py::test_null_title_update_is_rejected_cleanly - DEF-W4-002 is open; this test confirms it is still present
+XFAIL tests/api/test_api_regression.py::test_invalid_due_date_is_rejected_and_list_still_works - DEF-W4-003 is open; this test confirms it is still present
+XFAIL tests/ui/test_ui_regression.py::test_completed_title_text_contrast - DEF-W3-001 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-005] - DEF-W1-001 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-021] - DEF-W1-002 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-034] - DEF-W2-001 is open; this test confirms it is still present
+XFAIL tests/web/test_web_regression.py::test_whitespace_only_title_is_rejected - DEF-W1-004 is open; this test confirms it is still present
+XFAIL tests/web/test_web_regression.py::test_new_task_fields_have_programmatic_labels - DEF-W3-002 is open; this test confirms it is still present
+================ 18 passed, 75 deselected, 11 xfailed in 7.49s =================

@@ -1,0 +1,265 @@
+2026-11-25 18:45:04,688 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2026-11-25 18:45:04,714 INFO o.a.j.JMeter: Loading user properties from: /opt/jmeter-dist/apache-jmeter-5.6.3/bin/user.properties
+2026-11-25 18:45:04,714 INFO o.a.j.JMeter: Loading system properties from: /opt/jmeter-dist/apache-jmeter-5.6.3/bin/system.properties
+2026-11-25 18:45:04,714 INFO o.a.j.JMeter: Setting JMeter property: users=100
+2026-11-25 18:45:04,714 INFO o.a.j.JMeter: Setting JMeter property: rampup=20
+2026-11-25 18:45:04,715 INFO o.a.j.JMeter: Setting JMeter property: duration=80
+2026-11-25 18:45:04,715 INFO o.a.j.JMeter: Setting JMeter property: port=5015
+2026-11-25 18:45:04,715 INFO o.a.j.JMeter: Setting JMeter property: host=127.0.0.1
+2026-11-25 18:45:04,715 INFO o.a.j.JMeter: Setting JMeter property: jmeter.save.saveservice.subresults=false
+2026-11-25 18:45:04,715 INFO o.a.j.JMeter: Setting JMeter property: jmeter.save.saveservice.output_format=csv
+2026-11-25 18:45:04,722 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2026-11-25 18:45:04,723 INFO o.a.j.JMeter: Version 5.6.3
+2026-11-25 18:45:04,726 INFO o.a.j.JMeter: java.version=21.0.13.0.3
+2026-11-25 18:45:04,726 INFO o.a.j.JMeter: java.vm.name=OpenJDK 64-Bit Server VM
+2026-11-25 18:45:04,726 INFO o.a.j.JMeter: os.name=Linux
+2026-11-25 18:45:04,726 INFO o.a.j.JMeter: os.arch=amd64
+2026-11-25 18:45:04,726 INFO o.a.j.JMeter: os.version=6.18.44-fc-v880
+2026-11-25 18:45:04,726 INFO o.a.j.JMeter: file.encoding=UTF-8
+2026-11-25 18:45:04,726 INFO o.a.j.JMeter: java.awt.headless=true
+2026-11-25 18:45:04,726 INFO o.a.j.JMeter: Max memory     =1073741824
+2026-11-25 18:45:04,726 INFO o.a.j.JMeter: Available Processors =2
+2026-11-25 18:45:04,735 INFO o.a.j.JMeter: Default Locale=English (EN)
+2026-11-25 18:45:04,736 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2026-11-25 18:45:04,736 INFO o.a.j.JMeter: JMeterHome=/opt/jmeter-dist/apache-jmeter-5.6.3
+2026-11-25 18:45:04,736 INFO o.a.j.JMeter: user.dir  =/home/claude/work/STQA_Week5_6/05_Security_Performance/performance
+2026-11-25 18:45:04,737 INFO o.a.j.JMeter: PWD       =/home/claude/work/STQA_Week5_6/05_Security_Performance/performance
+2026-11-25 18:45:04,737 INFO o.a.j.JMeter: IP: 127.0.0.1 Name: vm FullName: localhost
+2026-11-25 18:45:04,752 INFO o.a.j.s.FileServer: Default base='/home/claude/work/STQA_Week5_6/05_Security_Performance/performance'
+2026-11-25 18:45:04,754 INFO o.a.j.s.FileServer: Set new base='/home/claude/work/STQA_Week5_6/05_Security_Performance/performance'
+2026-11-25 18:45:04,969 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2026-11-25 18:45:04,997 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2026-11-25 18:45:05,002 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2026-11-25 18:45:05,008 INFO o.a.j.s.SaveService: Loading file: /home/claude/work/STQA_Week5_6/05_Security_Performance/performance/pytodo_load_test.jmx
+2026-11-25 18:45:05,034 INFO o.a.j.p.h.c.CookieManager: Settings: Delete null: true Check: true Allow variable: true Save: false Prefix: COOKIE_
+2026-11-25 18:45:05,057 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-11-25 18:45:05,057 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-11-25 18:45:05,057 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-11-25 18:45:05,057 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-11-25 18:45:05,057 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2026-11-25 18:45:05,057 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2026-11-25 18:45:05,073 INFO o.a.j.JMeter: Creating summariser <summary>
+2026-11-25 18:45:05,091 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2026-11-25 18:45:05,092 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2026-11-25 18:45:05,092 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2026-11-25 18:45:05,097 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2026-11-25 18:45:05,097 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2026-11-25 18:45:05,173 INFO o.a.j.JMeter: Running test (1795603505173)
+2026-11-25 18:45:05,206 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Virtual users
+2026-11-25 18:45:05,206 INFO o.a.j.e.StandardJMeterEngine: Starting 100 threads for group Virtual users.
+2026-11-25 18:45:05,206 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2026-11-25 18:45:05,206 INFO o.a.j.t.ThreadGroup: Starting thread group... number=1 threads=100 ramp-up=20 delayedStart=false
+2026-11-25 18:45:05,215 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-1
+2026-11-25 18:45:05,323 INFO o.a.j.t.ThreadGroup: Started thread group number 1
+2026-11-25 18:45:05,323 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2026-11-25 18:45:05,413 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-2
+2026-11-25 18:45:05,608 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-3
+2026-11-25 18:45:05,808 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-4
+2026-11-25 18:45:06,008 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-5
+2026-11-25 18:45:06,134 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = vm
+2026-11-25 18:45:06,138 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2026-11-25 18:45:06,139 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2026-11-25 18:45:06,139 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to UTF-8
+2026-11-25 18:45:06,139 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2026-11-25 18:45:06,139 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2026-11-25 18:45:06,208 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-6
+2026-11-25 18:45:06,408 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-7
+2026-11-25 18:45:06,608 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-8
+2026-11-25 18:45:06,808 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-9
+2026-11-25 18:45:07,010 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-10
+2026-11-25 18:45:07,209 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-11
+2026-11-25 18:45:07,409 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-12
+2026-11-25 18:45:07,608 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-13
+2026-11-25 18:45:07,807 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-14
+2026-11-25 18:45:08,009 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-15
+2026-11-25 18:45:08,210 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-16
+2026-11-25 18:45:08,408 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-17
+2026-11-25 18:45:08,610 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-18
+2026-11-25 18:45:08,810 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-19
+2026-11-25 18:45:09,007 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-20
+2026-11-25 18:45:09,209 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-21
+2026-11-25 18:45:09,407 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-22
+2026-11-25 18:45:09,609 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-23
+2026-11-25 18:45:09,810 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-24
+2026-11-25 18:45:10,008 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-25
+2026-11-25 18:45:10,206 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-26
+2026-11-25 18:45:10,407 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-27
+2026-11-25 18:45:10,607 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-28
+2026-11-25 18:45:10,807 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-29
+2026-11-25 18:45:11,007 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-30
+2026-11-25 18:45:11,209 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-31
+2026-11-25 18:45:11,410 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-32
+2026-11-25 18:45:11,608 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-33
+2026-11-25 18:45:11,810 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-34
+2026-11-25 18:45:12,006 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-35
+2026-11-25 18:45:12,207 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-36
+2026-11-25 18:45:12,408 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-37
+2026-11-25 18:45:12,607 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-38
+2026-11-25 18:45:12,806 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-39
+2026-11-25 18:45:13,008 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-40
+2026-11-25 18:45:13,207 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-41
+2026-11-25 18:45:13,406 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-42
+2026-11-25 18:45:13,607 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-43
+2026-11-25 18:45:13,807 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-44
+2026-11-25 18:45:14,006 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-45
+2026-11-25 18:45:14,207 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-46
+2026-11-25 18:45:14,407 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-47
+2026-11-25 18:45:14,610 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-48
+2026-11-25 18:45:14,807 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-49
+2026-11-25 18:45:15,009 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-50
+2026-11-25 18:45:15,207 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-51
+2026-11-25 18:45:15,409 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-52
+2026-11-25 18:45:15,610 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-53
+2026-11-25 18:45:15,807 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-54
+2026-11-25 18:45:16,010 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-55
+2026-11-25 18:45:16,209 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-56
+2026-11-25 18:45:16,409 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-57
+2026-11-25 18:45:16,608 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-58
+2026-11-25 18:45:16,807 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-59
+2026-11-25 18:45:17,009 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-60
+2026-11-25 18:45:17,206 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-61
+2026-11-25 18:45:17,407 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-62
+2026-11-25 18:45:17,606 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-63
+2026-11-25 18:45:17,806 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-64
+2026-11-25 18:45:18,007 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-65
+2026-11-25 18:45:18,207 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-66
+2026-11-25 18:45:18,406 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-67
+2026-11-25 18:45:18,606 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-68
+2026-11-25 18:45:18,807 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-69
+2026-11-25 18:45:19,007 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-70
+2026-11-25 18:45:19,207 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-71
+2026-11-25 18:45:19,407 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-72
+2026-11-25 18:45:19,607 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-73
+2026-11-25 18:45:19,807 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-74
+2026-11-25 18:45:20,006 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-75
+2026-11-25 18:45:20,209 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-76
+2026-11-25 18:45:20,407 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-77
+2026-11-25 18:45:20,607 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-78
+2026-11-25 18:45:20,807 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-79
+2026-11-25 18:45:21,007 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-80
+2026-11-25 18:45:21,207 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-81
+2026-11-25 18:45:21,406 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-82
+2026-11-25 18:45:21,607 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-83
+2026-11-25 18:45:21,810 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-84
+2026-11-25 18:45:22,008 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-85
+2026-11-25 18:45:22,210 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-86
+2026-11-25 18:45:22,407 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-87
+2026-11-25 18:45:22,613 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-88
+2026-11-25 18:45:22,807 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-89
+2026-11-25 18:45:23,008 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-90
+2026-11-25 18:45:23,208 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-91
+2026-11-25 18:45:23,406 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-92
+2026-11-25 18:45:23,606 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-93
+2026-11-25 18:45:23,808 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-94
+2026-11-25 18:45:24,006 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-95
+2026-11-25 18:45:24,207 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-96
+2026-11-25 18:45:24,406 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-97
+2026-11-25 18:45:24,606 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-98
+2026-11-25 18:45:24,810 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-99
+2026-11-25 18:45:25,008 INFO o.a.j.t.JMeterThread: Thread started: Virtual users 1-100
+2026-11-25 18:45:30,006 INFO o.a.j.r.Summariser: summary +   1458 in 00:00:25 =   58.7/s Avg:     7 Min:     1 Max:   125 Err:     0 (0.00%) Active: 100 Started: 100 Finished: 0
+2026-11-25 18:46:00,005 INFO o.a.j.r.Summariser: summary +   2991 in 00:00:30 =   99.7/s Avg:     2 Min:     1 Max:    21 Err:     0 (0.00%) Active: 100 Started: 100 Finished: 0
+2026-11-25 18:46:00,005 INFO o.a.j.r.Summariser: summary =   4449 in 00:00:55 =   81.1/s Avg:     4 Min:     1 Max:   125 Err:     0 (0.00%)
+2026-11-25 18:46:23,812 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-16
+2026-11-25 18:46:23,856 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-3
+2026-11-25 18:46:23,973 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-11
+2026-11-25 18:46:23,978 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-4
+2026-11-25 18:46:24,128 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-2
+2026-11-25 18:46:24,149 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-25
+2026-11-25 18:46:24,152 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-21
+2026-11-25 18:46:24,164 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-70
+2026-11-25 18:46:24,192 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-60
+2026-11-25 18:46:24,198 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-93
+2026-11-25 18:46:24,217 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-18
+2026-11-25 18:46:24,246 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-65
+2026-11-25 18:46:24,262 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-87
+2026-11-25 18:46:24,264 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-20
+2026-11-25 18:46:24,268 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-69
+2026-11-25 18:46:24,331 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-15
+2026-11-25 18:46:24,357 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-76
+2026-11-25 18:46:24,372 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-31
+2026-11-25 18:46:24,390 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-63
+2026-11-25 18:46:24,516 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-86
+2026-11-25 18:46:24,540 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-30
+2026-11-25 18:46:24,547 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-47
+2026-11-25 18:46:24,552 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-46
+2026-11-25 18:46:24,565 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-77
+2026-11-25 18:46:24,574 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-99
+2026-11-25 18:46:24,579 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-19
+2026-11-25 18:46:24,581 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-17
+2026-11-25 18:46:24,591 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-10
+2026-11-25 18:46:24,603 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-48
+2026-11-25 18:46:24,606 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-41
+2026-11-25 18:46:24,621 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-75
+2026-11-25 18:46:24,641 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-79
+2026-11-25 18:46:24,646 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-36
+2026-11-25 18:46:24,654 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-71
+2026-11-25 18:46:24,671 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-27
+2026-11-25 18:46:24,709 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-89
+2026-11-25 18:46:24,711 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-54
+2026-11-25 18:46:24,717 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-12
+2026-11-25 18:46:24,725 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-95
+2026-11-25 18:46:24,737 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-7
+2026-11-25 18:46:24,746 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-85
+2026-11-25 18:46:24,759 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-82
+2026-11-25 18:46:24,763 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-97
+2026-11-25 18:46:24,768 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-50
+2026-11-25 18:46:24,770 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-9
+2026-11-25 18:46:24,774 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-45
+2026-11-25 18:46:24,775 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-98
+2026-11-25 18:46:24,776 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-52
+2026-11-25 18:46:24,786 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-84
+2026-11-25 18:46:24,788 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-8
+2026-11-25 18:46:24,793 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-90
+2026-11-25 18:46:24,814 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-74
+2026-11-25 18:46:24,826 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-33
+2026-11-25 18:46:24,837 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-14
+2026-11-25 18:46:24,840 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-24
+2026-11-25 18:46:24,844 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-68
+2026-11-25 18:46:24,876 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-83
+2026-11-25 18:46:24,896 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-38
+2026-11-25 18:46:24,906 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-29
+2026-11-25 18:46:24,921 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-58
+2026-11-25 18:46:24,924 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-64
+2026-11-25 18:46:24,935 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-5
+2026-11-25 18:46:24,937 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-42
+2026-11-25 18:46:24,938 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-23
+2026-11-25 18:46:24,953 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-43
+2026-11-25 18:46:24,956 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-67
+2026-11-25 18:46:24,961 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-92
+2026-11-25 18:46:24,970 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-56
+2026-11-25 18:46:24,971 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-37
+2026-11-25 18:46:24,988 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-26
+2026-11-25 18:46:25,013 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-73
+2026-11-25 18:46:25,036 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-34
+2026-11-25 18:46:25,044 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-66
+2026-11-25 18:46:25,059 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-91
+2026-11-25 18:46:25,072 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-57
+2026-11-25 18:46:25,080 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-100
+2026-11-25 18:46:25,082 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-81
+2026-11-25 18:46:25,096 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-51
+2026-11-25 18:46:25,112 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-1
+2026-11-25 18:46:25,113 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-22
+2026-11-25 18:46:25,118 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-32
+2026-11-25 18:46:25,122 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-6
+2026-11-25 18:46:25,124 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-53
+2026-11-25 18:46:25,133 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-96
+2026-11-25 18:46:25,169 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-13
+2026-11-25 18:46:25,173 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-40
+2026-11-25 18:46:25,173 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-88
+2026-11-25 18:46:25,187 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-78
+2026-11-25 18:46:25,189 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-94
+2026-11-25 18:46:25,191 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-80
+2026-11-25 18:46:25,191 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-28
+2026-11-25 18:46:25,203 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-49
+2026-11-25 18:46:25,241 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-44
+2026-11-25 18:46:25,242 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-35
+2026-11-25 18:46:25,245 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-39
+2026-11-25 18:46:25,255 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-55
+2026-11-25 18:46:25,261 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-61
+2026-11-25 18:46:25,263 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-59
+2026-11-25 18:46:25,275 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-62
+2026-11-25 18:46:25,294 INFO o.a.j.t.JMeterThread: Thread finished: Virtual users 1-72
+2026-11-25 18:46:25,294 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2026-11-25 18:46:25,295 INFO o.a.j.r.Summariser: summary +   2522 in 00:00:25 =   99.7/s Avg:     2 Min:     1 Max:    32 Err:     0 (0.00%) Active: 0 Started: 100 Finished: 100
+2026-11-25 18:46:25,295 INFO o.a.j.r.Summariser: summary =   6971 in 00:01:20 =   87.0/s Avg:     3 Min:     1 Max:   125 Err:     0 (0.00%)

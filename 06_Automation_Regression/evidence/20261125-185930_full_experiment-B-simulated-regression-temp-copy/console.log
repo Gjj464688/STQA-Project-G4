@@ -1,0 +1,109 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.1.1, pluggy-1.6.0
+PyTodo Pro under test: /tmp/sim_regression (DIFFERS from Week 1/2 baseline)
+rootdir: /home/claude/work/STQA_Week5_6/06_Automation_Regression
+configfile: pytest.ini
+testpaths: tests
+plugins: platformdirs-4.13.5, anyio-4.15.1, metadata-3.1.1, html-4.2.0
+collected 104 items
+
+tests/api/test_api_regression.py ......x..............x.........xxx      [ 32%]
+tests/ui/test_ui_regression.py .x..F.x.                                  [ 40%]
+tests/unit/test_unit_regression.py ....x...............x..........x.x... [ 75%]
+.x..                                                                     [ 79%]
+tests/web/test_web_regression.py ..x...x.F...x......xF                   [100%]
+
+=================================== FAILURES ===================================
+__________________________ test_mark_done_and_reopen ___________________________
+
+tasks = <pages.tasks_page.TasksPage object at 0x7efd727b2850>
+signed_in = 'ui005_76db'
+driver = <selenium.webdriver.chrome.webdriver.WebDriver (session="5c3c9329f1509e8f9a254bd8aa6ceace")>
+base_url = 'http://127.0.0.1:5002'
+
+    @pytest.mark.smoke
+    @trace("AUTO-UI-005", manual=["TC-BB-016"], req=["R-06", "R-09"])
+    def test_mark_done_and_reopen(tasks, signed_in, driver, base_url):
+        dashboard = DashboardPage(driver, base_url)
+        tasks.create("Toggle in browser")
+        tasks.toggle("Toggle in browser")
+        assert tasks.is_done("Toggle in browser") and tasks.urgency("Toggle in browser") == "Done"
+>       assert dashboard.counter("Completed (last 7 days)") == 1
+E       AssertionError: assert 0 == 1
+E        +  where 0 = counter('Completed (last 7 days)')
+E        +    where counter = <pages.tasks_page.DashboardPage object at 0x7efd7279cd70>.counter
+
+tests/ui/test_ui_regression.py:81: AssertionError
+---------------------------- Captured stderr setup -----------------------------
+127.0.0.1 - - [25/Nov/2026 18:59:38] "GET /register HTTP/1.1" 200 -
+127.0.0.1 - - [25/Nov/2026 18:59:38] "GET /static/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [25/Nov/2026 18:59:38] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [25/Nov/2026 18:59:38] "POST /register HTTP/1.1" 302 -
+127.0.0.1 - - [25/Nov/2026 18:59:38] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Nov/2026 18:59:38] "GET /static/style.css HTTP/1.1" 304 -
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [25/Nov/2026 18:59:39] "GET /tasks/new HTTP/1.1" 200 -
+127.0.0.1 - - [25/Nov/2026 18:59:39] "GET /static/style.css HTTP/1.1" 304 -
+127.0.0.1 - - [25/Nov/2026 18:59:39] "POST /tasks/new HTTP/1.1" 302 -
+127.0.0.1 - - [25/Nov/2026 18:59:39] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Nov/2026 18:59:39] "GET /static/style.css HTTP/1.1" 304 -
+127.0.0.1 - - [25/Nov/2026 18:59:40] "POST /tasks/2/toggle HTTP/1.1" 302 -
+127.0.0.1 - - [25/Nov/2026 18:59:40] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Nov/2026 18:59:40] "GET /static/style.css HTTP/1.1" 304 -
+127.0.0.1 - - [25/Nov/2026 18:59:40] "GET /dashboard HTTP/1.1" 200 -
+127.0.0.1 - - [25/Nov/2026 18:59:40] "GET /static/style.css HTTP/1.1" 304 -
+________________ test_toggle_done_and_reopen_updates_dashboard _________________
+
+client = <FlaskClient <Flask 'app'>>
+
+    @pytest.mark.smoke
+    @trace("AUTO-WEB-009", manual=["TC-BB-016"], req=["R-06", "R-09"])
+    def test_toggle_done_and_reopen_updates_dashboard(client):
+        register(client, "taskuser")
+        create(client, "Toggle me")
+        (task_id,) = task_ids(client)
+        client.post(f"/tasks/{task_id}/toggle")
+>       assert stats(client)["Completed (last 7 days)"] == 1 and stats(client)["Open"] == 0
+E       assert (0 == 1)
+
+tests/web/test_web_regression.py:133: AssertionError
+_________________________ test_dashboard_page_counters _________________________
+
+filter_fixture = <FlaskClient <Flask 'app'>>
+
+    @pytest.mark.smoke
+    @trace("AUTO-WEB-014", manual=["TC-BB-029"], req=["R-09"])
+    def test_dashboard_page_counters(filter_fixture):
+>       assert stats(filter_fixture) == {
+            "Total Tasks": 4, "Open": 2, "Overdue": 0, "Due Soon": 0, "Completed (last 7 days)": 2}
+E       AssertionError: assert {'Total Tasks...Soon': 0, ...} == {'Total Tasks...Soon': 0, ...}
+E         
+E         Omitting 4 identical items, use -vv to show
+E         Differing items:
+E         {'Completed (last 7 days)': 0} != {'Completed (last 7 days)': 2}
+E         Use -v to get more diff
+
+tests/web/test_web_regression.py:220: AssertionError
+- generated xml file: /home/claude/work/STQA_Week5_6/06_Automation_Regression/evidence/20261125-185930_full_experiment-B-simulated-regression-temp-copy/junit.xml -
+- Generated html report: file:///home/claude/work/STQA_Week5_6/06_Automation_Regression/evidence/20261125-185930_full_experiment-B-simulated-regression-temp-copy/report.html -
+=========================== short test summary info ============================
+XFAIL tests/api/test_api_regression.py::test_register_accepts_eight_char_password - DEF-W1-001 is open; this test confirms it is still present
+XFAIL tests/api/test_api_regression.py::test_urgency_label[today] - DEF-W1-002 is open; this test confirms it is still present
+XFAIL tests/api/test_api_regression.py::test_number_title_is_rejected_cleanly - DEF-W4-001 is open; this test confirms it is still present
+XFAIL tests/api/test_api_regression.py::test_null_title_update_is_rejected_cleanly - DEF-W4-002 is open; this test confirms it is still present
+XFAIL tests/api/test_api_regression.py::test_invalid_due_date_is_rejected_and_list_still_works - DEF-W4-003 is open; this test confirms it is still present
+XFAIL tests/ui/test_ui_regression.py::test_register_with_eight_char_password - DEF-W1-001 is open; this test confirms it is still present
+XFAIL tests/ui/test_ui_regression.py::test_completed_title_text_contrast - DEF-W3-001 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-005] - DEF-W1-001 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-021] - DEF-W1-002 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-032] - DEF-W2-001 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-034] - DEF-W2-001 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-039] - DEF-W2-001 is open; this test confirms it is still present
+XFAIL tests/web/test_web_regression.py::test_register_form_accepts_eight_char_password - DEF-W1-001 is open; this test confirms it is still present
+XFAIL tests/web/test_web_regression.py::test_whitespace_only_title_is_rejected - DEF-W1-004 is open; this test confirms it is still present
+XFAIL tests/web/test_web_regression.py::test_urgency_badge_in_list[today] - DEF-W1-002 is open; this test confirms it is still present
+XFAIL tests/web/test_web_regression.py::test_new_task_fields_have_programmatic_labels - DEF-W3-002 is open; this test confirms it is still present
+FAILED tests/ui/test_ui_regression.py::test_mark_done_and_reopen - AssertionE...
+FAILED tests/web/test_web_regression.py::test_toggle_done_and_reopen_updates_dashboard
+FAILED tests/web/test_web_regression.py::test_dashboard_page_counters - Asser...
+================== 3 failed, 85 passed, 16 xfailed in 15.77s ===================

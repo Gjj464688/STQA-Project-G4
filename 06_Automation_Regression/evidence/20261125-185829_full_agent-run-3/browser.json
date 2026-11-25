@@ -1,0 +1,6 @@
+{
+  "browser": "chrome",
+  "version": "153.0.8010.12",
+  "headless": true,
+  "window": "1280x900"
+}

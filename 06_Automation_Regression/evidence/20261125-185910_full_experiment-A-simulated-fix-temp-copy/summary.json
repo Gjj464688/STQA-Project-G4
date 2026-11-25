@@ -1,0 +1,98 @@
+{
+  "label": "experiment-A-simulated-fix-temp-copy",
+  "suite": "full",
+  "ui_included": true,
+  "marker_expression": "(all tests)",
+  "started": "2026-11-25T18:59:10+08:00",
+  "finished": "2026-11-25T18:59:30+08:00",
+  "duration_s": 19.7,
+  "pytest_exit_code": 1,
+  "verdict": "ATTENTION",
+  "counts": {
+    "PASS": 88,
+    "XPASS": 4,
+    "XFAIL": 12
+  },
+  "total": 104,
+  "counts_by_layer": {
+    "api": {
+      "PASS": 29,
+      "XPASS": 1,
+      "XFAIL": 4
+    },
+    "ui": {
+      "PASS": 6,
+      "XPASS": 1,
+      "XFAIL": 1
+    },
+    "unit": {
+      "PASS": 36,
+      "XPASS": 1,
+      "XFAIL": 4
+    },
+    "web": {
+      "PASS": 17,
+      "XPASS": 1,
+      "XFAIL": 3
+    }
+  },
+  "known_defects_still_present": [
+    "DEF-W1-002",
+    "DEF-W1-004",
+    "DEF-W2-001",
+    "DEF-W3-001",
+    "DEF-W3-002",
+    "DEF-W4-001",
+    "DEF-W4-002",
+    "DEF-W4-003"
+  ],
+  "new_failures": [],
+  "known_defect_tests_now_passing": [
+    {
+      "test": "AUTO-API-004",
+      "defect": "DEF-W1-001"
+    },
+    {
+      "test": "AUTO-UI-002",
+      "defect": "DEF-W1-001"
+    },
+    {
+      "test": "AUTO-UNIT-005",
+      "defect": "DEF-W1-001"
+    },
+    {
+      "test": "AUTO-WEB-003",
+      "defect": "DEF-W1-001"
+    }
+  ],
+  "environment": {
+    "os": "Linux-6.18.44-fc-v880-x86_64-with-glibc2.39",
+    "python": "3.13.18",
+    "pytest": "9.1.1",
+    "selenium": "4.54.0",
+    "flask": "3.0.3",
+    "werkzeug": "3.1.9",
+    "browser": {
+      "browser": "chrome",
+      "version": "153.0.8010.12",
+      "headless": true,
+      "window": "1280x900"
+    },
+    "timezone": "+08",
+    "utc_offset": "+0800"
+  },
+  "app_under_test": {
+    "app_dir": "/tmp/sim_fix",
+    "files": {
+      "app.py": {
+        "sha256": "050b4ee4bb7d42f9ea835b46569185177755feee8e420f861376df4e6097f30f",
+        "matches_week1_baseline": true
+      },
+      "helpers.py": {
+        "sha256": "ebd4a9b5378bb0e2ba70ed6ebbce78e3a2585eb74afb69db2789b7c3881f10a9",
+        "matches_week1_baseline": false
+      }
+    },
+    "matches_week1_baseline": false
+  }
+}

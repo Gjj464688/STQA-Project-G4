@@ -1,0 +1,51 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.1.1, pluggy-1.6.0
+PyTodo Pro under test: /tmp/sim_fix (DIFFERS from Week 1/2 baseline)
+rootdir: /home/claude/work/STQA_Week5_6/06_Automation_Regression
+configfile: pytest.ini
+testpaths: tests
+plugins: platformdirs-4.13.5, anyio-4.15.1, metadata-3.1.1, html-4.2.0
+collected 104 items
+
+tests/api/test_api_regression.py ......F..............x.........xxx      [ 32%]
+tests/ui/test_ui_regression.py .F....x.                                  [ 40%]
+tests/unit/test_unit_regression.py ....F...............x..........x.x... [ 75%]
+.x..                                                                     [ 79%]
+tests/web/test_web_regression.py ..F...x.....x......x.                   [100%]
+
+=================================== FAILURES ===================================
+__________________ test_register_accepts_eight_char_password ___________________
+[XPASS(strict)] DEF-W1-001 is open; this test confirms it is still present
+____________________ test_register_with_eight_char_password ____________________
+[XPASS(strict)] DEF-W1-001 is open; this test confirms it is still present
+----------------------------- Captured stderr call -----------------------------
+127.0.0.1 - - [25/Nov/2026 18:59:15] "GET /register HTTP/1.1" 200 -
+127.0.0.1 - - [25/Nov/2026 18:59:15] "GET /static/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [25/Nov/2026 18:59:15] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [25/Nov/2026 18:59:15] "POST /register HTTP/1.1" 302 -
+127.0.0.1 - - [25/Nov/2026 18:59:15] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Nov/2026 18:59:15] "GET /static/style.css HTTP/1.1" 304 -
+__________________________ test_week2_case[TC-WB-005] __________________________
+[XPASS(strict)] DEF-W1-001 is open; this test confirms it is still present
+________________ test_register_form_accepts_eight_char_password ________________
+[XPASS(strict)] DEF-W1-001 is open; this test confirms it is still present
+- generated xml file: /home/claude/work/STQA_Week5_6/06_Automation_Regression/evidence/20261125-185910_full_experiment-A-simulated-fix-temp-copy/junit.xml -
+- Generated html report: file:///home/claude/work/STQA_Week5_6/06_Automation_Regression/evidence/20261125-185910_full_experiment-A-simulated-fix-temp-copy/report.html -
+=========================== short test summary info ============================
+XFAIL tests/api/test_api_regression.py::test_urgency_label[today] - DEF-W1-002 is open; this test confirms it is still present
+XFAIL tests/api/test_api_regression.py::test_number_title_is_rejected_cleanly - DEF-W4-001 is open; this test confirms it is still present
+XFAIL tests/api/test_api_regression.py::test_null_title_update_is_rejected_cleanly - DEF-W4-002 is open; this test confirms it is still present
+XFAIL tests/api/test_api_regression.py::test_invalid_due_date_is_rejected_and_list_still_works - DEF-W4-003 is open; this test confirms it is still present
+XFAIL tests/ui/test_ui_regression.py::test_completed_title_text_contrast - DEF-W3-001 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-021] - DEF-W1-002 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-032] - DEF-W2-001 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-034] - DEF-W2-001 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-039] - DEF-W2-001 is open; this test confirms it is still present
+XFAIL tests/web/test_web_regression.py::test_whitespace_only_title_is_rejected - DEF-W1-004 is open; this test confirms it is still present
+XFAIL tests/web/test_web_regression.py::test_urgency_badge_in_list[today] - DEF-W1-002 is open; this test confirms it is still present
+XFAIL tests/web/test_web_regression.py::test_new_task_fields_have_programmatic_labels - DEF-W3-002 is open; this test confirms it is still present
+FAILED tests/api/test_api_regression.py::test_register_accepts_eight_char_password
+FAILED tests/ui/test_ui_regression.py::test_register_with_eight_char_password
+FAILED tests/unit/test_unit_regression.py::test_week2_case[TC-WB-005] - [XPAS...
+FAILED tests/web/test_web_regression.py::test_register_form_accepts_eight_char_password
+================== 4 failed, 88 passed, 12 xfailed in 19.22s ===================

@@ -1,0 +1,78 @@
+{
+  "label": "agent-run-1",
+  "suite": "smoke",
+  "ui_included": true,
+  "marker_expression": "smoke",
+  "started": "2026-11-25T00:08:14+08:00",
+  "finished": "2026-11-25T00:08:19+08:00",
+  "duration_s": 4.8,
+  "pytest_exit_code": 1,
+  "verdict": "ATTENTION",
+  "counts": {
+    "PASS": 17,
+    "XFAIL": 6,
+    "ERROR": 1
+  },
+  "total": 24,
+  "counts_by_layer": {
+    "api": {
+      "PASS": 7,
+      "XFAIL": 2
+    },
+    "ui": {
+      "PASS": 2,
+      "ERROR": 1
+    },
+    "unit": {
+      "XFAIL": 3,
+      "PASS": 4
+    },
+    "web": {
+      "PASS": 4,
+      "XFAIL": 1
+    }
+  },
+  "known_defects_still_present": [
+    "DEF-W1-001",
+    "DEF-W1-002",
+    "DEF-W1-004",
+    "DEF-W2-001"
+  ],
+  "new_failures": [
+    {
+      "test": "AUTO-UI-005",
+      "message": "/usr/local/lib/python3.13/site-packages/selenium/webdriver/remote/errorhandler.py:234: WebDriverException"
+    }
+  ],
+  "known_defect_tests_now_passing": [],
+  "environment": {
+    "os": "Linux-6.18.44-fc-v819-x86_64-with-glibc2.39",
+    "python": "3.13.18",
+    "pytest": "9.1.1",
+    "selenium": "4.54.0",
+    "flask": "3.1.3",
+    "werkzeug": "3.1.9",
+    "browser": {
+      "browser": "chrome",
+      "version": "153.0.8010.12",
+      "headless": true,
+      "window": "1280x900"
+    },
+    "timezone": "+08",
+    "utc_offset": "+0800"
+  },
+  "app_under_test": {
+    "app_dir": "/home/claude/src",
+    "files": {
+      "app.py": {
+        "sha256": "050b4ee4bb7d42f9ea835b46569185177755feee8e420f861376df4e6097f30f",
+        "matches_week1_baseline": true
+      },
+      "helpers.py": {
+        "sha256": "bf9140338277534439b38599f5ac3ef722880cced732bba8f1f313147d466d80",
+        "matches_week1_baseline": true
+      }
+    },
+    "matches_week1_baseline": true
+  }
+}

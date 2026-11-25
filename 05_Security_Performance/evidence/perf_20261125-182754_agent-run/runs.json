@@ -1,0 +1,256 @@
+{
+  "started": "2026-11-25T18:27:54+08:00",
+  "finished": "2026-11-25T18:57:11+08:00",
+  "settings": {
+    "levels_users": [
+      1,
+      5,
+      10,
+      25,
+      50,
+      100,
+      200
+    ],
+    "repeats": 3,
+    "steady_s": 60,
+    "rampup_rule": "max(5 s, users / 5 s)",
+    "think_time": "uniform random 0.5-1.5 s before each request",
+    "per_user_flow": "register once; then loop: task list page, dashboard page, API task list, API create task",
+    "recovery_check": true,
+    "targets": {
+      "p95_ms": 1000,
+      "error_pct": 1.0
+    },
+    "label": "agent-run"
+  },
+  "environment": {
+    "computer": {
+      "os": "Linux-6.18.44-fc-v880-x86_64-with-glibc2.39",
+      "cpu": "Intel(R) Xeon(R) Processor @ 2.30GHz",
+      "logical_cpus": 2,
+      "ram_gb": 7.8
+    },
+    "software": {
+      "python": "3.13.18",
+      "flask": "3.0.3",
+      "werkzeug": "3.1.9",
+      "jmeter": "apache-jmeter-5.6.3",
+      "java": "openjdk version \"21.0.13.0.3\" 2026-10-24"
+    },
+    "server": "Flask built-in server, threaded, debug off, 127.0.0.1 (same server type as 'python app.py')",
+    "app_under_test": {
+      "source": "/home/claude/src",
+      "app.py": "050b4ee4bb7d42f9ea835b46569185177755feee8e420f861376df4e6097f30f",
+      "helpers.py": "bf9140338277534439b38599f5ac3ef722880cced732bba8f1f313147d466d80"
+    },
+    "note": "JMeter and the app run on the same computer and share its CPU.",
+    "workload": {
+      "levels_users": [
+        1,
+        5,
+        10,
+        25,
+        50,
+        100,
+        200
+      ],
+      "repeats": 3,
+      "steady_s": 60,
+      "rampup_rule": "max(5 s, users / 5 s)",
+      "think_time": "uniform random 0.5-1.5 s before each request",
+      "per_user_flow": "register once; then loop: task list page, dashboard page, API task list, API create task",
+      "recovery_check": true,
+      "targets": {
+        "p95_ms": 1000,
+        "error_pct": 1.0
+      },
+      "label": "agent-run"
+    }
+  },
+  "runs": [
+    {
+      "run_id": "u001_r1",
+      "users": 1,
+      "rampup_s": 5,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u001_r1.jtl.gz"
+    },
+    {
+      "run_id": "u001_r2",
+      "users": 1,
+      "rampup_s": 5,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u001_r2.jtl.gz"
+    },
+    {
+      "run_id": "u001_r3",
+      "users": 1,
+      "rampup_s": 5,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u001_r3.jtl.gz"
+    },
+    {
+      "run_id": "u005_r1",
+      "users": 5,
+      "rampup_s": 5,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u005_r1.jtl.gz"
+    },
+    {
+      "run_id": "u005_r2",
+      "users": 5,
+      "rampup_s": 5,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u005_r2.jtl.gz"
+    },
+    {
+      "run_id": "u005_r3",
+      "users": 5,
+      "rampup_s": 5,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u005_r3.jtl.gz"
+    },
+    {
+      "run_id": "u010_r1",
+      "users": 10,
+      "rampup_s": 5,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u010_r1.jtl.gz"
+    },
+    {
+      "run_id": "u010_r2",
+      "users": 10,
+      "rampup_s": 5,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u010_r2.jtl.gz"
+    },
+    {
+      "run_id": "u010_r3",
+      "users": 10,
+      "rampup_s": 5,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u010_r3.jtl.gz"
+    },
+    {
+      "run_id": "u025_r1",
+      "users": 25,
+      "rampup_s": 5,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u025_r1.jtl.gz"
+    },
+    {
+      "run_id": "u025_r2",
+      "users": 25,
+      "rampup_s": 5,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u025_r2.jtl.gz"
+    },
+    {
+      "run_id": "u025_r3",
+      "users": 25,
+      "rampup_s": 5,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u025_r3.jtl.gz"
+    },
+    {
+      "run_id": "u050_r1",
+      "users": 50,
+      "rampup_s": 10,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u050_r1.jtl.gz"
+    },
+    {
+      "run_id": "u050_r2",
+      "users": 50,
+      "rampup_s": 10,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u050_r2.jtl.gz"
+    },
+    {
+      "run_id": "u050_r3",
+      "users": 50,
+      "rampup_s": 10,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u050_r3.jtl.gz"
+    },
+    {
+      "run_id": "u100_r1",
+      "users": 100,
+      "rampup_s": 20,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u100_r1.jtl.gz"
+    },
+    {
+      "run_id": "u100_r2",
+      "users": 100,
+      "rampup_s": 20,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u100_r2.jtl.gz"
+    },
+    {
+      "run_id": "u100_r3",
+      "users": 100,
+      "rampup_s": 20,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u100_r3.jtl.gz"
+    },
+    {
+      "run_id": "u200_r1",
+      "users": 200,
+      "rampup_s": 40,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u200_r1.jtl.gz"
+    },
+    {
+      "run_id": "u200_r2",
+      "users": 200,
+      "rampup_s": 40,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u200_r2.jtl.gz"
+    },
+    {
+      "run_id": "u200_r3",
+      "users": 200,
+      "rampup_s": 40,
+      "steady_s": 60,
+      "kind": "level",
+      "jtl": "u200_r3.jtl.gz"
+    },
+    {
+      "run_id": "recovery_u200",
+      "users": 200,
+      "rampup_s": 40,
+      "steady_s": 60,
+      "kind": "recovery",
+      "jtl": "recovery_u200.jtl.gz"
+    },
+    {
+      "run_id": "recovery_u001_after",
+      "users": 1,
+      "rampup_s": 5,
+      "steady_s": 60,
+      "kind": "recovery",
+      "jtl": "recovery_u001_after.jtl.gz"
+    }
+  ]
+}

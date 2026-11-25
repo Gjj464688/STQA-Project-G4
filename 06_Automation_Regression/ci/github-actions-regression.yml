@@ -1,0 +1,63 @@
+# Example GitHub Actions workflow for the PyTodo Pro regression suite.
+# NOT ACTIVE: copy it to .github/workflows/regression.yml in the group
+# repository to switch it on.
+#
+# Prerequisite: CI can only test code it can see. The supplied app is kept
+# outside the repository today, so before enabling this the group must agree
+# to commit an unchanged copy of pytodo_pro_student into target_app/
+# (its hashes are checked against the Week 1 baseline on every run).
+#
+# Design: the fast layers (unit, API, web) run on every push and pull
+# request; the browser layer runs only in the nightly/manual job, because
+# UI tests are slower and more sensitive to environment changes.
+
+name: PyTodo regression
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "30 18 * * *"   # 02:30 Malaysia time, daily
+  workflow_dispatch:
+
+env:
+  PYTODO_APP_DIR: ${{ github.workspace }}/target_app
+
+jobs:
+  fast-regression:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 06_Automation_Regression
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r ../target_app/requirements.txt -r requirements-regression.txt
+      - run: python run_regression.py --suite full --skip-ui --label ci-${{ github.run_number }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression-evidence-fast
+          path: 06_Automation_Regression/evidence/
+
+  browser-regression:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: 06_Automation_Regression
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: browser-actions/setup-chrome@v1
+      - run: pip install -r ../target_app/requirements.txt -r requirements-regression.txt
+      - run: python run_regression.py --suite full --label nightly-${{ github.run_number }}
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression-evidence-browser
+          path: 06_Automation_Regression/evidence/

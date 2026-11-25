@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title id="head-title">report.html</title>
+      <style type="text/css">body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  /* do not increase min-width as some may use split screens */
+  min-width: 800px;
+  color: #999;
+}
+
+h1 {
+  font-size: 24px;
+  color: black;
+}
+
+h2 {
+  font-size: 16px;
+  color: black;
+}
+
+p {
+  color: black;
+}
+
+a {
+  color: #999;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+/******************************
+ * SUMMARY INFORMATION
+ ******************************/
+#environment td {
+  padding: 5px;
+  border: 1px solid #e6e6e6;
+  vertical-align: top;
+}
+#environment tr:nth-child(odd) {
+  background-color: #f6f6f6;
+}
+#environment ul {
+  margin: 0;
+  padding: 0 20px;
+}
+
+/******************************
+ * TEST RESULT COLORS
+ ******************************/
+span.passed,
+.passed .col-result {
+  color: green;
+}
+
+span.skipped,
+span.xfailed,
+span.rerun,
+.skipped .col-result,
+.xfailed .col-result,
+.rerun .col-result {
+  color: orange;
+}
+
+span.error,
+span.failed,
+span.xpassed,
+.error .col-result,
+.failed .col-result,
+.xpassed .col-result {
+  color: red;
+}
+
+.col-links__extra {
+  margin-right: 3px;
+}
+
+/******************************
+ * RESULTS TABLE
+ *
+ * 1. Table Layout
+ * 2. Extra
+ * 3. Sorting items
+ *
+ ******************************/
+/*------------------
+ * 1. Table Layout
+ *------------------*/
+#results-table {
+  border: 1px solid #e6e6e6;
+  color: #999;
+  font-size: 12px;
+  width: 100%;
+}
+#results-table th,
+#results-table td {
+  padding: 5px;
+  border: 1px solid #e6e6e6;
+  text-align: left;
+}
+#results-table th {
+  font-weight: bold;
+}
+
+/*------------------
+ * 2. Extra
+ *------------------*/
+.logwrapper {
+  max-height: 230px;
+  overflow-y: scroll;
+  background-color: #e6e6e6;
+}
+.logwrapper.expanded {
+  max-height: none;
+}
+.logwrapper.expanded .logexpander:after {
+  content: "collapse [-]";
+}
+.logwrapper .logexpander {
+  z-index: 1;
+  position: sticky;
+  top: 10px;
+  width: max-content;
+  border: 1px solid;
+  border-radius: 3px;
+  padding: 5px 7px;
+  margin: 10px 0 10px calc(100% - 80px);
+  cursor: pointer;
+  background-color: #e6e6e6;
+}
+.logwrapper .logexpander:after {
+  content: "expand [+]";
+}
+.logwrapper .logexpander:hover {
+  color: #000;
+  border-color: #000;
+}
+.logwrapper .log {
+  min-height: 40px;
+  position: relative;
+  top: -50px;
+  height: calc(100% + 50px);
+  border: 1px solid #e6e6e6;
+  color: black;
+  display: block;
+  font-family: "Courier New", Courier, monospace;
+  padding: 5px;
+  padding-right: 80px;
+  white-space: pre-wrap;
+}
+
+div.media {
+  border: 1px solid #e6e6e6;
+  float: right;
+  height: 240px;
+  margin: 0 5px;
+  overflow: hidden;
+  width: 320px;
+}
+
+.media-container {
+  display: grid;
+  grid-template-columns: 25px auto 25px;
+  align-items: center;
+  flex: 1 1;
+  overflow: hidden;
+  height: 200px;
+}
+
+.media-container--fullscreen {
+  grid-template-columns: 0px auto 0px;
+}
+
+.media-container__nav--right,
+.media-container__nav--left {
+  text-align: center;
+  cursor: pointer;
+}
+
+.media-container__viewport {
+  cursor: pointer;
+  text-align: center;
+  height: inherit;
+}
+.media-container__viewport img,
+.media-container__viewport video {
+  object-fit: cover;
+  width: 100%;
+  max-height: 100%;
+}
+
+.media__name,
+.media__counter {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  flex: 0 0 25px;
+  align-items: center;
+}
+
+.collapsible td:not(.col-links) {
+  cursor: pointer;
+}
+.collapsible td:not(.col-links):hover::after {
+  color: #bbb;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.col-result {
+  width: 130px;
+}
+.col-result:hover::after {
+  content: " (hide details)";
+}
+
+.col-result.collapsed:hover::after {
+  content: " (show details)";
+}
+
+#environment-header h2:hover::after {
+  content: " (hide details)";
+  color: #bbb;
+  font-style: italic;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#environment-header.collapsed h2:hover::after {
+  content: " (show details)";
+  color: #bbb;
+  font-style: italic;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/*------------------
+ * 3. Sorting items
+ *------------------*/
+.sortable {
+  cursor: pointer;
+}
+.sortable.desc:after {
+  content: " ";
+  position: relative;
+  left: 5px;
+  bottom: -12.5px;
+  border: 10px solid #4caf50;
+  border-bottom: 0;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+.sortable.asc:after {
+  content: " ";
+  position: relative;
+  left: 5px;
+  bottom: 12.5px;
+  border: 10px solid #4caf50;
+  border-top: 0;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+
+.hidden, .summary__reload__button.hidden {
+  display: none;
+}
+
+.summary__data {
+  flex: 0 0 550px;
+}
+.summary__reload {
+  flex: 1 1;
+  display: flex;
+  justify-content: center;
+}
+.summary__reload__button {
+  flex: 0 0 300px;
+  display: flex;
+  color: white;
+  font-weight: bold;
+  background-color: #4caf50;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.summary__reload__button:hover {
+  background-color: #46a049;
+}
+.summary__spacer {
+  flex: 0 0 550px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.filters,
+.collapse {
+  display: flex;
+  align-items: center;
+}
+.filters button,
+.collapse button {
+  color: #999;
+  border: none;
+  background: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+.filters button:hover,
+.collapse button:hover {
+  color: #ccc;
+}
+
+.filter__label {
+  margin-right: 10px;
+}
+
+      </style>
+    
+  </head>
+  <body>
+    <h1 id="title">report.html</h1>
+    <p>Report generated on 25-Nov-2026 at 18:59:10 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a>
+        v4.2.0</p>
+    <div id="environment-header">
+      <h2>Environment</h2>
+    </div>
+    <table id="environment"></table>
+    <!-- TEMPLATES -->
+      <template id="template_environment_row">
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+    </template>
+    <template id="template_results-table__body--empty">
+      <tbody class="results-table-row">
+        <tr id="not-found-message">
+          <td colspan="4">No results found. Check the filters.</td>
+        </tr>
+      </tbody>
+    </template>
+    <template id="template_results-table__tbody">
+      <tbody class="results-table-row">
+        <tr class="collapsible">
+        </tr>
+        <tr class="extras-row">
+          <td class="extra" colspan="4">
+            <div class="extraHTML"></div>
+            <div class="media">
+              <div class="media-container">
+                  <div class="media-container__nav--left">&lt;</div>
+                  <div class="media-container__viewport">
+                    <img src="" />
+                    <video controls>
+                      <source src="" type="video/mp4">
+                    </video>
+                  </div>
+                  <div class="media-container__nav--right">&gt;</div>
+                </div>
+                <div class="media__name"></div>
+                <div class="media__counter"></div>
+            </div>
+            <div class="logwrapper">
+              <div class="logexpander"></div>
+              <div class="log"></div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </template>
+    <!-- END TEMPLATES -->
+    <div class="summary">
+      <div class="summary__data">
+        <h2>Summary</h2>
+        <div class="additional-summary prefix">
+        </div>
+        <p class="run-count">96 tests took 00:00:04.</p>
+        <p class="filter">(Un)check the boxes to filter the results.</p>
+        <div class="summary__reload">
+          <div class="summary__reload__button hidden" onclick="location.reload()">
+            <div>There are still tests running. <br />Reload this page to get the latest results!</div>
+          </div>
+        </div>
+        <div class="summary__spacer"></div>
+        <div class="controls">
+          <div class="filters">
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="failed" disabled>
+            <span class="failed">0 Failed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="passed" >
+            <span class="passed">82 Passed,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="skipped" disabled>
+            <span class="skipped">0 Skipped,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xfailed" >
+            <span class="xfailed">14 Expected failures,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="xpassed" disabled>
+            <span class="xpassed">0 Unexpected passes,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="error" disabled>
+            <span class="error">0 Errors,</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="rerun" disabled>
+            <span class="rerun">0 Reruns</span>
+            <input checked="true" class="filter" name="filter_checkbox" type="checkbox" data-test-result="retried" disabled>
+            <span class="retried">0 Retried,</span>
+          </div>
+          <div class="collapse">
+            <button id="show_all_details">Show all details</button>&nbsp;/&nbsp;<button id="hide_all_details">Hide all details</button>
+          </div>
+        </div>
+      </div>
+      <div class="additional-summary summary">
+      </div>
+      <div class="additional-summary postfix">
+      </div>
+    </div>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable" data-column-type="result">Result</th>
+          <th class="sortable" data-column-type="testId">Test</th>
+          <th class="sortable" data-column-type="duration">Duration</th>
+          <th>Links</th>
+        </tr>
+      </thead>
+    </table>
+  <footer>
+    <div id="data-container" data-jsonblob="{&#34;environment&#34;: {&#34;Python&#34;: &#34;3.13.18&#34;, &#34;Platform&#34;: &#34;Linux-6.18.44-fc-v880-x86_64-with-glibc2.39&#34;, &#34;Packages&#34;: {&#34;pytest&#34;: &#34;9.1.1&#34;, &#34;pluggy&#34;: &#34;1.6.0&#34;}, &#34;Plugins&#34;: {&#34;platformdirs&#34;: &#34;4.13.5&#34;, &#34;anyio&#34;: &#34;4.15.1&#34;, &#34;metadata&#34;: &#34;3.1.1&#34;, &#34;html&#34;: &#34;4.2.0&#34;}, &#34;JAVA_HOME&#34;: &#34;/usr/lib/jvm/java-21-openjdk-amd64&#34;}, &#34;tests&#34;: {&#34;tests/api/test_api_regression.py::test_register_valid_account&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_register_valid_account&#34;, &#34;duration&#34;: &#34;100 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_register_valid_account&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;100 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_register_username_boundaries[2-chars]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_register_username_boundaries[2-chars]&#34;, &#34;duration&#34;: &#34;5 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_register_username_boundaries[2-chars]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;5 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_register_username_boundaries[20-chars]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_register_username_boundaries[20-chars]&#34;, &#34;duration&#34;: &#34;62 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_register_username_boundaries[20-chars]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;62 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_register_username_boundaries[21-chars]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_register_username_boundaries[21-chars]&#34;, &#34;duration&#34;: &#34;5 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_register_username_boundaries[21-chars]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;5 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_register_username_boundaries[hyphen]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_register_username_boundaries[hyphen]&#34;, &#34;duration&#34;: &#34;5 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_register_username_boundaries[hyphen]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;5 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_register_rejects_seven_char_password&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_register_rejects_seven_char_password&#34;, &#34;duration&#34;: &#34;5 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_register_rejects_seven_char_password&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;5 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_register_accepts_eight_char_password&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_register_accepts_eight_char_password&#34;, &#34;duration&#34;: &#34;6 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_register_accepts_eight_char_password&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;6 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;client = &amp;lt;FlaskClient &amp;lt;Flask &amp;#x27;app&amp;#x27;&amp;gt;&amp;gt;\n\n    @pytest.mark.smoke\n    @known_defect(&amp;quot;DEF-W1-001&amp;quot;)\n    @trace(&amp;quot;AUTO-API-004&amp;quot;, manual=[&amp;quot;TC-BB-007&amp;quot;], req=[&amp;quot;R-01&amp;quot;])\n    def test_register_accepts_eight_char_password(client):\n        response = client.post(&amp;quot;/api/register&amp;quot;, json={&amp;quot;username&amp;quot;: &amp;quot;pw8user&amp;quot;, &amp;quot;password&amp;quot;: &amp;quot;abcdefgh&amp;quot;})\n&amp;gt;       assert response.status_code == 201, response.get_json()\nE       AssertionError: {&amp;#x27;error&amp;#x27;: &amp;#x27;invalid password&amp;#x27;}\nE       assert 400 == 201\nE        +  where 400 = &amp;lt;WrapperTestResponse streamed [400 BAD REQUEST]&amp;gt;.status_code\n\ntests/api/test_api_regression.py:59: AssertionError\n&#34;}], &#34;tests/api/test_api_regression.py::test_login_with_correct_credentials&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_login_with_correct_credentials&#34;, &#34;duration&#34;: &#34;116 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_login_with_correct_credentials&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;116 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_login_with_wrong_password&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_login_with_wrong_password&#34;, &#34;duration&#34;: &#34;108 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_login_with_wrong_password&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;108 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_task_list_requires_sign_in&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_task_list_requires_sign_in&#34;, &#34;duration&#34;: &#34;5 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_task_list_requires_sign_in&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;5 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_categories_are_seeded&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_categories_are_seeded&#34;, &#34;duration&#34;: &#34;5 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_categories_are_seeded&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;5 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_create_task_with_all_fields&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_create_task_with_all_fields&#34;, &#34;duration&#34;: &#34;58 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_create_task_with_all_fields&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;58 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_create_task_without_optional_fields&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_create_task_without_optional_fields&#34;, &#34;duration&#34;: &#34;56 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_create_task_without_optional_fields&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;56 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_create_task_rejects_blank_title[empty]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_create_task_rejects_blank_title[empty]&#34;, &#34;duration&#34;: &#34;53 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_create_task_rejects_blank_title[empty]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;53 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_create_task_rejects_blank_title[spaces]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_create_task_rejects_blank_title[spaces]&#34;, &#34;duration&#34;: &#34;56 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_create_task_rejects_blank_title[spaces]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;56 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_get_and_partially_update_task&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_get_and_partially_update_task&#34;, &#34;duration&#34;: &#34;60 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_get_and_partially_update_task&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;60 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_mark_done_then_reopen&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_mark_done_then_reopen&#34;, &#34;duration&#34;: &#34;65 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_mark_done_then_reopen&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;65 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_delete_own_task&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_delete_own_task&#34;, &#34;duration&#34;: &#34;60 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_delete_own_task&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;60 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_task_list_shows_only_own_tasks&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_task_list_shows_only_own_tasks&#34;, &#34;duration&#34;: &#34;109 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_task_list_shows_only_own_tasks&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;109 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_urgency_label[no-date]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_urgency_label[no-date]&#34;, &#34;duration&#34;: &#34;58 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_urgency_label[no-date]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;58 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_urgency_label[yesterday]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_urgency_label[yesterday]&#34;, &#34;duration&#34;: &#34;56 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_urgency_label[yesterday]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;56 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_urgency_label[today]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_urgency_label[today]&#34;, &#34;duration&#34;: &#34;57 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_urgency_label[today]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;57 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;client = &amp;lt;FlaskClient &amp;lt;Flask &amp;#x27;app&amp;#x27;&amp;gt;&amp;gt;\napi_user = &amp;lt;function api_user.&amp;lt;locals&amp;gt;.register at 0x7fb375e1aa20&amp;gt;, offset = 0\nlabel = &amp;#x27;Due Today&amp;#x27;\n\n    @pytest.mark.parametrize(&amp;quot;offset, label&amp;quot;, [\n        pytest.param(None, &amp;quot;No due date&amp;quot;, id=&amp;quot;no-date&amp;quot;, marks=trace(&amp;quot;AUTO-API-016a&amp;quot;, manual=[&amp;quot;TC-BB-012&amp;quot;], req=[&amp;quot;R-07&amp;quot;])),\n        pytest.param(-1, &amp;quot;Overdue&amp;quot;, id=&amp;quot;yesterday&amp;quot;, marks=trace(&amp;quot;AUTO-API-016b&amp;quot;, manual=[&amp;quot;TC-BB-019&amp;quot;], req=[&amp;quot;R-07&amp;quot;])),\n        pytest.param(0, &amp;quot;Due Today&amp;quot;, id=&amp;quot;today&amp;quot;, marks=[\n            pytest.mark.smoke, known_defect(&amp;quot;DEF-W1-002&amp;quot;),\n            trace(&amp;quot;AUTO-API-016c&amp;quot;, manual=[&amp;quot;TC-BB-020&amp;quot;], req=[&amp;quot;R-07&amp;quot;])]),\n        pytest.param(1, &amp;quot;Due Soon&amp;quot;, id=&amp;quot;plus-1&amp;quot;, marks=trace(&amp;quot;AUTO-API-016d&amp;quot;, manual=[&amp;quot;TC-BB-021&amp;quot;], req=[&amp;quot;R-07&amp;quot;])),\n        pytest.param(2, &amp;quot;Due Soon&amp;quot;, id=&amp;quot;plus-2&amp;quot;, marks=trace(&amp;quot;AUTO-API-016e&amp;quot;, manual=[&amp;quot;TC-BB-022&amp;quot;], req=[&amp;quot;R-07&amp;quot;])),\n        pytest.param(3, &amp;quot;Upcoming&amp;quot;, id=&amp;quot;plus-3&amp;quot;, marks=trace(&amp;quot;AUTO-API-016f&amp;quot;, manual=[&amp;quot;TC-BB-023&amp;quot;], req=[&amp;quot;R-07&amp;quot;])),\n    ])\n    def test_urgency_label(client, api_user, offset, label):\n        api_user()\n        payload = {&amp;quot;title&amp;quot;: f&amp;quot;Due {offset}&amp;quot;, &amp;quot;due_date&amp;quot;: None if offset is None else due(offset)}\n        task = client.post(&amp;quot;/api/tasks&amp;quot;, json=payload).get_json()\n&amp;gt;       assert task[&amp;quot;urgency&amp;quot;] == label\nE       AssertionError: assert &amp;#x27;Overdue&amp;#x27; == &amp;#x27;Due Today&amp;#x27;\nE         \nE         - Due Today\nE         + Overdue\n\ntests/api/test_api_regression.py:197: AssertionError\n&#34;}], &#34;tests/api/test_api_regression.py::test_urgency_label[plus-1]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_urgency_label[plus-1]&#34;, &#34;duration&#34;: &#34;56 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_urgency_label[plus-1]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;56 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_urgency_label[plus-2]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_urgency_label[plus-2]&#34;, &#34;duration&#34;: &#34;63 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_urgency_label[plus-2]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;63 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_urgency_label[plus-3]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_urgency_label[plus-3]&#34;, &#34;duration&#34;: &#34;56 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_urgency_label[plus-3]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;56 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_filters_and_search[work-open]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_filters_and_search[work-open]&#34;, &#34;duration&#34;: &#34;64 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_filters_and_search[work-open]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;64 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_filters_and_search[work-done]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_filters_and_search[work-done]&#34;, &#34;duration&#34;: &#34;63 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_filters_and_search[work-done]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;63 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_filters_and_search[personal-open]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_filters_and_search[personal-open]&#34;, &#34;duration&#34;: &#34;64 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_filters_and_search[personal-open]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;64 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_filters_and_search[any-done]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_filters_and_search[any-done]&#34;, &#34;duration&#34;: &#34;66 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_filters_and_search[any-done]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;66 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_filters_and_search[search-open]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_filters_and_search[search-open]&#34;, &#34;duration&#34;: &#34;63 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_filters_and_search[search-open]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;63 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_dashboard_counts&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_dashboard_counts&#34;, &#34;duration&#34;: &#34;66 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_dashboard_counts&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;66 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/api/test_api_regression.py::test_number_title_is_rejected_cleanly&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_number_title_is_rejected_cleanly&#34;, &#34;duration&#34;: &#34;55 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_number_title_is_rejected_cleanly&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;55 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;client = &amp;lt;FlaskClient &amp;lt;Flask &amp;#x27;app&amp;#x27;&amp;gt;&amp;gt;\napi_user = &amp;lt;function api_user.&amp;lt;locals&amp;gt;.register at 0x7fb375eaf920&amp;gt;\n\n    @pytest.mark.smoke\n    @known_defect(&amp;quot;DEF-W4-001&amp;quot;)\n    @trace(&amp;quot;AUTO-API-019&amp;quot;, manual=[&amp;quot;API-32&amp;quot;], req=[&amp;quot;R-04&amp;quot;, &amp;quot;R-10&amp;quot;])\n    def test_number_title_is_rejected_cleanly(client, api_user):\n        api_user()\n&amp;gt;       response = client.post(&amp;quot;/api/tasks&amp;quot;, json={&amp;quot;title&amp;quot;: 123})\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntests/api/test_api_regression.py:252: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/usr/local/lib/python3.13/site-packages/werkzeug/test.py:1171: in post\n    return self.open(*args, **kw)\n           ^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/testing.py:235: in open\n    response = super().open(\n/usr/local/lib/python3.13/site-packages/werkzeug/test.py:1120: in open\n    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/werkzeug/test.py:992: in run_wsgi_app\n    rv = run_wsgi_app(self.application, environ, buffered=buffered)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/werkzeug/test.py:1268: in run_wsgi_app\n    app_rv = app(environ, start_response)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:1498: in __call__\n    return self.wsgi_app(environ, start_response)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:1476: in wsgi_app\n    response = self.handle_exception(e)\n               ^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:1473: in wsgi_app\n    response = self.full_dispatch_request()\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:882: in full_dispatch_request\n    rv = self.handle_user_exception(e)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:880: in full_dispatch_request\n    rv = self.dispatch_request()\n         ^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:865: in dispatch_request\n    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n../../../src/app.py:130: in wrapper\n    return f(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    @app.route(&amp;quot;/api/tasks&amp;quot;, methods=[&amp;quot;POST&amp;quot;])\n    @login_required_api\n    def api_create_task():\n        data = request.get_json(silent=True) or {}\n&amp;gt;       title = (data.get(&amp;quot;title&amp;quot;) or &amp;quot;&amp;quot;).strip()\n                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nE       AttributeError: &amp;#x27;int&amp;#x27; object has no attribute &amp;#x27;strip&amp;#x27;\n\n../../../src/app.py:405: AttributeError\n&#34;}], &#34;tests/api/test_api_regression.py::test_null_title_update_is_rejected_cleanly&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_null_title_update_is_rejected_cleanly&#34;, &#34;duration&#34;: &#34;59 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_null_title_update_is_rejected_cleanly&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;59 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;client = &amp;lt;FlaskClient &amp;lt;Flask &amp;#x27;app&amp;#x27;&amp;gt;&amp;gt;\napi_user = &amp;lt;function api_user.&amp;lt;locals&amp;gt;.register at 0x7fb375eaf420&amp;gt;\n\n    @pytest.mark.smoke\n    @known_defect(&amp;quot;DEF-W4-002&amp;quot;)\n    @trace(&amp;quot;AUTO-API-020&amp;quot;, manual=[&amp;quot;API-42&amp;quot;], req=[&amp;quot;R-05&amp;quot;, &amp;quot;R-10&amp;quot;])\n    def test_null_title_update_is_rejected_cleanly(client, api_user):\n        api_user()\n        task = client.post(&amp;quot;/api/tasks&amp;quot;, json={&amp;quot;title&amp;quot;: &amp;quot;Keep my title&amp;quot;}).get_json()\n&amp;gt;       response = client.put(f&amp;quot;/api/tasks/{task[&amp;#x27;id&amp;#x27;]}&amp;quot;, json={&amp;quot;title&amp;quot;: None})\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntests/api/test_api_regression.py:262: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/usr/local/lib/python3.13/site-packages/werkzeug/test.py:1176: in put\n    return self.open(*args, **kw)\n           ^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/testing.py:235: in open\n    response = super().open(\n/usr/local/lib/python3.13/site-packages/werkzeug/test.py:1120: in open\n    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/werkzeug/test.py:992: in run_wsgi_app\n    rv = run_wsgi_app(self.application, environ, buffered=buffered)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/werkzeug/test.py:1268: in run_wsgi_app\n    app_rv = app(environ, start_response)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:1498: in __call__\n    return self.wsgi_app(environ, start_response)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:1476: in wsgi_app\n    response = self.handle_exception(e)\n               ^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:1473: in wsgi_app\n    response = self.full_dispatch_request()\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:882: in full_dispatch_request\n    rv = self.handle_user_exception(e)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:880: in full_dispatch_request\n    rv = self.dispatch_request()\n         ^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:865: in dispatch_request\n    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n../../../src/app.py:130: in wrapper\n    return f(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ntask_id = 1\n\n    @app.route(&amp;quot;/api/tasks/&amp;lt;int:task_id&amp;gt;&amp;quot;, methods=[&amp;quot;PUT&amp;quot;])\n    @login_required_api\n    def api_update_task(task_id):\n        db = get_db()\n        row = db.execute(\n            &amp;quot;SELECT * FROM tasks WHERE id = ? AND user_id = ?&amp;quot;, (task_id, session[&amp;quot;user_id&amp;quot;])\n        ).fetchone()\n        if row is None:\n            return jsonify({&amp;quot;error&amp;quot;: &amp;quot;not found&amp;quot;}), 404\n    \n        data = request.get_json(silent=True) or {}\n        title = data.get(&amp;quot;title&amp;quot;, row[&amp;quot;title&amp;quot;])\n        description = data.get(&amp;quot;description&amp;quot;, row[&amp;quot;description&amp;quot;])\n        category_id = data.get(&amp;quot;category_id&amp;quot;, row[&amp;quot;category_id&amp;quot;])\n        due_date = data.get(&amp;quot;due_date&amp;quot;, row[&amp;quot;due_date&amp;quot;])\n        done = data.get(&amp;quot;done&amp;quot;, bool(row[&amp;quot;done&amp;quot;]))\n        completed_at = row[&amp;quot;completed_at&amp;quot;]\n        if bool(done) and not row[&amp;quot;done&amp;quot;]:\n            completed_at = datetime.now().strftime(&amp;quot;%Y-%m-%d %H:%M:%S&amp;quot;)\n        elif not bool(done):\n            completed_at = None\n    \n&amp;gt;       db.execute(\n            &amp;quot;UPDATE tasks SET title=?, description=?, category_id=?, due_date=?, done=?, completed_at=? WHERE id=?&amp;quot;,\n            (title, description, category_id, due_date, int(bool(done)), completed_at, task_id),\n        )\nE       sqlite3.IntegrityError: NOT NULL constraint failed: tasks.title\n\n../../../src/app.py:445: IntegrityError\n&#34;}], &#34;tests/api/test_api_regression.py::test_invalid_due_date_is_rejected_and_list_still_works&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/api/test_api_regression.py::test_invalid_due_date_is_rejected_and_list_still_works&#34;, &#34;duration&#34;: &#34;59 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/api/test_api_regression.py::test_invalid_due_date_is_rejected_and_list_still_works&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;59 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;client = &amp;lt;FlaskClient &amp;lt;Flask &amp;#x27;app&amp;#x27;&amp;gt;&amp;gt;\napi_user = &amp;lt;function api_user.&amp;lt;locals&amp;gt;.register at 0x7fb375eae2a0&amp;gt;\n\n    @pytest.mark.smoke\n    @known_defect(&amp;quot;DEF-W4-003&amp;quot;)\n    @trace(&amp;quot;AUTO-API-021&amp;quot;, manual=[&amp;quot;API-49&amp;quot;, &amp;quot;API-50&amp;quot;], req=[&amp;quot;R-04&amp;quot;, &amp;quot;R-10&amp;quot;])\n    def test_invalid_due_date_is_rejected_and_list_still_works(client, api_user):\n        api_user()\n&amp;gt;       response = client.post(&amp;quot;/api/tasks&amp;quot;, json={&amp;quot;title&amp;quot;: &amp;quot;Invalid Date Test&amp;quot;, &amp;quot;due_date&amp;quot;: &amp;quot;not-a-date&amp;quot;})\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n\ntests/api/test_api_regression.py:272: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n/usr/local/lib/python3.13/site-packages/werkzeug/test.py:1171: in post\n    return self.open(*args, **kw)\n           ^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/testing.py:235: in open\n    response = super().open(\n/usr/local/lib/python3.13/site-packages/werkzeug/test.py:1120: in open\n    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)\n                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/werkzeug/test.py:992: in run_wsgi_app\n    rv = run_wsgi_app(self.application, environ, buffered=buffered)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/werkzeug/test.py:1268: in run_wsgi_app\n    app_rv = app(environ, start_response)\n             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:1498: in __call__\n    return self.wsgi_app(environ, start_response)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:1476: in wsgi_app\n    response = self.handle_exception(e)\n               ^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:1473: in wsgi_app\n    response = self.full_dispatch_request()\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:882: in full_dispatch_request\n    rv = self.handle_user_exception(e)\n         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:880: in full_dispatch_request\n    rv = self.dispatch_request()\n         ^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/site-packages/flask/app.py:865: in dispatch_request\n    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n../../../src/app.py:130: in wrapper\n    return f(*args, **kwargs)\n           ^^^^^^^^^^^^^^^^^^\n../../../src/app.py:420: in api_create_task\n    return jsonify(row_to_task(row, get_category_name(db, row[&amp;quot;category_id&amp;quot;]))), 201\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n../../../src/app.py:94: in row_to_task\n    &amp;quot;urgency&amp;quot;: compute_urgency(row[&amp;quot;due_date&amp;quot;]) if not row[&amp;quot;done&amp;quot;] else &amp;quot;Done&amp;quot;,\n               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n../../../src/helpers.py:31: in compute_urgency\n    due = datetime.strptime(due_date_str, &amp;quot;%Y-%m-%d&amp;quot;).date()\n          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n/usr/local/lib/python3.13/_strptime.py:789: in _strptime_datetime\n    tt, fraction, gmtoff_fraction = _strptime(data_string, format)\n                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ndata_string = &amp;#x27;not-a-date&amp;#x27;, format = &amp;#x27;%Y-%m-%d&amp;#x27;\n\n    def _strptime(data_string, format=&amp;quot;%a %b %d %H:%M:%S %Y&amp;quot;):\n        &amp;quot;&amp;quot;&amp;quot;Return a 2-tuple consisting of a time struct and an int containing\n        the number of microseconds based on the input string and the\n        format string.&amp;quot;&amp;quot;&amp;quot;\n    \n        for index, arg in enumerate([data_string, format]):\n            if not isinstance(arg, str):\n                msg = &amp;quot;strptime() argument {} must be str, not {}&amp;quot;\n                raise TypeError(msg.format(index, type(arg)))\n    \n        global _TimeRE_cache, _regex_cache\n        with _cache_lock:\n            locale_time = _TimeRE_cache.locale_time\n            if (_getlang() != locale_time.lang or\n                time.tzname != locale_time.tzname or\n                time.daylight != locale_time.daylight):\n                _TimeRE_cache = TimeRE()\n                _regex_cache.clear()\n                locale_time = _TimeRE_cache.locale_time\n            if len(_regex_cache) &amp;gt; _CACHE_MAX_SIZE:\n                _regex_cache.clear()\n            format_regex = _regex_cache.get(format)\n            if not format_regex:\n                try:\n                    format_regex = _TimeRE_cache.compile(format)\n                # KeyError raised when a bad format is found; can be specified as\n                # \\\\, in which case it was a stray % but with a space after it\n                except KeyError as err:\n                    bad_directive = err.args[0]\n                    del err\n                    bad_directive = bad_directive.replace(&amp;#x27;\\\\s&amp;#x27;, &amp;#x27;&amp;#x27;)\n                    if not bad_directive:\n                        raise ValueError(&amp;quot;stray %% in format &amp;#x27;%s&amp;#x27;&amp;quot; % format) from None\n                    bad_directive = bad_directive.replace(&amp;#x27;\\\\&amp;#x27;, &amp;#x27;&amp;#x27;, 1)\n                    raise ValueError(&amp;quot;&amp;#x27;%s&amp;#x27; is a bad directive in format &amp;#x27;%s&amp;#x27;&amp;quot; %\n                                        (bad_directive, format)) from None\n                _regex_cache[format] = format_regex\n        found = format_regex.match(data_string)\n        if not found:\n&amp;gt;           raise ValueError(&amp;quot;time data %r does not match format %r&amp;quot; %\n                             (data_string, format))\nE           ValueError: time data &amp;#x27;not-a-date&amp;#x27; does not match format &amp;#x27;%Y-%m-%d&amp;#x27;\n\n/usr/local/lib/python3.13/_strptime.py:555: ValueError\n&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-001]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-001]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-001]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-002]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-002]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-002]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-003]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-003]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-003]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-004]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-004]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-004]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-005]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-005]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-005]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;case = {&amp;#x27;id&amp;#x27;: &amp;#x27;TC-WB-005&amp;#x27;, &amp;#x27;function&amp;#x27;: &amp;#x27;is_valid_password&amp;#x27;, &amp;#x27;args&amp;#x27;: {&amp;#x27;password&amp;#x27;: &amp;#x27;abcdefgh&amp;#x27;}, &amp;#x27;expected&amp;#x27;: True, ...}\nhelpers_module = &amp;lt;module &amp;#x27;helpers&amp;#x27; from &amp;#x27;/home/claude/src/helpers.py&amp;#x27;&amp;gt;\nmonkeypatch = &amp;lt;_pytest.monkeypatch.MonkeyPatch object at 0x7fb375b6e0b0&amp;gt;\n\n    @pytest.mark.parametrize(&amp;quot;case&amp;quot;, _params())\n    def test_week2_case(case, helpers_module, monkeypatch):\n        if case[&amp;quot;clock&amp;quot;] == &amp;quot;date&amp;quot;:\n            class FixedDate(date):\n                @classmethod\n                def today(cls):\n                    return TODAY\n            monkeypatch.setattr(helpers_module, &amp;quot;date&amp;quot;, FixedDate)\n        elif case[&amp;quot;clock&amp;quot;] == &amp;quot;datetime&amp;quot;:\n            class FixedDateTime(datetime):\n                @classmethod\n                def now(cls, tz=None):\n                    return NOW\n            monkeypatch.setattr(helpers_module, &amp;quot;datetime&amp;quot;, FixedDateTime)\n    \n        function = getattr(helpers_module, case[&amp;quot;function&amp;quot;])\n        if case[&amp;quot;exception&amp;quot;]:\n            with pytest.raises(Exception) as error:\n                function(**case[&amp;quot;args&amp;quot;])\n            assert type(error.value).__name__ == case[&amp;quot;exception&amp;quot;]\n        else:\n            actual = function(**case[&amp;quot;args&amp;quot;])\n&amp;gt;           assert actual == case[&amp;quot;expected&amp;quot;], (\n                f&amp;quot;{case[&amp;#x27;id&amp;#x27;]} {case[&amp;#x27;function&amp;#x27;]}{case[&amp;#x27;args&amp;#x27;]}: &amp;quot;\n                f&amp;quot;expected {case[&amp;#x27;expected&amp;#x27;]!r}, observed {actual!r}&amp;quot;\n            )\nE           AssertionError: TC-WB-005 is_valid_password{&amp;#x27;password&amp;#x27;: &amp;#x27;abcdefgh&amp;#x27;}: expected True, observed False\nE           assert False == True\n\ntests/unit/test_unit_regression.py:71: AssertionError\n&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-006]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-006]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-006]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-007]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-007]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-007]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-008]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-008]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-008]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-009]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-009]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-009]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-010]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-010]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-010]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-011]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-011]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-011]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-012]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-012]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-012]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-013]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-013]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-013]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-014]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-014]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-014]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-015]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-015]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-015]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-016]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-016]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-016]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-017]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-017]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-017]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-018]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-018]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-018]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-019]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-019]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-019]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-020]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-020]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-020]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-021]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-021]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-021]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;case = {&amp;#x27;id&amp;#x27;: &amp;#x27;TC-WB-021&amp;#x27;, &amp;#x27;function&amp;#x27;: &amp;#x27;compute_urgency&amp;#x27;, &amp;#x27;args&amp;#x27;: {&amp;#x27;due_date_str&amp;#x27;: &amp;#x27;2026-10-07&amp;#x27;, &amp;#x27;today&amp;#x27;: datetime.date(2026, 10, 7)}, &amp;#x27;expected&amp;#x27;: &amp;#x27;Due Today&amp;#x27;, ...}\nhelpers_module = &amp;lt;module &amp;#x27;helpers&amp;#x27; from &amp;#x27;/home/claude/src/helpers.py&amp;#x27;&amp;gt;\nmonkeypatch = &amp;lt;_pytest.monkeypatch.MonkeyPatch object at 0x7fb375b58590&amp;gt;\n\n    @pytest.mark.parametrize(&amp;quot;case&amp;quot;, _params())\n    def test_week2_case(case, helpers_module, monkeypatch):\n        if case[&amp;quot;clock&amp;quot;] == &amp;quot;date&amp;quot;:\n            class FixedDate(date):\n                @classmethod\n                def today(cls):\n                    return TODAY\n            monkeypatch.setattr(helpers_module, &amp;quot;date&amp;quot;, FixedDate)\n        elif case[&amp;quot;clock&amp;quot;] == &amp;quot;datetime&amp;quot;:\n            class FixedDateTime(datetime):\n                @classmethod\n                def now(cls, tz=None):\n                    return NOW\n            monkeypatch.setattr(helpers_module, &amp;quot;datetime&amp;quot;, FixedDateTime)\n    \n        function = getattr(helpers_module, case[&amp;quot;function&amp;quot;])\n        if case[&amp;quot;exception&amp;quot;]:\n            with pytest.raises(Exception) as error:\n                function(**case[&amp;quot;args&amp;quot;])\n            assert type(error.value).__name__ == case[&amp;quot;exception&amp;quot;]\n        else:\n            actual = function(**case[&amp;quot;args&amp;quot;])\n&amp;gt;           assert actual == case[&amp;quot;expected&amp;quot;], (\n                f&amp;quot;{case[&amp;#x27;id&amp;#x27;]} {case[&amp;#x27;function&amp;#x27;]}{case[&amp;#x27;args&amp;#x27;]}: &amp;quot;\n                f&amp;quot;expected {case[&amp;#x27;expected&amp;#x27;]!r}, observed {actual!r}&amp;quot;\n            )\nE           AssertionError: TC-WB-021 compute_urgency{&amp;#x27;due_date_str&amp;#x27;: &amp;#x27;2026-10-07&amp;#x27;, &amp;#x27;today&amp;#x27;: datetime.date(2026, 10, 7)}: expected &amp;#x27;Due Today&amp;#x27;, observed &amp;#x27;Overdue&amp;#x27;\nE           assert &amp;#x27;Overdue&amp;#x27; == &amp;#x27;Due Today&amp;#x27;\nE             \nE             - Due Today\nE             + Overdue\n\ntests/unit/test_unit_regression.py:71: AssertionError\n&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-022]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-022]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-022]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-023]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-023]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-023]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-024]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-024]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-024]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-025]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-025]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-025]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-026]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-026]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-026]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-027]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-027]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-027]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-028]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-028]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-028]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-029]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-029]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-029]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-030]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-030]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-030]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-031]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-031]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-031]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-032]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-032]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-032]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;case = {&amp;#x27;id&amp;#x27;: &amp;#x27;TC-WB-032&amp;#x27;, &amp;#x27;function&amp;#x27;: &amp;#x27;completed_in_last_n_days&amp;#x27;, &amp;#x27;args&amp;#x27;: {&amp;#x27;completed_at_str&amp;#x27;: &amp;#x27;2026-10-07 12:00:00&amp;#x27;, &amp;#x27;now&amp;#x27;: datetime.datetime(2026, 10, 7, 12, 0)}, &amp;#x27;expected&amp;#x27;: True, ...}\nhelpers_module = &amp;lt;module &amp;#x27;helpers&amp;#x27; from &amp;#x27;/home/claude/src/helpers.py&amp;#x27;&amp;gt;\nmonkeypatch = &amp;lt;_pytest.monkeypatch.MonkeyPatch object at 0x7fb375b58750&amp;gt;\n\n    @pytest.mark.parametrize(&amp;quot;case&amp;quot;, _params())\n    def test_week2_case(case, helpers_module, monkeypatch):\n        if case[&amp;quot;clock&amp;quot;] == &amp;quot;date&amp;quot;:\n            class FixedDate(date):\n                @classmethod\n                def today(cls):\n                    return TODAY\n            monkeypatch.setattr(helpers_module, &amp;quot;date&amp;quot;, FixedDate)\n        elif case[&amp;quot;clock&amp;quot;] == &amp;quot;datetime&amp;quot;:\n            class FixedDateTime(datetime):\n                @classmethod\n                def now(cls, tz=None):\n                    return NOW\n            monkeypatch.setattr(helpers_module, &amp;quot;datetime&amp;quot;, FixedDateTime)\n    \n        function = getattr(helpers_module, case[&amp;quot;function&amp;quot;])\n        if case[&amp;quot;exception&amp;quot;]:\n            with pytest.raises(Exception) as error:\n                function(**case[&amp;quot;args&amp;quot;])\n            assert type(error.value).__name__ == case[&amp;quot;exception&amp;quot;]\n        else:\n            actual = function(**case[&amp;quot;args&amp;quot;])\n&amp;gt;           assert actual == case[&amp;quot;expected&amp;quot;], (\n                f&amp;quot;{case[&amp;#x27;id&amp;#x27;]} {case[&amp;#x27;function&amp;#x27;]}{case[&amp;#x27;args&amp;#x27;]}: &amp;quot;\n                f&amp;quot;expected {case[&amp;#x27;expected&amp;#x27;]!r}, observed {actual!r}&amp;quot;\n            )\nE           AssertionError: TC-WB-032 completed_in_last_n_days{&amp;#x27;completed_at_str&amp;#x27;: &amp;#x27;2026-10-07 12:00:00&amp;#x27;, &amp;#x27;now&amp;#x27;: datetime.datetime(2026, 10, 7, 12, 0)}: expected True, observed False\nE           assert False == True\n\ntests/unit/test_unit_regression.py:71: AssertionError\n&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-033]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-033]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-033]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-034]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-034]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-034]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;case = {&amp;#x27;id&amp;#x27;: &amp;#x27;TC-WB-034&amp;#x27;, &amp;#x27;function&amp;#x27;: &amp;#x27;completed_in_last_n_days&amp;#x27;, &amp;#x27;args&amp;#x27;: {&amp;#x27;completed_at_str&amp;#x27;: &amp;#x27;2026-09-30 12:00:00&amp;#x27;, &amp;#x27;now&amp;#x27;: datetime.datetime(2026, 10, 7, 12, 0)}, &amp;#x27;expected&amp;#x27;: True, ...}\nhelpers_module = &amp;lt;module &amp;#x27;helpers&amp;#x27; from &amp;#x27;/home/claude/src/helpers.py&amp;#x27;&amp;gt;\nmonkeypatch = &amp;lt;_pytest.monkeypatch.MonkeyPatch object at 0x7fb3761417f0&amp;gt;\n\n    @pytest.mark.parametrize(&amp;quot;case&amp;quot;, _params())\n    def test_week2_case(case, helpers_module, monkeypatch):\n        if case[&amp;quot;clock&amp;quot;] == &amp;quot;date&amp;quot;:\n            class FixedDate(date):\n                @classmethod\n                def today(cls):\n                    return TODAY\n            monkeypatch.setattr(helpers_module, &amp;quot;date&amp;quot;, FixedDate)\n        elif case[&amp;quot;clock&amp;quot;] == &amp;quot;datetime&amp;quot;:\n            class FixedDateTime(datetime):\n                @classmethod\n                def now(cls, tz=None):\n                    return NOW\n            monkeypatch.setattr(helpers_module, &amp;quot;datetime&amp;quot;, FixedDateTime)\n    \n        function = getattr(helpers_module, case[&amp;quot;function&amp;quot;])\n        if case[&amp;quot;exception&amp;quot;]:\n            with pytest.raises(Exception) as error:\n                function(**case[&amp;quot;args&amp;quot;])\n            assert type(error.value).__name__ == case[&amp;quot;exception&amp;quot;]\n        else:\n            actual = function(**case[&amp;quot;args&amp;quot;])\n&amp;gt;           assert actual == case[&amp;quot;expected&amp;quot;], (\n                f&amp;quot;{case[&amp;#x27;id&amp;#x27;]} {case[&amp;#x27;function&amp;#x27;]}{case[&amp;#x27;args&amp;#x27;]}: &amp;quot;\n                f&amp;quot;expected {case[&amp;#x27;expected&amp;#x27;]!r}, observed {actual!r}&amp;quot;\n            )\nE           AssertionError: TC-WB-034 completed_in_last_n_days{&amp;#x27;completed_at_str&amp;#x27;: &amp;#x27;2026-09-30 12:00:00&amp;#x27;, &amp;#x27;now&amp;#x27;: datetime.datetime(2026, 10, 7, 12, 0)}: expected True, observed False\nE           assert False == True\n\ntests/unit/test_unit_regression.py:71: AssertionError\n&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-035]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-035]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-035]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-036]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-036]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-036]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-037]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-037]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-037]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-038]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-038]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-038]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-039]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-039]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-039]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;case = {&amp;#x27;id&amp;#x27;: &amp;#x27;TC-WB-039&amp;#x27;, &amp;#x27;function&amp;#x27;: &amp;#x27;completed_in_last_n_days&amp;#x27;, &amp;#x27;args&amp;#x27;: {&amp;#x27;completed_at_str&amp;#x27;: &amp;#x27;2026-10-06 12:00:00&amp;#x27;, &amp;#x27;n&amp;#x27;: 1, &amp;#x27;now&amp;#x27;: datetime.datetime(2026, 10, 7, 12, 0)}, &amp;#x27;expected&amp;#x27;: True, ...}\nhelpers_module = &amp;lt;module &amp;#x27;helpers&amp;#x27; from &amp;#x27;/home/claude/src/helpers.py&amp;#x27;&amp;gt;\nmonkeypatch = &amp;lt;_pytest.monkeypatch.MonkeyPatch object at 0x7fb376183c40&amp;gt;\n\n    @pytest.mark.parametrize(&amp;quot;case&amp;quot;, _params())\n    def test_week2_case(case, helpers_module, monkeypatch):\n        if case[&amp;quot;clock&amp;quot;] == &amp;quot;date&amp;quot;:\n            class FixedDate(date):\n                @classmethod\n                def today(cls):\n                    return TODAY\n            monkeypatch.setattr(helpers_module, &amp;quot;date&amp;quot;, FixedDate)\n        elif case[&amp;quot;clock&amp;quot;] == &amp;quot;datetime&amp;quot;:\n            class FixedDateTime(datetime):\n                @classmethod\n                def now(cls, tz=None):\n                    return NOW\n            monkeypatch.setattr(helpers_module, &amp;quot;datetime&amp;quot;, FixedDateTime)\n    \n        function = getattr(helpers_module, case[&amp;quot;function&amp;quot;])\n        if case[&amp;quot;exception&amp;quot;]:\n            with pytest.raises(Exception) as error:\n                function(**case[&amp;quot;args&amp;quot;])\n            assert type(error.value).__name__ == case[&amp;quot;exception&amp;quot;]\n        else:\n            actual = function(**case[&amp;quot;args&amp;quot;])\n&amp;gt;           assert actual == case[&amp;quot;expected&amp;quot;], (\n                f&amp;quot;{case[&amp;#x27;id&amp;#x27;]} {case[&amp;#x27;function&amp;#x27;]}{case[&amp;#x27;args&amp;#x27;]}: &amp;quot;\n                f&amp;quot;expected {case[&amp;#x27;expected&amp;#x27;]!r}, observed {actual!r}&amp;quot;\n            )\nE           AssertionError: TC-WB-039 completed_in_last_n_days{&amp;#x27;completed_at_str&amp;#x27;: &amp;#x27;2026-10-06 12:00:00&amp;#x27;, &amp;#x27;n&amp;#x27;: 1, &amp;#x27;now&amp;#x27;: datetime.datetime(2026, 10, 7, 12, 0)}: expected True, observed False\nE           assert False == True\n\ntests/unit/test_unit_regression.py:71: AssertionError\n&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-040]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-040]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-040]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-041]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-041]&#34;, &#34;duration&#34;: &#34;0 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/unit/test_unit_regression.py::test_week2_case[TC-WB-041]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;0 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_register_form_signs_user_in&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_register_form_signs_user_in&#34;, &#34;duration&#34;: &#34;65 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_register_form_signs_user_in&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;65 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_register_form_rejects_invalid_character&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_register_form_rejects_invalid_character&#34;, &#34;duration&#34;: &#34;5 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_register_form_rejects_invalid_character&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;5 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_register_form_accepts_eight_char_password&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_register_form_accepts_eight_char_password&#34;, &#34;duration&#34;: &#34;4 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_register_form_accepts_eight_char_password&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;4 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;client = &amp;lt;FlaskClient &amp;lt;Flask &amp;#x27;app&amp;#x27;&amp;gt;&amp;gt;\n\n    @known_defect(&amp;quot;DEF-W1-001&amp;quot;)\n    @trace(&amp;quot;AUTO-WEB-003&amp;quot;, manual=[&amp;quot;TC-BB-007&amp;quot;], req=[&amp;quot;R-01&amp;quot;])\n    def test_register_form_accepts_eight_char_password(client):\n        response = register(client, &amp;quot;pw8user&amp;quot;, password=&amp;quot;abcdefgh&amp;quot;)\n&amp;gt;       assert response.status_code == 302, &amp;quot;Registration form re-displayed with an error&amp;quot;\nE       AssertionError: Registration form re-displayed with an error\nE       assert 200 == 302\nE        +  where 200 = &amp;lt;WrapperTestResponse streamed [200 OK]&amp;gt;.status_code\n\ntests/web/test_web_regression.py:72: AssertionError\n&#34;}], &#34;tests/web/test_web_regression.py::test_login_form_rejects_wrong_password&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_login_form_rejects_wrong_password&#34;, &#34;duration&#34;: &#34;104 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_login_form_rejects_wrong_password&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;104 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_logout_then_protected_page_redirects&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_logout_then_protected_page_redirects&#34;, &#34;duration&#34;: &#34;54 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_logout_then_protected_page_redirects&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;54 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_create_task_without_optional_fields&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_create_task_without_optional_fields&#34;, &#34;duration&#34;: &#34;56 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_create_task_without_optional_fields&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;56 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_whitespace_only_title_is_rejected&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_whitespace_only_title_is_rejected&#34;, &#34;duration&#34;: &#34;58 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_whitespace_only_title_is_rejected&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;58 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;client = &amp;lt;FlaskClient &amp;lt;Flask &amp;#x27;app&amp;#x27;&amp;gt;&amp;gt;\n\n    @pytest.mark.smoke\n    @known_defect(&amp;quot;DEF-W1-004&amp;quot;)\n    @trace(&amp;quot;AUTO-WEB-007&amp;quot;, manual=[&amp;quot;TC-BB-014&amp;quot;], req=[&amp;quot;R-04&amp;quot;])\n    def test_whitespace_only_title_is_rejected(client):\n        register(client, &amp;quot;taskuser&amp;quot;)\n        create(client, &amp;quot;   &amp;quot;)\n&amp;gt;       assert titles(client) == [], &amp;quot;A task with a blank title was created&amp;quot;\nE       AssertionError: A task with a blank title was created\nE       assert [&amp;#x27;&amp;#x27;] == []\nE         \nE         Left contains one more item: &amp;#x27;&amp;#x27;\nE         Use -v to get more diff\n\ntests/web/test_web_regression.py:110: AssertionError\n&#34;}], &#34;tests/web/test_web_regression.py::test_edit_changes_only_selected_task&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_edit_changes_only_selected_task&#34;, &#34;duration&#34;: &#34;61 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_edit_changes_only_selected_task&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;61 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_toggle_done_and_reopen_updates_dashboard&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_toggle_done_and_reopen_updates_dashboard&#34;, &#34;duration&#34;: &#34;65 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_toggle_done_and_reopen_updates_dashboard&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;65 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_delete_removes_only_selected_task&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_delete_removes_only_selected_task&#34;, &#34;duration&#34;: &#34;60 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_delete_removes_only_selected_task&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;60 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_each_user_sees_only_own_list&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_each_user_sees_only_own_list&#34;, &#34;duration&#34;: &#34;109 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_each_user_sees_only_own_list&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;109 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_urgency_badge_in_list[yesterday]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_urgency_badge_in_list[yesterday]&#34;, &#34;duration&#34;: &#34;62 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_urgency_badge_in_list[yesterday]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;62 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_urgency_badge_in_list[today]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_urgency_badge_in_list[today]&#34;, &#34;duration&#34;: &#34;69 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_urgency_badge_in_list[today]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;69 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;client = &amp;lt;FlaskClient &amp;lt;Flask &amp;#x27;app&amp;#x27;&amp;gt;&amp;gt;, offset = 0, label = &amp;#x27;Due Today&amp;#x27;\n\n    @pytest.mark.parametrize(&amp;quot;offset, label&amp;quot;, [\n        pytest.param(-1, &amp;quot;Overdue&amp;quot;, id=&amp;quot;yesterday&amp;quot;, marks=trace(&amp;quot;AUTO-WEB-012a&amp;quot;, manual=[&amp;quot;TC-BB-019&amp;quot;], req=[&amp;quot;R-07&amp;quot;])),\n        pytest.param(0, &amp;quot;Due Today&amp;quot;, id=&amp;quot;today&amp;quot;, marks=[\n            known_defect(&amp;quot;DEF-W1-002&amp;quot;), trace(&amp;quot;AUTO-WEB-012b&amp;quot;, manual=[&amp;quot;TC-BB-020&amp;quot;], req=[&amp;quot;R-07&amp;quot;])]),\n        pytest.param(3, &amp;quot;Upcoming&amp;quot;, id=&amp;quot;plus-3&amp;quot;, marks=trace(&amp;quot;AUTO-WEB-012c&amp;quot;, manual=[&amp;quot;TC-BB-023&amp;quot;], req=[&amp;quot;R-07&amp;quot;])),\n    ])\n    def test_urgency_badge_in_list(client, offset, label):\n        register(client, &amp;quot;dateuser&amp;quot;)\n        create(client, &amp;quot;Dated task&amp;quot;, due_date=due(offset))\n        badges = re.findall(r&amp;#x27;&amp;lt;span class=&amp;quot;badge [^&amp;quot;]*&amp;quot;&amp;gt;(.*?)&amp;lt;/span&amp;gt;&amp;#x27;, client.get(&amp;quot;/&amp;quot;).get_data(as_text=True))\n&amp;gt;       assert badges == [label]\nE       AssertionError: assert [&amp;#x27;Overdue&amp;#x27;] == [&amp;#x27;Due Today&amp;#x27;]\nE         \nE         At index 0 diff: &amp;#x27;Overdue&amp;#x27; != &amp;#x27;Due Today&amp;#x27;\nE         Use -v to get more diff\n\ntests/web/test_web_regression.py:168: AssertionError\n&#34;}], &#34;tests/web/test_web_regression.py::test_urgency_badge_in_list[plus-3]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_urgency_badge_in_list[plus-3]&#34;, &#34;duration&#34;: &#34;65 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_urgency_badge_in_list[plus-3]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;65 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_list_filters[work-open]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_list_filters[work-open]&#34;, &#34;duration&#34;: &#34;75 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_list_filters[work-open]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;75 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_list_filters[work-done]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_list_filters[work-done]&#34;, &#34;duration&#34;: &#34;74 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_list_filters[work-done]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;74 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_list_filters[personal-open]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_list_filters[personal-open]&#34;, &#34;duration&#34;: &#34;73 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_list_filters[personal-open]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;73 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_list_filters[any-done]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_list_filters[any-done]&#34;, &#34;duration&#34;: &#34;72 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_list_filters[any-done]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;72 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_list_filters[search]&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_list_filters[search]&#34;, &#34;duration&#34;: &#34;76 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_list_filters[search]&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;76 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}], &#34;tests/web/test_web_regression.py::test_new_task_fields_have_programmatic_labels&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;XFailed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_new_task_fields_have_programmatic_labels&#34;, &#34;duration&#34;: &#34;65 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;XFailed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_new_task_fields_have_programmatic_labels&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;65 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;client = &amp;lt;FlaskClient &amp;lt;Flask &amp;#x27;app&amp;#x27;&amp;gt;&amp;gt;\n\n    @pytest.mark.smoke\n    @known_defect(&amp;quot;DEF-W3-002&amp;quot;)\n    @trace(&amp;quot;AUTO-WEB-015&amp;quot;, manual=[&amp;quot;ACC-TC-008&amp;quot;], req=[&amp;quot;R-11&amp;quot;])\n    def test_new_task_fields_have_programmatic_labels(client):\n        &amp;quot;&amp;quot;&amp;quot;Each form control needs an id and a &amp;lt;label for=&amp;quot;that id&amp;quot;&amp;gt; (WCAG 1.3.1).&amp;quot;&amp;quot;&amp;quot;\n        register(client, &amp;quot;labeluser&amp;quot;)\n        html = client.get(&amp;quot;/tasks/new&amp;quot;).get_data(as_text=True)\n        label_targets = set(re.findall(r&amp;#x27;&amp;lt;label[^&amp;gt;]*\\bfor=&amp;quot;([^&amp;quot;]+)&amp;quot;&amp;#x27;, html))\n        for name in (&amp;quot;title&amp;quot;, &amp;quot;description&amp;quot;, &amp;quot;category_id&amp;quot;, &amp;quot;due_date&amp;quot;):\n            control = re.search(rf&amp;#x27;&amp;lt;(?:input|textarea|select)[^&amp;gt;]*\\bname=&amp;quot;{name}&amp;quot;[^&amp;gt;]*&amp;gt;&amp;#x27;, html).group(0)\n            control_id = re.search(r&amp;#x27;\\bid=&amp;quot;([^&amp;quot;]+)&amp;quot;&amp;#x27;, control)\n&amp;gt;           assert control_id and control_id.group(1) in label_targets, f&amp;quot;&amp;#x27;{name}&amp;#x27; has no associated label&amp;quot;\nE           AssertionError: &amp;#x27;title&amp;#x27; has no associated label\nE           assert (None)\n\ntests/web/test_web_regression.py:214: AssertionError\n&#34;}], &#34;tests/web/test_web_regression.py::test_dashboard_page_counters&#34;: [{&#34;extras&#34;: [], &#34;result&#34;: &#34;Passed&#34;, &#34;testId&#34;: &#34;tests/web/test_web_regression.py::test_dashboard_page_counters&#34;, &#34;duration&#34;: &#34;77 ms&#34;, &#34;resultsTableRow&#34;: [&#34;&lt;td class=\&#34;col-result\&#34;&gt;Passed&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-testId\&#34;&gt;tests/web/test_web_regression.py::test_dashboard_page_counters&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-duration\&#34;&gt;77 ms&lt;/td&gt;&#34;, &#34;&lt;td class=\&#34;col-links\&#34;&gt;&lt;/td&gt;&#34;], &#34;log&#34;: &#34;No log output captured.&#34;}]}, &#34;renderCollapsed&#34;: [&#34;passed&#34;], &#34;initialSort&#34;: &#34;result&#34;, &#34;title&#34;: &#34;report.html&#34;}"></div>
+    <script>
+      (function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({1:[function(require,module,exports){
+const { getCollapsedCategory, setCollapsedIds } = require('./storage.js')
+
+class DataManager {
+    setManager(data) {
+        const collapsedCategories = [...getCollapsedCategory(data.renderCollapsed)]
+        const collapsedIds = []
+        const tests = Object.values(data.tests).flat().map((test, index) => {
+            const collapsed = collapsedCategories.includes(test.result.toLowerCase())
+            const id = `test_${index}`
+            if (collapsed) {
+                collapsedIds.push(id)
+            }
+            return {
+                ...test,
+                id,
+                collapsed,
+            }
+        })
+        const dataBlob = { ...data, tests }
+        this.data = { ...dataBlob }
+        this.renderData = { ...dataBlob }
+        setCollapsedIds(collapsedIds)
+    }
+
+    get allData() {
+        return { ...this.data }
+    }
+
+    resetRender() {
+        this.renderData = { ...this.data }
+    }
+
+    setRender(data) {
+        this.renderData.tests = [...data]
+    }
+
+    toggleCollapsedItem(id) {
+        this.renderData.tests = this.renderData.tests.map((test) =>
+            test.id === id ? { ...test, collapsed: !test.collapsed } : test,
+        )
+    }
+
+    set allCollapsed(collapsed) {
+        this.renderData = { ...this.renderData, tests: [...this.renderData.tests.map((test) => (
+            { ...test, collapsed }
+        ))] }
+    }
+
+    get testSubset() {
+        return [...this.renderData.tests]
+    }
+
+    get environment() {
+        return this.renderData.environment
+    }
+
+    get initialSort() {
+        return this.data.initialSort
+    }
+}
+
+module.exports = {
+    manager: new DataManager(),
+}
+
+},{"./storage.js":8}],2:[function(require,module,exports){
+const mediaViewer = require('./mediaviewer.js')
+const templateEnvRow = document.getElementById('template_environment_row')
+const templateResult = document.getElementById('template_results-table__tbody')
+
+function htmlToElements(html) {
+    const temp = document.createElement('template')
+    temp.innerHTML = html
+    return temp.content.childNodes
+}
+
+const find = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return elem.querySelector(selector)
+}
+
+const findAll = (selector, elem) => {
+    if (!elem) {
+        elem = document
+    }
+    return [...elem.querySelectorAll(selector)]
+}
+
+const dom = {
+    getStaticRow: (key, value) => {
+        const envRow = templateEnvRow.content.cloneNode(true)
+        const isObj = typeof value === 'object' && value !== null
+        const values = isObj ? Object.keys(value).map((k) => `${k}: ${value[k]}`) : null
+
+        const valuesElement = htmlToElements(
+            values ? `<ul>${values.map((val) => `<li>${val}</li>`).join('')}<ul>` : `<div>${value}</div>`)[0]
+        const td = findAll('td', envRow)
+        td[0].textContent = key
+        td[1].appendChild(valuesElement)
+
+        return envRow
+    },
+    getResultTBody: ({ testId, id, log, extras, resultsTableRow, tableHtml, result, collapsed }) => {
+        const resultBody = templateResult.content.cloneNode(true)
+        resultBody.querySelector('tbody').classList.add(result.toLowerCase())
+        resultBody.querySelector('tbody').id = testId
+        resultBody.querySelector('.collapsible').dataset.id = id
+
+        resultsTableRow.forEach((html) => {
+            const t = document.createElement('template')
+            t.innerHTML = html
+            resultBody.querySelector('.collapsible').appendChild(t.content)
+        })
+
+        if (log) {
+            // Wrap lines starting with "E" with span.error to color those lines red
+            const wrappedLog = log.replace(/^E.*$/gm, (match) => `<span class="error">${match}</span>`)
+            resultBody.querySelector('.log').innerHTML = wrappedLog
+        } else {
+            resultBody.querySelector('.log').remove()
+        }
+
+        if (collapsed) {
+            resultBody.querySelector('.collapsible > .col-result')?.classList.add('collapsed')
+            resultBody.querySelector('.extras-row').classList.add('hidden')
+        } else {
+            resultBody.querySelector('.collapsible > .col-result')?.classList.remove('collapsed')
+        }
+
+        const media = []
+        extras?.forEach(({ name, format_type, content }) => {
+            if (['image', 'video'].includes(format_type)) {
+                media.push({ path: content, name, format_type })
+            }
+
+            if (format_type === 'html') {
+                resultBody.querySelector('.extraHTML').insertAdjacentHTML('beforeend', `<div>${content}</div>`)
+            }
+        })
+        mediaViewer.setup(resultBody, media)
+
+        // Add custom html from the pytest_html_results_table_html hook
+        tableHtml?.forEach((item) => {
+            resultBody.querySelector('td[class="extra"]').insertAdjacentHTML('beforeend', item)
+        })
+
+        return resultBody
+    },
+}
+
+module.exports = {
+    dom,
+    htmlToElements,
+    find,
+    findAll,
+}
+
+},{"./mediaviewer.js":6}],3:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const storageModule = require('./storage.js')
+
+const getFilteredSubSet = (filter) =>
+    manager.allData.tests.filter(({ result }) => filter.includes(result.toLowerCase()))
+
+const doInitFilter = () => {
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+}
+
+const doFilter = (type, show) => {
+    if (show) {
+        storageModule.showCategory(type)
+    } else {
+        storageModule.hideCategory(type)
+    }
+
+    const currentFilter = storageModule.getVisible()
+    const filteredSubset = getFilteredSubSet(currentFilter)
+    manager.setRender(filteredSubset)
+
+    const sortColumn = storageModule.getSort()
+    doSort(sortColumn, true)
+}
+
+module.exports = {
+    doFilter,
+    doInitFilter,
+}
+
+},{"./datamanager.js":1,"./sort.js":7,"./storage.js":8}],4:[function(require,module,exports){
+const { redraw, bindEvents, renderStatic } = require('./main.js')
+const { doInitFilter } = require('./filter.js')
+const { doInitSort } = require('./sort.js')
+const { manager } = require('./datamanager.js')
+const data = JSON.parse(document.getElementById('data-container').dataset.jsonblob)
+
+function init() {
+    manager.setManager(data)
+    doInitFilter()
+    doInitSort()
+    renderStatic()
+    redraw()
+    bindEvents()
+}
+
+init()
+
+},{"./datamanager.js":1,"./filter.js":3,"./main.js":5,"./sort.js":7}],5:[function(require,module,exports){
+const { dom, find, findAll } = require('./dom.js')
+const { manager } = require('./datamanager.js')
+const { doSort } = require('./sort.js')
+const { doFilter } = require('./filter.js')
+const {
+    getVisible,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    getSortDirection,
+    possibleFilters,
+} = require('./storage.js')
+
+const removeChildren = (node) => {
+    while (node.firstChild) {
+        node.removeChild(node.firstChild)
+    }
+}
+
+const renderStatic = () => {
+    const renderEnvironmentTable = () => {
+        const environment = manager.environment
+        const rows = Object.keys(environment).map((key) => dom.getStaticRow(key, environment[key]))
+        const table = document.getElementById('environment')
+        removeChildren(table)
+        rows.forEach((row) => table.appendChild(row))
+    }
+    renderEnvironmentTable()
+}
+
+const addItemToggleListener = (elem) => {
+    elem.addEventListener('click', ({ target }) => {
+        const id = target.parentElement.dataset.id
+        manager.toggleCollapsedItem(id)
+
+        const collapsedIds = getCollapsedIds()
+        if (collapsedIds.includes(id)) {
+            const updated = collapsedIds.filter((item) => item !== id)
+            setCollapsedIds(updated)
+        } else {
+            collapsedIds.push(id)
+            setCollapsedIds(collapsedIds)
+        }
+        redraw()
+    })
+}
+
+const renderContent = (tests) => {
+    const sortAttr = getSort(manager.initialSort)
+    const sortAsc = JSON.parse(getSortDirection())
+    const rows = tests.map(dom.getResultTBody)
+    const table = document.getElementById('results-table')
+    const tableHeader = document.getElementById('results-table-head')
+
+    const newTable = document.createElement('table')
+    newTable.id = 'results-table'
+
+    // remove all sorting classes and set the relevant
+    findAll('.sortable', tableHeader).forEach((elem) => elem.classList.remove('asc', 'desc'))
+    tableHeader.querySelector(`.sortable[data-column-type="${sortAttr}"]`)?.classList.add(sortAsc ? 'desc' : 'asc')
+    newTable.appendChild(tableHeader)
+
+    if (!rows.length) {
+        const emptyTable = document.getElementById('template_results-table__body--empty').content.cloneNode(true)
+        newTable.appendChild(emptyTable)
+    } else {
+        rows.forEach((row) => {
+            if (!!row) {
+                findAll('.collapsible td:not(.col-links', row).forEach(addItemToggleListener)
+                find('.logexpander', row).addEventListener('click',
+                    (evt) => evt.target.parentNode.classList.toggle('expanded'),
+                )
+                newTable.appendChild(row)
+            }
+        })
+    }
+
+    table.replaceWith(newTable)
+}
+
+const renderDerived = () => {
+    const currentFilter = getVisible()
+    possibleFilters.forEach((result) => {
+        const input = document.querySelector(`input[data-test-result="${result}"]`)
+        input.checked = currentFilter.includes(result)
+    })
+}
+
+const bindEvents = () => {
+    const filterColumn = (evt) => {
+        const { target: element } = evt
+        const { testResult } = element.dataset
+
+        doFilter(testResult, element.checked)
+        const collapsedIds = getCollapsedIds()
+        const updated = manager.renderData.tests.map((test) => {
+            return {
+                ...test,
+                collapsed: collapsedIds.includes(test.id),
+            }
+        })
+        manager.setRender(updated)
+        redraw()
+    }
+
+    const header = document.getElementById('environment-header')
+    header.addEventListener('click', () => {
+        const table = document.getElementById('environment')
+        table.classList.toggle('hidden')
+        header.classList.toggle('collapsed')
+    })
+
+    findAll('input[name="filter_checkbox"]').forEach((elem) => {
+        elem.addEventListener('click', filterColumn)
+    })
+
+    findAll('.sortable').forEach((elem) => {
+        elem.addEventListener('click', (evt) => {
+            const { target: element } = evt
+            const { columnType } = element.dataset
+            doSort(columnType)
+            redraw()
+        })
+    })
+
+    document.getElementById('show_all_details').addEventListener('click', () => {
+        manager.allCollapsed = false
+        setCollapsedIds([])
+        redraw()
+    })
+    document.getElementById('hide_all_details').addEventListener('click', () => {
+        manager.allCollapsed = true
+        const allIds = manager.renderData.tests.map((test) => test.id)
+        setCollapsedIds(allIds)
+        redraw()
+    })
+}
+
+const redraw = () => {
+    const { testSubset } = manager
+
+    renderContent(testSubset)
+    renderDerived()
+}
+
+module.exports = {
+    redraw,
+    bindEvents,
+    renderStatic,
+}
+
+},{"./datamanager.js":1,"./dom.js":2,"./filter.js":3,"./sort.js":7,"./storage.js":8}],6:[function(require,module,exports){
+class MediaViewer {
+    constructor(assets) {
+        this.assets = assets
+        this.index = 0
+    }
+
+    nextActive() {
+        this.index = this.index === this.assets.length - 1 ? 0 : this.index + 1
+        return [this.activeFile, this.index]
+    }
+
+    prevActive() {
+        this.index = this.index === 0 ? this.assets.length - 1 : this.index -1
+        return [this.activeFile, this.index]
+    }
+
+    get currentIndex() {
+        return this.index
+    }
+
+    get activeFile() {
+        return this.assets[this.index]
+    }
+}
+
+
+const setup = (resultBody, assets) => {
+    if (!assets.length) {
+        resultBody.querySelector('.media').classList.add('hidden')
+        return
+    }
+
+    const mediaViewer = new MediaViewer(assets)
+    const container = resultBody.querySelector('.media-container')
+    const leftArrow = resultBody.querySelector('.media-container__nav--left')
+    const rightArrow = resultBody.querySelector('.media-container__nav--right')
+    const mediaName = resultBody.querySelector('.media__name')
+    const counter = resultBody.querySelector('.media__counter')
+    const imageEl = resultBody.querySelector('img')
+    const sourceEl = resultBody.querySelector('source')
+    const videoEl = resultBody.querySelector('video')
+
+    const setImg = (media, index) => {
+        if (media?.format_type === 'image') {
+            imageEl.src = media.path
+
+            imageEl.classList.remove('hidden')
+            videoEl.classList.add('hidden')
+        } else if (media?.format_type === 'video') {
+            sourceEl.src = media.path
+
+            videoEl.classList.remove('hidden')
+            imageEl.classList.add('hidden')
+        }
+
+        mediaName.innerText = media?.name
+        counter.innerText = `${index + 1} / ${assets.length}`
+    }
+    setImg(mediaViewer.activeFile, mediaViewer.currentIndex)
+
+    const moveLeft = () => {
+        const [media, index] = mediaViewer.prevActive()
+        setImg(media, index)
+    }
+    const doRight = () => {
+        const [media, index] = mediaViewer.nextActive()
+        setImg(media, index)
+    }
+    const openImg = () => {
+        window.open(mediaViewer.activeFile.path, '_blank')
+    }
+    if (assets.length === 1) {
+        container.classList.add('media-container--fullscreen')
+    } else {
+        leftArrow.addEventListener('click', moveLeft)
+        rightArrow.addEventListener('click', doRight)
+    }
+    imageEl.addEventListener('click', openImg)
+}
+
+module.exports = {
+    setup,
+}
+
+},{}],7:[function(require,module,exports){
+const { manager } = require('./datamanager.js')
+const storageModule = require('./storage.js')
+
+const genericSort = (list, key, ascending, customOrder) => {
+    let sorted
+    if (customOrder) {
+        sorted = list.sort((a, b) => {
+            const aValue = a.result.toLowerCase()
+            const bValue = b.result.toLowerCase()
+
+            const aIndex = customOrder.findIndex((item) => item.toLowerCase() === aValue)
+            const bIndex = customOrder.findIndex((item) => item.toLowerCase() === bValue)
+
+            // Compare the indices to determine the sort order
+            return aIndex - bIndex
+        })
+    } else {
+        sorted = list.sort((a, b) => a[key] === b[key] ? 0 : a[key] > b[key] ? 1 : -1)
+    }
+
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const durationSort = (list, ascending) => {
+    const parseDuration = (duration) => {
+        if (duration.includes(':')) {
+            // If it's in the format "HH:mm:ss"
+            const [hours, minutes, seconds] = duration.split(':').map(Number)
+            return (hours * 3600 + minutes * 60 + seconds) * 1000
+        } else {
+            // If it's in the format "nnn ms"
+            return parseInt(duration)
+        }
+    }
+    const sorted = list.sort((a, b) => parseDuration(a['duration']) - parseDuration(b['duration']))
+    if (ascending) {
+        sorted.reverse()
+    }
+    return sorted
+}
+
+const doInitSort = () => {
+    const type = storageModule.getSort(manager.initialSort)
+    const ascending = storageModule.getSortDirection()
+    const list = manager.testSubset
+    const initialOrder = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed', 'Skipped', 'Passed']
+
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    if (type?.toLowerCase() === 'original') {
+        manager.setRender(list)
+    } else {
+        let sortedList
+        switch (type) {
+        case 'duration':
+            sortedList = durationSort(list, ascending)
+            break
+        case 'result':
+            sortedList = genericSort(list, type, ascending, initialOrder)
+            break
+        default:
+            sortedList = genericSort(list, type, ascending)
+            break
+        }
+        manager.setRender(sortedList)
+    }
+}
+
+const doSort = (type, skipDirection) => {
+    const newSortType = storageModule.getSort(manager.initialSort) !== type
+    const currentAsc = storageModule.getSortDirection()
+    let ascending
+    if (skipDirection) {
+        ascending = currentAsc
+    } else {
+        ascending = newSortType ? false : !currentAsc
+    }
+    storageModule.setSort(type)
+    storageModule.setSortDirection(ascending)
+
+    const list = manager.testSubset
+    const sortedList = type === 'duration' ? durationSort(list, ascending) : genericSort(list, type, ascending)
+    manager.setRender(sortedList)
+}
+
+module.exports = {
+    doInitSort,
+    doSort,
+}
+
+},{"./datamanager.js":1,"./storage.js":8}],8:[function(require,module,exports){
+const possibleFilters = [
+    'passed',
+    'skipped',
+    'failed',
+    'error',
+    'xfailed',
+    'xpassed',
+    'rerun',
+]
+
+const getVisible = () => {
+    const url = new URL(window.location.href)
+    const settings = new URLSearchParams(url.search).get('visible')
+    const lower = (item) => {
+        const lowerItem = item.toLowerCase()
+        if (possibleFilters.includes(lowerItem)) {
+            return lowerItem
+        }
+        return null
+    }
+    return settings === null ?
+        possibleFilters :
+        [...new Set(settings?.split(',').map(lower).filter((item) => item))]
+}
+
+const hideCategory = (categoryToHide) => {
+    const url = new URL(window.location.href)
+    const visibleParams = new URLSearchParams(url.search).get('visible')
+    const currentVisible = visibleParams ? visibleParams.split(',') : [...possibleFilters]
+    const settings = [...new Set(currentVisible)].filter((f) => f !== categoryToHide).join(',')
+
+    url.searchParams.set('visible', settings)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const showCategory = (categoryToShow) => {
+    if (typeof window === 'undefined') {
+        return
+    }
+    const url = new URL(window.location.href)
+    const currentVisible = new URLSearchParams(url.search).get('visible')?.split(',').filter(Boolean) ||
+        [...possibleFilters]
+    const settings = [...new Set([categoryToShow, ...currentVisible])]
+    const noFilter = possibleFilters.length === settings.length || !settings.length
+
+    noFilter ? url.searchParams.delete('visible') : url.searchParams.set('visible', settings.join(','))
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getSort = (initialSort) => {
+    const url = new URL(window.location.href)
+    let sort = new URLSearchParams(url.search).get('sort')
+    if (!sort) {
+        sort = initialSort || 'result'
+    }
+    return sort
+}
+
+const setSort = (type) => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('sort', type)
+    window.history.pushState({}, null, unescape(url.href))
+}
+
+const getCollapsedCategory = (renderCollapsed) => {
+    let categories
+    if (typeof window !== 'undefined') {
+        const url = new URL(window.location.href)
+        const collapsedItems = new URLSearchParams(url.search).get('collapsed')
+        switch (true) {
+        case !renderCollapsed && collapsedItems === null:
+            categories = ['passed']
+            break
+        case collapsedItems?.length === 0 || /^["']{2}$/.test(collapsedItems):
+            categories = []
+            break
+        case /^all$/.test(collapsedItems) || collapsedItems === null && /^all$/.test(renderCollapsed):
+            categories = [...possibleFilters]
+            break
+        default:
+            categories = collapsedItems?.split(',').map((item) => item.toLowerCase()) || renderCollapsed
+            break
+        }
+    } else {
+        categories = []
+    }
+    return categories
+}
+
+const getSortDirection = () => JSON.parse(sessionStorage.getItem('sortAsc')) || false
+const setSortDirection = (ascending) => sessionStorage.setItem('sortAsc', ascending)
+
+const getCollapsedIds = () => JSON.parse(sessionStorage.getItem('collapsedIds')) || []
+const setCollapsedIds = (list) => sessionStorage.setItem('collapsedIds', JSON.stringify(list))
+
+module.exports = {
+    getVisible,
+    hideCategory,
+    showCategory,
+    getCollapsedIds,
+    setCollapsedIds,
+    getSort,
+    setSort,
+    getSortDirection,
+    setSortDirection,
+    getCollapsedCategory,
+    possibleFilters,
+}
+
+},{}]},{},[4]);
+    </script>
+  </footer>
+  </body>
+</html>

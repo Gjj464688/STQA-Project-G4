@@ -1,0 +1,191 @@
+============================= test session starts ==============================
+platform linux -- Python 3.13.18, pytest-9.1.1, pluggy-1.6.0
+PyTodo Pro under test: /home/claude/src (matches Week 1/2 baseline)
+rootdir: /home/claude/work/STQA_Week5_6/06_Automation_Regression
+configfile: pytest.ini
+testpaths: tests
+plugins: platformdirs-4.13.5, anyio-4.15.1, metadata-3.1.1, html-4.2.0
+collected 99 items / 75 deselected / 24 selected
+
+tests/api/test_api_regression.py .x.....x.                               [ 37%]
+tests/ui/test_ui_regression.py ..E                                       [ 50%]
+tests/unit/test_unit_regression.py x..x..x                               [ 79%]
+tests/web/test_web_regression.py ..x..                                   [100%]
+
+==================================== ERRORS ====================================
+_________________ ERROR at setup of test_mark_done_and_reopen __________________
+
+auth = <pages.auth_page.AuthPage object at 0x7f0ccc20a0d0>
+unique_name = <function unique_name.<locals>.make at 0x7f0ccc2109a0>
+
+    @pytest.fixture
+    def signed_in(auth, unique_name):
+        username = unique_name()
+>       auth.register(username, PASSWORD)
+
+tests/ui/test_ui_regression.py:36: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/ui/pages/auth_page.py:20: in register
+    self._submit("/register", username, password, "Register")
+tests/ui/pages/auth_page.py:17: in _submit
+    click_and_wait_for_new_page(self.driver, button_el)
+tests/ui/pages/waits.py:18: in click_and_wait_for_new_page
+    WebDriverWait(driver, TIMEOUT_S).until(EC.staleness_of(old_page))
+/usr/local/lib/python3.13/site-packages/selenium/webdriver/support/wait.py:112: in until
+    value = method(self._driver)
+            ^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/selenium/webdriver/support/expected_conditions.py:546: in _predicate
+    element.is_enabled()
+/usr/local/lib/python3.13/site-packages/selenium/webdriver/remote/webelement.py:238: in is_enabled
+    return self._execute(Command.IS_ELEMENT_ENABLED)["value"]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/selenium/webdriver/remote/webelement.py:532: in _execute
+    return self._parent.execute(command, params)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+/usr/local/lib/python3.13/site-packages/selenium/webdriver/remote/webdriver.py:569: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x7f0ccc209590>
+response = {'status': 500, 'value': '{"value":{"error":"unknown error","message":"unknown error: unhandled inspector error: {\\"c...\\n#24 0x561cda288353 \\u003Cunknown>\\n#25 0x7fafbc49cb64 \\u003Cunknown>\\n#26 0x7fafbc529e8c \\u003Cunknown>\\n"}}'}
+
+    def check_response(self, response: dict[str, Any]) -> None:
+        """Check that a JSON response from the WebDriver does not have an error.
+    
+        Args:
+            response: The JSON response from the WebDriver server as a dictionary
+                object.
+    
+        Raises:
+            WebDriverException: If the response contains an error message.
+        """
+        status = response.get("status", None)
+        if not status or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen: str = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get("value", None)
+            if value_json and isinstance(value_json, str):
+                try:
+                    value = json.loads(value_json)
+                    if isinstance(value, dict):
+                        if len(value) == 1:
+                            value = value["value"]
+                        status = value.get("error", None)
+                        if not status:
+                            status = value.get("status", ErrorCode.UNKNOWN_ERROR)
+                            message = value.get("value") or value.get("message")
+                            if not isinstance(message, str):
+                                value = message
+                                message = message.get("message") if isinstance(message, dict) else None
+                        else:
+                            message = value.get("message", None)
+                except ValueError:
+                    pass
+    
+        exception_class: type[WebDriverException]
+        e = ErrorCode()
+        error_codes = [item for item in dir(e) if not item.startswith("__")]
+        for error_code in error_codes:
+            error_info = getattr(ErrorCode, error_code)
+            if isinstance(error_info, list) and status in error_info:
+                exception_class = getattr(ExceptionMapping, error_code, WebDriverException)
+                break
+        else:
+            exception_class = WebDriverException
+    
+        if not value:
+            value = response.get("value")
+        if isinstance(value, str):
+            raise exception_class(value)
+        if isinstance(value, dict):
+            if message == "" and "message" in value:
+                message = value["message"]
+    
+            screen = None  # type: ignore[assignment]
+            if "screen" in value:
+                screen = value["screen"]
+    
+            stacktrace = None
+            st_value = value.get("stackTrace") or value.get("stacktrace")
+            if st_value:
+                if isinstance(st_value, str):
+                    stacktrace = st_value.split("\n")
+                else:
+                    stacktrace = []
+                    try:
+                        for frame in st_value:
+                            line = frame.get("lineNumber", "")
+                            file = frame.get("fileName", "<anonymous>")
+                            if line:
+                                file = f"{file}:{line}"
+                            meth = frame.get("methodName", "<anonymous>")
+                            if "className" in frame:
+                                meth = f"{frame['className']}.{meth}"
+                            msg = "    at %s (%s)"
+                            msg = msg % (meth, file)
+                            stacktrace.append(msg)
+                    except TypeError:
+                        pass
+        if exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if isinstance(value, dict):
+                if "data" in value:
+                    alert_text = value["data"].get("text")
+                elif "alert" in value:
+                    alert_text = value["alert"].get("text")
+            raise exception_class(message, screen, stacktrace, alert_text)
+>       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.WebDriverException: Message: unknown error: unhandled inspector error: {"code":-32000,"message":"Node with given id does not belong to the document"}
+E         (Session info: chrome=153.0.8010.12)
+E       Stacktrace:
+E       #0 0x561cda2899fa <unknown>
+E       #1 0x561cd9bbf5b9 <unknown>
+E       #2 0x561cd9ba6355 <unknown>
+E       #3 0x561cd9ba480b <unknown>
+E       #4 0x561cd9ba51ef <unknown>
+E       #5 0x561cd9bd1e8e <unknown>
+E       #6 0x561cd9bd46ee <unknown>
+E       #7 0x561cd9bd3061 <unknown>
+E       #8 0x561cd9bc7259 <unknown>
+E       #9 0x561cd9bc5419 <unknown>
+E       #10 0x561cd9bc907b <unknown>
+E       #11 0x561cd9bc9123 <unknown>
+E       #12 0x561cd9c12049 <unknown>
+E       #13 0x561cd9c0a3e7 <unknown>
+E       #14 0x561cd9c5f8de <unknown>
+E       #15 0x561cd9c08b8b <unknown>
+E       #16 0x561cd9c09971 <unknown>
+E       #17 0x561cda24c667 <unknown>
+E       #18 0x561cda24ae95 <unknown>
+E       #19 0x561cda235f55 <unknown>
+E       #20 0x561cda24baea <unknown>
+E       #21 0x561cda21e6c9 <unknown>
+E       #22 0x561cda2739a8 <unknown>
+E       #23 0x561cda273b45 <unknown>
+E       #24 0x561cda288353 <unknown>
+E       #25 0x7fafbc49cb64 <unknown>
+E       #26 0x7fafbc529e8c <unknown>
+
+/usr/local/lib/python3.13/site-packages/selenium/webdriver/remote/errorhandler.py:234: WebDriverException
+---------------------------- Captured stderr setup -----------------------------
+127.0.0.1 - - [25/Nov/2026 00:08:18] "GET /register HTTP/1.1" 200 -
+127.0.0.1 - - [25/Nov/2026 00:08:18] "GET /static/style.css HTTP/1.1" 200 -
+127.0.0.1 - - [25/Nov/2026 00:08:18] "GET /favicon.ico HTTP/1.1" 404 -
+127.0.0.1 - - [25/Nov/2026 00:08:18] "POST /register HTTP/1.1" 302 -
+127.0.0.1 - - [25/Nov/2026 00:08:18] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [25/Nov/2026 00:08:18] "GET /static/style.css HTTP/1.1" 304 -
+- generated xml file: /home/claude/work/STQA_Week5_6/06_Automation_Regression/evidence/20261125-000814_smoke_agent-run-1/junit.xml -
+- Generated html report: file:///home/claude/work/STQA_Week5_6/06_Automation_Regression/evidence/20261125-000814_smoke_agent-run-1/report.html -
+=========================== short test summary info ============================
+XFAIL tests/api/test_api_regression.py::test_register_accepts_eight_char_password - DEF-W1-001 is open; this test confirms it is still present
+XFAIL tests/api/test_api_regression.py::test_urgency_label[today] - DEF-W1-002 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-005] - DEF-W1-001 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-021] - DEF-W1-002 is open; this test confirms it is still present
+XFAIL tests/unit/test_unit_regression.py::test_week2_case[TC-WB-034] - DEF-W2-001 is open; this test confirms it is still present
+XFAIL tests/web/test_web_regression.py::test_whitespace_only_title_is_rejected - DEF-W1-004 is open; this test confirms it is still present
+ERROR tests/ui/test_ui_regression.py::test_mark_done_and_reopen - selenium.co...
+============ 17 passed, 75 deselected, 6 xfailed, 1 error in 4.40s =============

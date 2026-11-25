@@ -1,0 +1,93 @@
+{
+  "label": "experiment-B-simulated-regression-temp-copy",
+  "suite": "full",
+  "ui_included": true,
+  "marker_expression": "(all tests)",
+  "started": "2026-11-25T18:59:30+08:00",
+  "finished": "2026-11-25T18:59:46+08:00",
+  "duration_s": 16.2,
+  "pytest_exit_code": 1,
+  "verdict": "ATTENTION",
+  "counts": {
+    "PASS": 85,
+    "XFAIL": 16,
+    "FAIL": 3
+  },
+  "total": 104,
+  "counts_by_layer": {
+    "api": {
+      "PASS": 29,
+      "XFAIL": 5
+    },
+    "ui": {
+      "PASS": 5,
+      "XFAIL": 2,
+      "FAIL": 1
+    },
+    "unit": {
+      "PASS": 36,
+      "XFAIL": 5
+    },
+    "web": {
+      "PASS": 15,
+      "XFAIL": 4,
+      "FAIL": 2
+    }
+  },
+  "known_defects_still_present": [
+    "DEF-W1-001",
+    "DEF-W1-002",
+    "DEF-W1-004",
+    "DEF-W2-001",
+    "DEF-W3-001",
+    "DEF-W3-002",
+    "DEF-W4-001",
+    "DEF-W4-002",
+    "DEF-W4-003"
+  ],
+  "new_failures": [
+    {
+      "test": "AUTO-UI-005",
+      "message": "AssertionError: assert 0 == 1"
+    },
+    {
+      "test": "AUTO-WEB-009",
+      "message": "assert (0 == 1)"
+    },
+    {
+      "test": "AUTO-WEB-014",
+      "message": "AssertionError: assert {'Total Tasks...Soon': 0, ...} == {'Total Tasks...Soon': 0, ...}"
+    }
+  ],
+  "known_defect_tests_now_passing": [],
+  "environment": {
+    "os": "Linux-6.18.44-fc-v880-x86_64-with-glibc2.39",
+    "python": "3.13.18",
+    "pytest": "9.1.1",
+    "selenium": "4.54.0",
+    "flask": "3.0.3",
+    "werkzeug": "3.1.9",
+    "browser": {
+      "browser": "chrome",
+      "version": "153.0.8010.12",
+      "headless": true,
+      "window": "1280x900"
+    },
+    "timezone": "+08",
+    "utc_offset": "+0800"
+  },
+  "app_under_test": {
+    "app_dir": "/tmp/sim_regression",
+    "files": {
+      "app.py": {
+        "sha256": "4f6dfbb67f1c10b4d025c6cde3122689c6b4b879d1dd762b834a49bc2f21141b",
+        "matches_week1_baseline": false
+      },
+      "helpers.py": {
+        "sha256": "bf9140338277534439b38599f5ac3ef722880cced732bba8f1f313147d466d80",
+        "matches_week1_baseline": true
+      }
+    },
+    "matches_week1_baseline": false
+  }
+}
