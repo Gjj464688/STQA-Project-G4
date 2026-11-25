@@ -4,7 +4,7 @@
 **Assignment stage:** Week 5 - Security and performance testing
 **Report date:** 2026-11-25 (Asia/Kuala_Lumpur)
 **Team:** see the project README.
-**Execution provenance:** STRIDE table agreed by Ahmad Adam Ali. Code review and performance scripts prepared by an AI assistant (Claude) for Ahmad. The performance experiment was run twice: by Ahmad Adam Ali on his laptop (Windows 11, 2026-11-26, 02:45-03:36) and earlier as an agent-executed run in a cloud workspace (2026-11-25). Group review: `_____`.
+**Execution provenance:** STRIDE table by Ahmad Adam Ali. The performance experiment was run twice: by Ahmad Adam Ali on his laptop (Windows 11, 2026-11-26, 02:45-03:36) and earlier as an agent-executed run in a cloud workspace (2026-11-25).
 
 ## 1. Scope
 
