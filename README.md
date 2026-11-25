@@ -124,6 +124,40 @@ $env:PYTODO_SOURCE_DIR = (Resolve-Path '..\pytodo_pro_student').Path
 
 Recorded result: 36 Pass / 17 Fail, with no setup errors. Each API case uses its own temporary database through Flask's test client; no running server is required. The suite verifies source identity and records requests, responses, propagated exceptions, and registered routes. See the Week 4 report for the distinction between confirmed defects and assumption failures.
 
+### Week 5 security and performance
+
+The security assessment has no runner. The [Week 5 report](05_Security_Performance/Week5_Report.md) contains the STRIDE table (17 threats), links each threat to executed Week 1-4 tests or to code review, and records eight code-review findings (CR-01 to CR-08). Code-review findings are confirmed in the source but not yet by a running test, so they are not counted as confirmed defects. Four planned controlled security checks remain for the group.
+
+The performance test needs Apache JMeter 5.6.3 extracted beside the repository, Java, and `matplotlib`. From the repository root:
+
+```powershell
+$env:PYTODO_SOURCE_DIR = (Resolve-Path '..\pytodo_pro_student').Path
+.\.venv\Scripts\python.exe .\05_Security_Performance\performance\run_performance.py --quick
+.\.venv\Scripts\python.exe .\05_Security_Performance\performance\run_performance.py --label "<name>-PC"
+```
+
+`--quick` is a two-minute setup check; the full experiment takes about 50 minutes. For each load level and repeat, the runner starts the unchanged app on port 5015 with a temporary database and debug off, runs the JMeter plan in non-GUI mode, and stops the server. Each run creates a new timestamped folder in `05_Security_Performance/evidence`; earlier results are not overwritten.
+
+Recorded result: nine load levels from 1 to 800 virtual users, three runs per level (two at 400 and 800). The proposed targets (p95 at most 1000 ms, errors at most 1%) were met from 1 to 400 users. At 800 users throughput levelled off at about 400 requests per second, p95 reached about 5.1 s, and 22.5% of requests failed with SQLite `database is locked` errors, recorded as DEF-W5-001. The app recovered fully when the load dropped. These figures come from an agent-executed run on a 2-CPU workspace; a group PC rerun is pending.
+
+### Week 6 automation and regression
+
+Install the regression-test dependencies once (pytest-html and Selenium). Google Chrome must be installed; Selenium downloads the matching driver on its first run. From the repository root:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r .\06_Automation_Regression\requirements-regression.txt
+```
+
+Then run the suite:
+
+```powershell
+$env:PYTODO_SOURCE_DIR = (Resolve-Path '..\pytodo_pro_student').Path
+.\.venv\Scripts\python.exe .\06_Automation_Regression\run_regression.py --suite smoke
+.\.venv\Scripts\python.exe .\06_Automation_Regression\run_regression.py --label "<name>-PC"
+```
+
+Recorded result: 104 tests (41 unit, 34 API, 21 web and 8 Selenium browser tests), 88 Pass / 16 XFAIL, no new failures. All 29 Week 1 cases and all 41 Week 2 cases have automated counterparts. XFAIL marks a test linked to an open defect: it confirms on every run that the defect is still present, and it reports XPASS if the defect is fixed. All nine open defects from Weeks 1-4 are covered. The 29-test smoke set includes one check per open defect. Add `--browser edge` to use Edge, or `--skip-ui` to run without a browser. Each run creates a new timestamped folder in `06_Automation_Regression/evidence` with an HTML report, screenshots, JUnit XML and traceability-linked results. Windows group runs and group review are pending.
+
 ### Historical Week 1 browser runner
 
 The saved [server script](01_Black_Box/evidence/run_isolated_server.py) and [browser script](01_Black_Box/run_browser_cases.mjs) retain their original machine-specific source, Playwright import, and Edge executable settings. Adjust those settings for your environment before rerunning them on port 5001. Their original results remain in the Week 1 evidence; the current Week 3/4 browser runner does not replace the Week 1 case set or its manual execution evidence.
@@ -145,8 +179,6 @@ Open `http://127.0.0.1:5000/` and register a dummy test account; the starter app
 
 | Stage | Planned deliverables |
 |---|---|
-| Week 5 security and performance | STRIDE table, controlled security/performance tests, measurements, evidence, and limitations |
-| Week 6 automation and regression | Candidate justification, reusable regression suite, manual-to-automated traceability, execution logs, and reflection |
 | Week 7 test management | Consolidated test plan, current RTM, master test repository, defect log, and regression status |
 | Week 8 final QA evaluation | Integrated metrics, quality assessment, residual risks, and prioritized recommendations |
 | Integration and presentation | ISO/IEC 25010/process context, CI/CD and Agile/DevOps discussion, presentation, and live demonstration |
