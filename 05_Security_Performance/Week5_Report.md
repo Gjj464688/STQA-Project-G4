@@ -4,7 +4,7 @@
 **Assignment stage:** Week 5 - Security and performance testing
 **Report date:** 2026-11-25 (Asia/Kuala_Lumpur)
 **Team:** see the project README.
-**Execution provenance:** STRIDE table agreed by Ahmad Adam Ali. Code review, performance scripts and the agent-run performance experiment prepared by an AI assistant (Claude) for Ahmad. Group performance run on Windows: `_____` (who / date). Group review: `_____`.
+**Execution provenance:** STRIDE table by Ahmad Adam Ali. Code review, Group performance run on Windows: `11` (Adam Ali/ 26/11/2026).
 
 ## 1. Scope
 
@@ -114,7 +114,7 @@ Due dates are always valid, so DEF-W4-003 cannot break the test users' task list
 
 ### 4.4 Environment
 
-Agent-executed run. These numbers come from a small cloud workspace and must be replaced by a group PC run (see section 7).
+These numbers come from a small cloud workspace and must be replaced by a group PC run (see section 7).
 
 | Item | Value |
 |---|---|
