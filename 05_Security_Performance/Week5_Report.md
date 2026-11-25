@@ -4,7 +4,7 @@
 **Assignment stage:** Week 5 - Security and performance testing
 **Report date:** 2026-11-25 (Asia/Kuala_Lumpur)
 **Team:** see the project README.
-**Execution provenance:** STRIDE table agreed by Ahmad Adam Ali. Code review, performance scripts and the agent-run performance experiment prepared by an AI assistant (Claude) for Ahmad. Group performance run on Windows: `_____` (who / date). Group review: `_____`.
+**Execution provenance:** STRIDE table agreed by Ahmad Adam Ali. Code review and performance scripts prepared by an AI assistant (Claude) for Ahmad. The performance experiment was run twice: by Ahmad Adam Ali on his laptop (Windows 11, 2026-11-26, 02:45-03:36) and earlier as an agent-executed run in a cloud workspace (2026-11-25). Group review: `_____`.
 
 ## 1. Scope
 
@@ -53,7 +53,7 @@ The table follows the four STRIDE steps from the STQA08 lecture: decompose the a
 | D-01 | Executed tests | Week 4 API-49, API-50 | Fail: invalid date saved; list then fails | DEF-W4-003 (Major / High, open) |
 | T-02 | Executed tests | TC-BB-014; Week 4 API-32, API-42 | Fail | DEF-W1-004, DEF-W4-001, DEF-W4-002 (Moderate / Medium, open) |
 | S-03 | Executed tests | API probe P-03; Week 4 WEB-02, API-37 | Duplicates accepted | Open question: uniqueness policy not yet agreed |
-| D-02 | Executed test | Week 5 performance experiment (section 5) | Targets met up to 400 users; at 800 users 22.5% errors | DEF-W5-001 (Moderate / Low, open) |
+| D-02 | Executed test | Week 5 performance experiment, two computers (section 5) | Fine at expected load; database-lock failures under heavy load (agent: 22.5% errors at 800 users) | DEF-W5-001 (Moderate / Low, open) |
 | S-01 | Code review | `app.py` line 28: `SECRET_KEY = "pytodo-pro-dev-secret"` | Key is in the source | CR-01 |
 | T-01 | Code review | `app.py` line 379: search text inserted into the SQL string; the web search (line 211) and all other queries use `?` parameters | String-built query | CR-02 |
 | I-01 | Code review | `app.py` line 482: `app.run(debug=True)` | Debug on when started normally | CR-03 |
@@ -104,7 +104,7 @@ Find out how response time, throughput and error rate change as the number of si
 | Load levels | **Load test** (expected use of a small team): 1, 5, 10, 25 users. **Stress test**: 50, 100, 200, 400, 800 users |
 | Ramp-up | 5 s, or users ÷ 5 s if longer (50 users: 10 s; 800 users: 160 s) |
 | Measured window | 60 s of steady state after ramp-up (ramp-up excluded) |
-| Repeats | 3 runs per level (2 for 400 and 800 in the agent run); results averaged; p95 range shown |
+| Repeats | 3 runs per level (the earlier agent run used 2 at 400 and 800); results averaged; p95 range shown |
 | Isolation | Fresh server and empty database for every run; port 5015; debug off; same Flask built-in server that `python app.py` uses |
 | Recovery check | Highest level, then 1 user on the same server straight after (done for 200 and for 800 users) |
 | Pass/fail rule | Each request checked: page/API reads must return 200, create 201, registration must reach "My Tasks" |
@@ -114,22 +114,52 @@ Due dates are always valid, so DEF-W4-003 cannot break the test users' task list
 
 ### 4.4 Environment
 
-Agent-executed run. These numbers come from a small cloud workspace and must be replaced by a group PC run (see section 7).
+The same scripts, plan and app were run on two computers.
 
-| Item | Value |
-|---|---|
-| Computer | Linux workspace (Ubuntu 24.04), Intel Xeon @ 2.30 GHz, **2 logical CPUs**, 7.8 GB RAM |
-| Software | Python 3.13.18, Flask 3.0.3 (the app's pinned version), Werkzeug 3.1.9, Apache JMeter 5.6.3, OpenJDK 21.0.13 |
-| Server | Flask built-in server, threaded, debug off, 127.0.0.1:5015, fresh SQLite database per run |
-| App under test | Unchanged: `app.py` SHA-256 `050b4ee4...`, `helpers.py` `bf914033...` |
-| Dates | 2026-11-25, 18:27-19:17 (UTC+08:00) |
-| Evidence | Combined analysis: `evidence/perf_20261125-agent-run-combined/` (all 9 levels). Raw runs: `evidence/perf_20261125-182754_agent-run/` (1-200 users, 3 runs each) and `evidence/perf_20261125-185954_agent-run-stress-extension/` (400 and 800 users, 2 runs each) |
+| Item | Laptop run (Ahmad) | Agent run (cloud workspace) |
+|---|---|---|
+| Computer | AMD Ryzen 7 7730U, **16 logical CPUs**, 15.4 GB RAM | Intel Xeon @ 2.30 GHz, **2 logical CPUs**, 7.8 GB RAM |
+| Operating system | Windows 11 (build 26300) | Linux (Ubuntu 24.04) |
+| Software | Python 3.13.15, Flask 3.0.3, Werkzeug 3.1.9, JMeter 5.6.3, OpenJDK 17.0.21 | Python 3.13.18, Flask 3.0.3, Werkzeug 3.1.9, JMeter 5.6.3, OpenJDK 21.0.13 |
+| Levels and repeats | 1-800 users, 3 runs each | 1-200 users 3 runs each; 400 and 800 users 2 runs each |
+| Dates | 2026-11-26, 02:45-03:36 (UTC+08:00) | 2026-11-25, 18:27-19:17 (UTC+08:00) |
+| Evidence | `evidence/perf_20261126-024531_Ahmad-PC/` | Combined analysis `evidence/perf_20261125-agent-run-combined/`; raw runs in `evidence/perf_20261125-182754_agent-run/` and `evidence/perf_20261125-185954_agent-run-stress-extension/` |
+
+Both: Flask built-in server, threaded, debug off, 127.0.0.1:5015, fresh SQLite database per run; unchanged app (`app.py` SHA-256 `050b4ee4...`, `helpers.py` `bf914033...`).
 
 ## 5. Performance results
 
-### 5.1 Results by load level
+Both tables show page and API requests in the 60 s steady-state window, averaged over the runs at each level. Registration is shown separately because it happens once per user and is slow by design.
 
-Page and API requests in the 60 s steady-state window, averaged over the runs at each level. Registration is shown separately because it happens once per user and is slow by design.
+### 5.1 Laptop run (Ahmad, Windows 11)
+
+| Users | Test type | Runs | Requests measured | Median (ms) | p95 (ms) | Throughput (req/s) | Errors (%) | Meets targets | Registration median / p95 (ms) |
+|---:|---|---:|---:|---:|---:|---:|---:|---|---|
+| 1 | Load | 3 | 173 | 5 | 16.3 | 0.9 | 0 | Yes | 158 / 160 |
+| 5 | Load | 3 | 844 | 4.7 | 264.3 (15-759) | 4.7 | 0 | Yes | 137 / 168 |
+| 10 | Load | 3 | 1,511 | 5 | **1,433.3** | 8.4 | 0 | **No (a)** | 139 / 1,556 |
+| 25 | Load | 3 | 4,406 | 4 | 8.3 | 24.5 | 0 | Yes | 131 / 145 |
+| 50 | Stress | 3 | 8,720 | 4 | 8.3 | 48.5 | 0 | Yes | 131 / 154 |
+| 100 | Stress | 3 | 17,611 | 4 | 17 | 97.9 | 0 | Yes | 132 / 150 |
+| 200 | Stress | 3 | 34,578 | 4.3 | 55.3 | 192.1 | **19.2** | **No (b)** | 133 / 161 |
+| 400 | Stress | 3 | 67,586 | 23 | 84.7 | 375.5 | **80.9** | **No (b)** | 140 / 4,245 |
+| 800 | Stress | 3 | 123,323 | 102.3 | 454.3 | 685.1 (c) | **87.1** | **No (b)** | 133 / 505 |
+
+(a) Short pauses on the laptop, not load: see 5.5, point 1. (b) Mostly a limit of the test computer, not the app: see 5.5, point 3. (c) Includes requests that failed instantly.
+
+**What the laptop errors were** (share of requests in the measured window):
+
+| Users | JMeter could not open a connection (`java.net.BindException: Address already in use`) | No session: user's registration had failed (302 / 401) | App error (HTTP 500) |
+|---:|---:|---:|---:|
+| 200 | 10.0% | 9.1% | 0 |
+| 400 | 77.1% | 3.7% | under 0.1% (most 500s happened during registration) |
+| 800 | 72.0% | 15.0% | 0 in the window |
+
+![Laptop: response time as load increases](evidence/perf_20261126-024531_Ahmad-PC/charts/response_time_vs_users.png)
+
+![Laptop: error rate as load increases](evidence/perf_20261126-024531_Ahmad-PC/charts/error_rate_vs_users.png)
+
+### 5.2 Agent run (cloud workspace, Linux)
 
 | Users | Test type | Runs | Requests measured | Median (ms) | p95 (ms) | Throughput (req/s) | Errors (%) | Meets targets | Registration median / p95 (ms) |
 |---:|---|---:|---:|---:|---:|---:|---:|---|---|
@@ -143,15 +173,15 @@ Page and API requests in the 60 s steady-state window, averaged over the runs at
 | 400 | Stress | 2 | 46,457 | 6 | 81.5 | 387.1 | 0 | Yes | 76 / 187 |
 | 800 | Stress | 2 | 47,924 | **261** | **5,123.5** | **399.4** | **22.5** | **No** | 124 / 5,290 (7.9% failed) |
 
-The p95 varied little between repeats (for example 78-85 ms at 400 users and 5,098-5,149 ms at 800); every run is listed in `results.md`.
+The p95 varied little between repeats (for example 78-85 ms at 400 users and 5,098-5,149 ms at 800); every run of both experiments is listed in its folder's `results.md`.
 
-![Response time as load increases](evidence/perf_20261125-agent-run-combined/charts/response_time_vs_users.png)
+![Agent run: response time as load increases](evidence/perf_20261125-agent-run-combined/charts/response_time_vs_users.png)
 
-![Throughput as load increases](evidence/perf_20261125-agent-run-combined/charts/throughput_vs_users.png)
+![Agent run: throughput as load increases](evidence/perf_20261125-agent-run-combined/charts/throughput_vs_users.png)
 
-![Error rate as load increases](evidence/perf_20261125-agent-run-combined/charts/error_rate_vs_users.png)
+![Agent run: error rate as load increases](evidence/perf_20261125-agent-run-combined/charts/error_rate_vs_users.png)
 
-### 5.2 Results by page (p95 in ms; errors in brackets)
+### 5.3 Agent run by page (p95 in ms; errors in brackets)
 
 | Users | Task list page | Dashboard page | API list tasks | API create task |
 |---:|---:|---:|---:|---:|
@@ -161,26 +191,27 @@ The p95 varied little between repeats (for example 78-85 ms at 400 users and 5,0
 | 400 | 102.5 | 62 | 58 | 106 |
 | 800 | 1,898.5 (14.8%) | 1,348.5 (14.7%) | 1,339 (14.6%) | **5,402.5 (45.8%)** |
 
-### 5.3 Recovery check
+### 5.4 Recovery check
 
 | Sequence on one server | 1-user median / p95 afterwards (ms) | Errors afterwards | Baseline 1 user (median / p95) |
 |---|---|---|---|
-| 200 users, then 1 user | 4 / 8 | 0% | 4 / 8 |
-| 800 users (14.9% errors), then 1 user | 4 / 7 | 0% | 4 / 8 |
+| Laptop: 800 users, then 1 user | 5 / 16 | 0% | 5 / 16.3 |
+| Agent: 200 users, then 1 user | 4 / 8 | 0% | 4 / 8 |
+| Agent: 800 users (14.9% errors), then 1 user | 4 / 7 | 0% | 4 / 8 |
 
-### 5.4 Interpretation
+### 5.5 Interpretation
 
-1. **Expected load (1-25 users): comfortably within targets.** Median 2-4 ms, p95 at most 8 ms, no errors. Throughput rises in step with users (about 1 request per second per user), so the server keeps up with everything offered.
-2. **Up to 200 users: still no strain.** Throughput reaches 197 req/s, matching what the users send, and p95 stays under 10 ms.
-3. **400 users: the limit is near.** Throughput (387 req/s) still roughly matches demand, but p95 rises about 13 times to around 80 ms, and the slowest request takes over a second. Requests have started to queue. Targets are still met.
-4. **800 users: breaking point.** Throughput stops rising at about **400 req/s**, the capacity of this setup, while users send about twice that. Requests queue, the median rises to 261 ms, p95 reaches about 5.1 s, and **22.5% of requests fail**.
-5. **Why it fails: the database lock.** The server log shows the same error for every failure: `sqlite3.OperationalError: database is locked` (about 3,000 per 800-user run: 3,037 and 3,148), on the task INSERT (`app.py` line 413) and on registration. SQLite allows one writer at a time. Python's sqlite3 waits up to 5 seconds for the lock and then gives up, which matches the p95 of about 5.1 s. The app does not handle the error, so the user gets **HTTP 500** and the task is not saved (45.8% of creates failed). 7.9% of registrations failed the same way. Those virtual users never got a session, and they caused nearly all the read-page errors (302 redirects to login and 401s).
-6. **Recovery: full.** As soon as the load dropped, a single user got normal response times (4 ms median) with no errors. The overload left no lasting damage.
-7. **Slowest normal operation: registration** (about 70-100 ms median), because password hashing (scrypt) is deliberately slow. That is a security feature, not a defect.
+1. **Expected load (1-25 users): fast on both computers.** Normal requests took a median of 4-5 ms on the laptop and 2-4 ms on the agent machine, with no errors. On the laptop, all three 10-user runs and one 5-user run missed the p95 target. The whole server paused for about 1-2 seconds roughly every 10 seconds, delaying every kind of request at the same moment. The pauses did not happen at 1 user, at 25 or more users, or on the agent machine. That pattern points to something on the laptop (for example background activity or power saving) rather than to the load. The cause was not determined; rerunning the 5- and 10-user levels would show whether it repeats.
+2. **50-100 users: no strain on either computer.** No errors, throughput matching what the users send (about 1 request per second per user), and p95 under 20 ms.
+3. **Laptop at 200 users and above: the test computer reached its limit before the app.** Most errors are `java.net.BindException: Address already in use`, raised by JMeter, which means Windows had no free local network port for a new connection. The Flask built-in server rarely reuses connections: at 10-25 users, 80-92% of requests opened a new one (JMeter's connect time). By default, Windows keeps each closed connection's port reserved for about two minutes and has about 16,000 such ports, which allows roughly 130 new connections per second. 100 users (about 98 requests per second) stay under that; 200 users (about 190 per second) do not. The errors also grew from run to run (8.1%, 20.4%, 29.1% at 200 users) as reserved ports built up. Virtual users whose registration hit this error had no session, which causes the 302/401 errors. These are **not app defects**: the laptop results above 100 users measure the test setup, and are recorded as a limitation (section 6). Linux has more ports and frees them sooner, so the agent run did not hit this.
+4. **The app's own limit (agent run): between 400 and 800 users.** At 400 users the agent machine still met the targets (p95 about 80 ms). At 800 users throughput stopped rising at about 400 requests per second, p95 reached about 5.1 s and 22.5% of requests failed. The server log shows the cause: `sqlite3.OperationalError: database is locked` (3,037 and 3,148 per 800-user run), on the task INSERT (`app.py` line 413) and on registration. SQLite allows one writer at a time, and Python's sqlite3 waits up to 5 seconds for the lock before giving up, which matches the 5.1 s p95. The app does not handle this error, so the user gets HTTP 500 and the task is not saved (45.8% of creates failed).
+5. **The laptop confirms the same app failure.** Even with the port problem holding the load down, the laptop's server logged the same `database is locked` HTTP 500s in three runs (180 and 302 at 400 users, 302 at 800 users), including failed registrations.
+6. **Recovery: full on both computers.** As soon as the load dropped, a single user got normal response times with no errors.
+7. **Slowest normal operation: registration** (median about 130-160 ms on the laptop, 70-100 ms on the agent machine), because password hashing (scrypt) is deliberately slow. That is a security feature, not a defect.
 
-**Capacity on this computer:** between 400 and 800 simultaneous active users (about 400 requests per second), far above the expected load of a small team. A faster PC will have a higher limit; the cause (one SQLite writer at a time) will not change.
+**Capacity:** the app copes comfortably with the expected load of a small team on both computers. Its own limit was measured on the agent machine at between 400 and 800 simultaneous active users (about 400 requests per second), set by SQLite's one-writer-at-a-time lock. On the laptop, this test setup can only measure up to about 100 users unless the Windows network settings are changed or JMeter runs on a second computer.
 
-### 5.5 New defect
+### 5.6 New defect
 
 **DEF-W5-001 Concurrent writes fail with HTTP 500 ("database is locked") under heavy load**
 
@@ -189,19 +220,21 @@ The p95 varied little between repeats (for example 78-85 ms at 400 users and 5,0
 - **Preconditions:** fresh database; 800 virtual users, each registering then looping as in section 4.3.
 - **Steps to reproduce:** `python run_performance.py --levels 800 --repeats 1`, then open the run's `results.md` and `runs/*_server_errors.txt`.
 - **Expected:** under overload, requests are slower but are either completed or refused cleanly (for example HTTP 503 "try again"), and no request crashes with a server error.
-- **Actual:** after about 5 s waiting for the database lock, about 3,000 requests per run fail with HTTP 500 (`sqlite3.OperationalError: database is locked`). 45.8% of task creations and 7.9% of registrations are lost.
-- **Severity / priority:** Moderate / Low. The failure is a crash with lost writes, but it only appears far above expected load (none at 400 users on this 2-CPU machine).
-- **Evidence:** `evidence/perf_20261125-185954_agent-run-stress-extension/` runs `u800_r1`, `u800_r2`, `recovery_u800`, with their `_server_errors.txt` summaries.
-- **Status:** Confirmed in the agent run; open. Repeat on a group PC.
+- **Actual:** after about 5 s waiting for the database lock, requests fail with HTTP 500 (`sqlite3.OperationalError: database is locked`). On the agent machine about 3,000 requests per 800-user run failed this way (45.8% of task creations and 7.9% of registrations lost). On the laptop, 180-302 per affected run at 400 and 800 users.
+- **Severity / priority:** Moderate / Low. The failure is a crash with lost writes, but it only appears far above expected load.
+- **Evidence:** agent run `evidence/perf_20261125-185954_agent-run-stress-extension/` (runs `u800_r1`, `u800_r2`, `recovery_u800`); laptop run `evidence/perf_20261126-024531_Ahmad-PC/` (runs `u400_r2`, `u400_r3`, `u800_r1`). Each has a `_server_errors.txt` summary.
+- **Status:** Confirmed on two computers; open.
 
 ## 6. Limitations
 
 - **Same machine.** JMeter and the app share one computer's CPU, so at high load part of the slowdown is JMeter itself.
 - **Development server.** The app was tested on Flask's built-in server, as supplied. A production server (for example Waitress or Gunicorn) would behave differently; this is a result about the app as delivered.
 - **Localhost only.** No network delay is included, so real users on a network would see slower times.
-- **Short, small runs.** 60 s per run and 3 repeats show the trend, not long-term stability (memory growth, database size over days).
+- **Short, small runs.** 60 s per run and 2-3 repeats show the trend, not long-term stability (memory growth, database size over days).
 - **Synthetic users.** A simple random think time and a four-request loop are simpler than real behaviour.
-- **One computer's numbers.** Results describe the recorded computer only. The agent run used a 2-CPU cloud workspace, so a typical laptop's limit will be higher. The group should rerun on a PC before submission.
+- **Windows port limit on the laptop.** Above about 100 users, JMeter on the laptop ran out of local network ports (5.5, point 3), so the laptop could not measure the app's limit. The app's limit comes from the agent run on Linux.
+- **Unexplained pauses.** The 1-2 s pauses on the laptop at 5-10 users were not explained.
+- **Two computers, different results.** Each table describes its own computer only. The overall conclusions (fast at expected load; a database-lock limit under heavy writes) held on both.
 - **Security.** Code-review findings are confirmed in the code but not yet by a running test. No scanner was run and no penetration testing was done, as the brief requires. Session, transport and deployment threats were assessed from the code only.
 
 ## 7. Recommendations
@@ -217,5 +250,5 @@ For the app's maintainer, in priority order (no fixes were applied, as agreed fo
 
 For the team:
 - Run the planned controlled checks in section 3 on the isolated copy, after agreeing them with the lecturer, and add them to the Week 6 regression suite with `@known_defect` markers.
-- Run the performance experiment on a group PC (`performance/run_performance.py --label "<name>-PC"`) and replace the agent-run numbers in section 5.
+- Optional: rerun the laptop at 5 and 10 users (`--levels 5,10`) to check the pauses. To measure the laptop above 100 users, run JMeter from a second computer, or widen the Windows port range and shorten the port reservation time (an administrator setting).
 - Carry the CR findings and new defect statuses into the Week 7 consolidated defect log and RTM.

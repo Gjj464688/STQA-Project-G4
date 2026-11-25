@@ -4,7 +4,7 @@
 **Assignment stage:** Week 6 - Test automation and regression
 **Report date:** 2026-11-25 (Asia/Kuala_Lumpur, UTC+08:00)
 **Team:** see the project README. Automation/Tool Coordinator: Ahmad Adam Ali.
-**Execution provenance:** Suite written and runs executed by an AI assistant (Claude) for the Automation/Tool Coordinator, in a Linux workspace. Group runs on Windows: `_____` (run 1: Ahmad, date `_____`; run 2: teammate `_____`, date `_____`). Group reviewer: `_____`.
+**Execution provenance:** Suite written by an AI assistant (Claude) for the Automation/Tool Coordinator; development runs executed in a Linux workspace. Group runs on Windows: run 1 by Ahmad Adam Ali, 2026-11-26 (section 6.2); run 2: teammate `_____`, date `_____`. Group reviewer: `_____`.
 
 ## 1. Objective and scope
 
@@ -86,7 +86,9 @@ Per-test details are in [Regression_Test_Repository.md](Regression_Test_Reposito
 
 ### 6.1 Environment (agent-executed runs)
 
-Linux workspace (Ubuntu 24.04, x86_64, 2 CPUs); Python 3.13.18; Flask 3.0.3 (the app's pinned version); Werkzeug 3.1.9; pytest 9.1.1; pytest-html 4.2.0; Selenium 4.54.0; Chrome for Testing 153.0.8010.12, headless, 1280x900, with ChromeDriver 153.0.8010.52; UTC+08:00. App unchanged in every run except the two labelled experiments. A clean Python 3.12 setup was also checked and gave the same results. The group's Windows runs (section 9) will confirm the documented environment.
+Linux workspace (Ubuntu 24.04, x86_64, 2 CPUs); Python 3.13.18; Flask 3.0.3 (the app's pinned version); Werkzeug 3.1.9; pytest 9.1.1; pytest-html 4.2.0; Selenium 4.54.0; Chrome for Testing 153.0.8010.12, headless, 1280x900, with ChromeDriver 153.0.8010.52; UTC+08:00. App unchanged in every run except the two labelled experiments. A clean Python 3.12 setup was also checked and gave the same results.
+
+**Ahmad's laptop run:** Windows 11 (build 26300), AMD Ryzen 7 7730U, Python 3.13.15, Flask 3.0.3, Werkzeug 3.1.9, pytest 9.1.1, Selenium 4.51.0, Chrome 157.0.8103.79 headless at 1280x900; UTC+08:00. App hashes matched the baseline.
 
 ### 6.2 Recorded runs
 
@@ -101,8 +103,9 @@ All runs are in `evidence/`, named `<date-time>_<suite>_<label>`. Durations are 
 | agent-run-5 | Full, no browser | PASSED: PASS 82, XFAIL 14 | 96 | 4.0 s | Fast layers only (the CI fast job) |
 | experiment-A | Full, temporary copy | ATTENTION: PASS 88, XFAIL 12, **XPASS 4** | 104 | 19.7 s | Simulated fix; section 7 |
 | experiment-B | Full, temporary copy | ATTENTION: PASS 85, XFAIL 16, **FAIL 3** | 104 | 16.2 s | Simulated regression; section 7 |
+| **Ahmad-PC** | Full, on Windows | PASSED: PASS 88, XFAIL 16 | 104 | 49.4 s | Ahmad's laptop, Chrome 157 (`evidence/20261126-024054_full_Ahmad-PC`) |
 
-On the unchanged app every run observed the same nine open defects again, with no new failures.
+On the unchanged app every run, on Linux and on Ahmad's Windows laptop, observed the same nine open defects again, with no new failures. The Windows run gave exactly the same result as the Linux runs.
 
 **Per layer (agent-run-3, test-body time only):**
 
@@ -142,11 +145,11 @@ Each experiment used a **temporary copy** of the app with one line changed. The 
 - **Automation checks only what it is told to.** Every assertion encodes an expected result someone decided; DEF-W1-004, for example, still needs its expectation confirmed. Automation can't judge usability or appearance.
 - **The test client is not a real server.** The API and web layers skip the real HTTP server; only the 8 browser tests use it.
 - **Date-dependent tests** could misbehave if a run crosses midnight. The unit layer avoids this with a fixed clock.
-- **Environment:** these runs were on Linux; the group uses Windows (section 9).
+- **Environment:** the suite was developed on Linux. Ahmad's Windows run gave identical results; a second group computer is still to be tried (section 9).
 
 ## 9. Remaining actions
 
-1. **Ahmad:** `python run_regression.py --label "Ahmad-PC-run-1"` on Windows with Chrome, and once with `--browser edge`. Fill in the provenance line.
+1. **Ahmad:** done on Windows with Chrome (88 Pass / 16 XFAIL). Optional: once more with `--browser edge`.
 2. **A teammate:** run it on a second computer.
 3. **Group:** review the tests and decisions; record the reviewer.
 4. **After Week 5:** add the agreed security checks with `@trace` and `@known_defect` markers.

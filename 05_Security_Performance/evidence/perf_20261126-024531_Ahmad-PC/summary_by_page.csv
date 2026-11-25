@@ -1,0 +1,37 @@
+users,page,median_ms,p95_ms,error_pct
+1,02 Task list page,6,7,0.0
+1,03 Dashboard page,4,6.3,0.0
+1,04 API list tasks,4,5,0.0
+1,05 API create task,10.7,17,0.0
+5,02 Task list page,4.7,259.3,0.0
+5,03 Dashboard page,4,20,0.0
+5,04 API list tasks,3.7,87.7,0.0
+5,05 API create task,8.7,485,0.0
+10,02 Task list page,4.7,1102.3,0.0
+10,03 Dashboard page,4,1321.7,0.0
+10,04 API list tasks,4,1406,0.0
+10,05 API create task,9,1557,0.0
+25,02 Task list page,4,6,0.0
+25,03 Dashboard page,4,5.3,0.0
+25,04 API list tasks,4,5,0.0
+25,05 API create task,7,14,0.0
+50,02 Task list page,4,6.3,0.0
+50,03 Dashboard page,3.3,5.3,0.0
+50,04 API list tasks,3,5,0.0
+50,05 API create task,6,18.3,0.0
+100,02 Task list page,4,12,0.0
+100,03 Dashboard page,3,6,0.0
+100,04 API list tasks,3,5.7,0.0
+100,05 API create task,5,23.7,0.0
+200,02 Task list page,4.3,59,19.57
+200,03 Dashboard page,3.7,34,18.79
+200,04 API list tasks,3.3,34.3,18.87
+200,05 API create task,6.7,127,19.49
+400,02 Task list page,23.7,82.3,80.88
+400,03 Dashboard page,22.3,72.7,81.06
+400,04 API list tasks,22.3,72.3,80.64
+400,05 API create task,24.3,170.7,81.02
+800,02 Task list page,105.7,437.7,87.23
+800,03 Dashboard page,94.7,430.3,86.91
+800,04 API list tasks,94.7,432,87.01
+800,05 API create task,115.7,529,87.21

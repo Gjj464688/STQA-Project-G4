@@ -1,0 +1,77 @@
+{
+  "label": "Ahmad-PC",
+  "suite": "full",
+  "ui_included": true,
+  "marker_expression": "(all tests)",
+  "started": "2026-11-26T02:40:54+08:00",
+  "finished": "2026-11-26T02:41:43+08:00",
+  "duration_s": 49.4,
+  "pytest_exit_code": 0,
+  "verdict": "PASSED (no new failures)",
+  "counts": {
+    "PASS": 88,
+    "XFAIL": 16
+  },
+  "total": 104,
+  "counts_by_layer": {
+    "api": {
+      "PASS": 29,
+      "XFAIL": 5
+    },
+    "ui": {
+      "PASS": 6,
+      "XFAIL": 2
+    },
+    "unit": {
+      "PASS": 36,
+      "XFAIL": 5
+    },
+    "web": {
+      "PASS": 17,
+      "XFAIL": 4
+    }
+  },
+  "known_defects_still_present": [
+    "DEF-W1-001",
+    "DEF-W1-002",
+    "DEF-W1-004",
+    "DEF-W2-001",
+    "DEF-W3-001",
+    "DEF-W3-002",
+    "DEF-W4-001",
+    "DEF-W4-002",
+    "DEF-W4-003"
+  ],
+  "new_failures": [],
+  "known_defect_tests_now_passing": [],
+  "environment": {
+    "os": "Windows-11-10.0.26300-SP0",
+    "python": "3.13.15",
+    "pytest": "9.1.1",
+    "selenium": "4.51.0",
+    "flask": "3.0.3",
+    "werkzeug": "3.1.9",
+    "browser": {
+      "browser": "chrome",
+      "version": "157.0.8103.79",
+      "headless": true,
+      "window": "1280x900"
+    },
+    "timezone": "Malay Peninsula Standard Time",
+    "utc_offset": "+0800"
+  },
+  "app_under_test": {
+    "app_dir": "C:\\Users\\norli\\Downloads\\pytodo_pro_student",
+    "files": {
+      "app.py": {
+        "sha256": "050b4ee4bb7d42f9ea835b46569185177755feee8e420f861376df4e6097f30f",
+        "matches_week1_baseline": true
+      },
+      "helpers.py": {
+        "sha256": "bf9140338277534439b38599f5ac3ef722880cced732bba8f1f313147d466d80",
+        "matches_week1_baseline": true
+      }
+    },
+    "matches_week1_baseline": true
+  }
+}

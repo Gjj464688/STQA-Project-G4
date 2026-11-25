@@ -1,0 +1,9 @@
+users,page,median_ms,p95_ms,error_pct
+1,02 Task list page,7,8,0.0
+1,03 Dashboard page,5,6,0.0
+1,04 API list tasks,5,5,0.0
+1,05 API create task,21,22,0.0
+5,02 Task list page,5,8,0.0
+5,03 Dashboard page,5,7,0.0
+5,04 API list tasks,5,7,0.0
+5,05 API create task,18,21,0.0
