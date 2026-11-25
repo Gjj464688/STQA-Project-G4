@@ -4,7 +4,7 @@
 **Assignment stage:** Week 6 - Test automation and regression
 **Report date:** 2026-11-25 (Asia/Kuala_Lumpur, UTC+08:00)
 **Team:** see the project README. Automation/Tool Coordinator: Ahmad Adam Ali.
-**Execution provenance:** Suite written by an AI assistant (Claude) for the Automation/Tool Coordinator; development runs executed in a Linux workspace. Group runs on Windows: run 1 by Ahmad Adam Ali, 2026-11-26 (section 6.2); run 2: teammate `_____`, date `_____`. Group reviewer: `_____`.
+**Execution provenance:** Suite written by Ahmad Adam Ali for the Automation/Tool Coordinator; development runs executed in a Linux workspace. Group runs on Windows: run 1 by Ahmad Adam Ali, 2026-11-26 (section 6.2); run 2: teammate `_____`, date `_____`. Group reviewer: `_____`.
 
 ## 1. Objective and scope
 
