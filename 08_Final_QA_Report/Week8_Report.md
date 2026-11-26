@@ -22,11 +22,11 @@ The results only represent the cases, functions, environments and workloads cove
 | W3 usability | 7 | 7 | 7 | 0 | 0 | 0 | 0 | 100.00% | Reported manual observations |
 | W4 web | 20 | 20 | 18 | 2 | 0 | 0 | 0 | 90.00% | Current browser verification |
 | W4 API | 53 | 53 | 36 | 17 | 0 | 0 | 0 | 67.92% | Current API verification |
-| W5 follow-ups | 4 | 0 | 0 | 0 | 0 | 0 | 4 | N/A | Pending independent control reviews |
+| W5 static review | 4 | 4 | 1 | 3 | 0 | 0 | 0 | 25.00% | Completed static source review; not runtime testing |
 | W6 full | 104 | 104 | 88 | 0 | 16 | 0 | 0 | 84.62% | One full Windows reference run; Linux agreement |
 | W6 smoke | 29 | 29 | 18 | 0 | 11 | 0 | 0 | 62.07% | Subset of full suite; separate run |
 
-Pass rate = Pass / Executed. XFAIL is an expected-failure classification, separate from ordinary failures. Setup errors and XPASS are zero in the selected runs above. The earlier Week 6 smoke run with one setup error and both simulated-change runs remain in historical evidence; they are not baseline rows. Week 1 manual and automated results correspond to the same 29 designs, and the Week 6 smoke suite is a subset. Do not sum these populations as unique tests. Week 5 performance experiments, nine Week 1 API probe observations and eight Week 5 source-review findings are reported separately.
+Pass rate = Pass / Executed. XFAIL is an expected-failure classification, separate from ordinary failures. Setup errors and XPASS are zero in the selected runs above. The earlier Week 6 smoke run with one setup error and both simulated-change runs remain in historical evidence; they are not baseline rows. Week 1 manual and automated results correspond to the same 29 designs, and the Week 6 smoke suite is a subset. Do not sum these populations as unique tests. The Week 5 row measures completed static reviews, not runtime tests; its three failures concern existing CR findings. Week 5 performance experiments, nine Week 1 API probe observations and eight Week 5 source-review findings are reported separately.
 
 ### Metrics charts
 
@@ -34,7 +34,7 @@ Pass rate = Pass / Executed. XFAIL is an expected-failure classification, separa
 
 ![Test execution counts by population](metrics_charts/test_execution_counts.png)
 
-The charts separate ordinary Fail, XFAIL and Not Run. The pass-rate chart excludes the four unexecuted review cases. Week 6 smoke is a subset of the full suite and Week 3 usability is user-reported manual evidence.
+The charts separate ordinary Fail, XFAIL and Not Run. The Week 5 chart row represents four static source reviews, not runtime tests. Week 6 smoke is a subset of the full suite and Week 3 usability is user-reported manual evidence.
 
 ## 3. What the results tell us
 
@@ -43,7 +43,7 @@ The charts separate ordinary Fail, XFAIL and Not Run. The pass-rate chart exclud
 - **Week 3:** 35 out of 37 checks/observations passed. The two accessibility findings are recorded in the defect log. Manual usability observations are different from automated browser checks.
 - **Week 4:** 18/20 web checks passed. For API, 36/53 passed. The 17 failures include ownership/robustness checks and checks based on assumptions/design expectations. They should not all be reported as confirmed defects.
 - **Week 6:** Full regression runs recorded 88 PASS and 16 XFAIL, with matching outcomes on the reference Linux and Windows runs. This gives us repeatability for the selected tests. The XFAIL marker is broad, so the reason for each expected failure still needs to be reviewed.
-- **Week 5:** Eight source-review findings are documented. All four additional control reviews remain Not Run; no new execution is claimed. The performance results are limited to the recorded workloads. High-concurrency results were affected by connection failures and database contention.
+- **Week 5:** Eight source-review findings are documented. All four additional static control reviews are complete (1 Pass, 3 Fail; 25% static-review pass rate). No new runtime execution is claimed. The performance results are limited to the recorded workloads. High-concurrency results were affected by connection failures and database contention.
 
 ### Selected evidence from earlier testing weeks
 
@@ -172,7 +172,7 @@ These charts are taken from the combined Week 5 performance evidence run in the 
 - Week 2 coverage only applies to the selected helper module and functions.
 - Some Week 4 failures depend on assumptions that need confirmation.
 - Duplicate usernames and spaces-only titles are not fully formalised requirements.
-- The four Week 5 follow-up control reviews remain Not Run; the eight original source-review findings are separately documented.
+- The four Week 5 static follow-up control reviews are complete; group confirmation is pending and the eight original source-review findings are separately documented. Static outcomes do not confirm runtime behaviour.
 - Performance results are limited to the recorded setup and workload; connection failures and DB locking affected some results.
 - Physical mobile, broader browser versions, screen-reader testing and full WCAG evaluation were not established.
 - Some manual tester/date details and group-review confirmations still need to be checked.
@@ -192,7 +192,7 @@ These charts are taken from the combined Week 5 performance evidence run in the 
 Implementation of application changes is a recommendation for its maintainer; the group retains the supplied code for assessment.
 
 1. **Priority 1 – Access control:** Prioritize maintainer review of the existing ownership finding and its authorization policy; preserve the documented evidence.
-2. **Priority 1 – Security findings:** Review and address the documented Week 5 source-review findings. Complete the four outstanding control reviews and record their evidence.
+2. **Priority 1 – Security findings:** Review and address the documented Week 5 source-review findings. Confirm the four completed static control review records and recommendations during group review.
 3. **Priority 1 – Validation:** Retain the stated eight-character password minimum and confirm the blank-title expectation, then update tests and defect statuses.
 4. **Priority 2 – Date logic:** Confirm date-boundary rules and retest the due-today and exact-N-day issues.
 5. **Priority 2 – Accessibility:** Improve contrast and labels and expand the checks to keyboard/focus and assistive technology.

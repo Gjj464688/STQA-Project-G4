@@ -35,7 +35,7 @@ Testing all application code and all possible inputs is outside our scope. We al
 | Week 2 white-box | 41 tests for selected helper functions and statement/branch coverage | PyTest results and coverage reports |
 | Week 3 GUI/compatibility/usability/accessibility | 30 browser checks and 7 manual usability observations | Week 3 report, case records and evidence |
 | Week 4 web/API | 20 web checks and 53 API cases | Report, test records, runner and evidence |
-| Week 5 security | STRIDE-oriented source review and four planned follow-up control reviews (Not Run) | Week 5 report and findings |
+| Week 5 security | STRIDE-oriented source review and four completed static control reviews (1 Pass / 3 Fail) | Week 5 report and findings |
 | Week 5 performance | Controlled workload tests on selected pages/endpoints | Performance report and recorded runs |
 | Week 6 automation | 104-case full regression and 29-case smoke suite | Regression repository, report and execution results |
 
@@ -65,7 +65,7 @@ These roles are proposed in the project README; they do not establish actual his
 
 ### 2.8 Main limitations
 
-Some test populations overlap between weeks. Some Week 4 failures depend on expectations that still need confirmation. Week 2 coverage is limited to the selected helper functions. The Week 6 XFAIL marker needs its failure reason checked because it can hide unrelated errors. Performance results only represent the recorded workload and machine. Some tester/date and group-review details also need confirmation. Week 5 includes eight source-review findings and four independently planned control reviews, all Not Run. Existing evidence is retained; no additional runtime result is claimed.
+Some test populations overlap between weeks. Some Week 4 failures depend on expectations that still need confirmation. Week 2 coverage is limited to the selected helper functions. The Week 6 XFAIL marker needs its failure reason checked because it can hide unrelated errors. Performance results only represent the recorded workload and machine. Some tester/date and group-review details also need confirmation. Week 5 includes eight source-review findings and four completed static control reviews (1 Pass / 3 Fail; group confirmation pending). Existing evidence is retained; no additional runtime result is claimed.
 
 ## 3. Test prioritisation
 
@@ -77,12 +77,12 @@ We prioritised the features that could have the biggest effect on users or their
 |---|---|---|
 | Ownership and validation defects | High | Track open findings and maintainer recommendations; QA lead and defect coordinator |
 | Inconsistent expected requirements | Medium | Record assumptions and obtain agreement; test design coordinator |
-| Incomplete security reviews | High | Record Not Run separately and review source evidence; QA lead |
+| Open security control findings | High | Review the completed static source findings and recommendations; QA lead |
 | Broad expected-failure classification | Medium | Review underlying failure reason; automation coordinator |
 | Unconfirmed manual evidence provenance | Medium | Obtain dates/tester/reviewer confirmation; QA lead |
 | Environment-dependent performance | Medium | Interpret by environment and distinguish client errors; metrics coordinator |
 
-Exit decision: planned functional executions and consolidation are recorded; four Week 5 follow-ups, original metadata and named group reviews remain outstanding. The project can report open defects and pending checks without claiming all tests passed.
+Exit decision: planned functional executions and consolidation are recorded; the four Week 5 static follow-ups are complete, while original metadata and named group reviews remain outstanding. The project can report open defects and pending checks without claiming all tests passed.
 
 ## 4. Consolidated execution summary
 
@@ -95,11 +95,11 @@ Exit decision: planned functional executions and consolidation are recorded; fou
 | W3 usability | 7 | 7 | 7 | 0 | 0 | 0 | 0 | 100.00% | Reported manual observations |
 | W4 web | 20 | 20 | 18 | 2 | 0 | 0 | 0 | 90.00% | Current browser verification |
 | W4 API | 53 | 53 | 36 | 17 | 0 | 0 | 0 | 67.92% | Current API verification |
-| W5 follow-ups | 4 | 0 | 0 | 0 | 0 | 0 | 4 | N/A | Pending independent control reviews |
+| W5 static review | 4 | 4 | 1 | 3 | 0 | 0 | 0 | 25.00% | Completed static source review; not runtime testing |
 | W6 full | 104 | 104 | 88 | 0 | 16 | 0 | 0 | 84.62% | One full Windows reference run; Linux agreement |
 | W6 smoke | 29 | 29 | 18 | 0 | 11 | 0 | 0 | 62.07% | Subset of full suite; separate run |
 
-Pass rate = Pass / Executed. XFAIL is an expected-failure classification, separate from ordinary failures. Setup errors and XPASS are zero in the selected runs above. The earlier Week 6 smoke run with one setup error and both simulated-change runs remain in historical evidence; they are not baseline rows. Week 1 manual and automated results correspond to the same 29 designs, and the Week 6 smoke suite is a subset. Do not sum these populations as unique tests. Week 5 performance experiments, nine Week 1 API probe observations and eight Week 5 source-review findings are reported separately.
+Pass rate = Pass / Executed. XFAIL is an expected-failure classification, separate from ordinary failures. Setup errors and XPASS are zero in the selected runs above. The earlier Week 6 smoke run with one setup error and both simulated-change runs remain in historical evidence; they are not baseline rows. Week 1 manual and automated results correspond to the same 29 designs, and the Week 6 smoke suite is a subset. Do not sum these populations as unique tests. The Week 5 row measures completed static reviews, not runtime tests; its three failures concern existing CR findings. Week 5 performance experiments, nine Week 1 API probe observations and eight Week 5 source-review findings are reported separately.
 
 ## 5. Requirements traceability
 
@@ -107,7 +107,7 @@ Pass rate = Pass / Executed. XFAIL is an expected-failure classification, separa
 
 ## 6. Consolidated defect management
 
-[Consolidated Defect Log](Consolidated_Defect_Log.md) records 11 open entries (10 scope-confirmed, one observed pending requirement confirmation), with severity, priority, source references and lifecycle. The eight Week 5 CR findings are tracked separately; the four follow-up reviews are Not Run.
+[Consolidated Defect Log](Consolidated_Defect_Log.md) records 11 open entries (10 scope-confirmed, one observed pending requirement confirmation), with severity, priority, source references and lifecycle. The eight Week 5 CR findings are tracked separately; the four static follow-up reviews are complete (1 Pass / 3 Fail), with no new runtime defects.
 
 ## 7. Week 6 regression status
 
@@ -121,7 +121,7 @@ Pass rate = Pass / Executed. XFAIL is an expected-failure classification, separa
 1. Confirm the expected behaviour for duplicate usernames and spaces-only task titles.
 2. Confirm tester names, dates and group review details where they are missing.
 3. Retain the Week 1 and Week 4 ownership finding evidence and confirm group review and remediation recommendations.
-4. Complete the four outstanding security control reviews and record evidence and reviewer status.
+4. Confirm the four completed Week 5 static control review records and recommendations during group review.
 5. Check defect severity, priority and status against the original reports before submission.
 6. Keep the RTM and master repositories aligned, and avoid combining overlapping test counts.
 7. Save the current evidence before rerunning scripts that replace evidence files.

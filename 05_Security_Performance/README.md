@@ -3,6 +3,7 @@
 | File / folder | What it is |
 |---|---|
 | `Week5_Report.md` | The Week 5 report: STRIDE table, security findings, performance test and results, limitations, recommendations |
+| `evidence/static_control_review_20261126.json` | Dated source-control review evidence: 1 Pass / 3 Fail; no runtime execution |
 | `performance/pytodo_load_test.jmx` | JMeter plan (open it in the JMeter GUI to look at it; run it with the script below) |
 | `performance/run_perf_server.py` | Starts the unchanged app on port 5015 with an empty test database |
 | `performance/run_performance.py` | One command: runs every load level, then makes the tables and charts |

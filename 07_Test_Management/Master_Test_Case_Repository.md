@@ -2,7 +2,7 @@
 
 **Current reference: 26 November 2026.** This is the consolidated, case-level registry for Weeks 1–6. Each unique case ID has requirement, objective, current status and defect/evidence links. The original linked case records remain authoritative for the full required template (technique, preconditions, test data, steps, expected/actual and evidence); links avoid repeating those details. Manual and automated executions of the same design are distinguished, and regression IDs are not additional unique application requirements.
 
-Current recorded cases: 288 IDs (29 black-box designs, 41 helper cases, 37 GUI/compatibility/usability/accessibility cases, 73 web/API cases, four planned security reviews and 104 regression cases). Historical runs and source review findings are indexed separately.
+Current recorded cases: 288 IDs (29 black-box designs, 41 helper cases, 37 GUI/compatibility/usability/accessibility cases, 73 web/API cases, four completed static security reviews and 104 regression cases). Historical runs and source review findings are indexed separately.
 
 ## Week 1
 
@@ -216,12 +216,14 @@ Current recorded cases: 288 IDs (29 black-box designs, 41 helper cases, 37 GUI/c
 
 ## Week 5 review
 
-| Case ID | Req. | Objective | Manual | Automated / planned | Defect / observation | Original linked IDs / smoke | Case record | Evidence |
+These statuses are from the independent AI-assisted static source review completed 2026-11-26; no additional runtime tests were run. Human group review is pending.
+
+| Case ID | Req. | Objective | Manual | Static review result | Defect / observation | Original linked IDs / smoke | Case record | Evidence |
 |---|---|---|---|---|---|---|---|---|
-| TC-SEC-001 | R-12 | Authentication policy review | — | Not Run | CR-05 | — | [Planned review](../05_Security_Performance/Week5_Report.md#remaining-security-case-records) | Pending independent reviewer evidence |
-| TC-SEC-002 | R-12 | Output encoding control review | — | Not Run | CR-04 | — | [Planned review](../05_Security_Performance/Week5_Report.md#remaining-security-case-records) | Pending independent reviewer evidence |
-| TC-SEC-003 | R-12 | Database access design review | — | Not Run | CR-02 | — | [Planned review](../05_Security_Performance/Week5_Report.md#remaining-security-case-records) | Pending independent reviewer evidence |
-| TC-SEC-004 | R-12 | Password storage policy review | — | Not Run | Existing control | — | [Planned review](../05_Security_Performance/Week5_Report.md#remaining-security-case-records) | Pending independent reviewer evidence |
+| TC-SEC-001 | R-12 | Authentication policy review | — | Fail | CR-05 | — | [Static review](../05_Security_Performance/Week5_Report.md#security-control-review-records) | [Dated review evidence](../05_Security_Performance/evidence/static_control_review_20261126.json) |
+| TC-SEC-002 | R-12 | Output encoding control review | — | Fail | CR-04 | — | [Static review](../05_Security_Performance/Week5_Report.md#security-control-review-records) | [Dated review evidence](../05_Security_Performance/evidence/static_control_review_20261126.json) |
+| TC-SEC-003 | R-12 | Database access design review | — | Fail | CR-02 | — | [Static review](../05_Security_Performance/Week5_Report.md#security-control-review-records) | [Dated review evidence](../05_Security_Performance/evidence/static_control_review_20261126.json) |
+| TC-SEC-004 | R-12 | Password storage policy review | — | Pass | Existing control | — | [Static review](../05_Security_Performance/Week5_Report.md#security-control-review-records) | [Dated review evidence](../05_Security_Performance/evidence/static_control_review_20261126.json) |
 
 ## Week 6 full
 

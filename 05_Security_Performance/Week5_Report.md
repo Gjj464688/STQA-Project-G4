@@ -43,7 +43,7 @@ The table follows the four STRIDE steps from the STQA08 lecture: decompose the a
 **Approach.** Each STRIDE row is backed by one of three kinds of evidence:
 1. **Executed tests from earlier weeks** that already exercise the threat. They are not repeated here; Week 5 links them to the threat model.
 2. **Code review (static analysis, SAST in the lecture)** of `app.py` and the templates. These findings are confirmed by reading the code, not by a running test.
-3. **Planned security control reviews** for the remaining evidence gaps. The objectives, expected controls and completion status are recorded below. Code-review evidence and runtime results are reported separately. No new security runtime execution is claimed in this revision.
+3. **Completed static security control reviews** of four selected controls, recorded on 2026-11-26 through an independent AI-assisted source review. Code-review evidence and runtime results are reported separately. No new security runtime execution is claimed in this revision.
 
 | STRIDE row | Evidence type | Test / evidence | Result | Defect / finding |
 |---|---|---|---|---|
@@ -62,21 +62,21 @@ The table follows the four STRIDE steps from the STQA08 lecture: decompose the a
 | T-03 | Code review | No CSRF token field in any form; `/logout` accepts GET (line 179) | No CSRF protection found | CR-06 |
 | R-01 | Code review | No logging of task changes anywhere in `app.py` | No audit trail | CR-07 |
 | I-03, S-04 | Code review | No HTTPS or cookie settings in `app.py`; sessions are Flask's default browser cookies | Defaults only | CR-08 |
-| I-04 | Code review | `generate_password_hash` (lines 151, 325) stores salted scrypt hashes, the Werkzeug default | Control works | - |
-| S-02, I-02, T-01, I-04 | **Planned control review (team)** | See the four security case records below | Not Run | Additional evidence and reviewer confirmation pending |
+| I-04 | Code review | `generate_password_hash` (lines 151, 325) stores the framework-generated password hash | Hash use confirmed in source | - |
+| S-02, I-02, T-01, I-04 | **Static control review** | See the four security case records below | 1 Pass / 3 Fail | Source evidence recorded; group review pending |
 
-### Remaining security case records
+### Security control review records
 
-These are follow-up reviews of defensive controls. The common precondition is the supplied source version and the existing isolated test environment. Evidence should be a dated review record, a source reference or an approved control-verification result. No new result is inferred from the existing static findings.
+These four follow-up reviews were completed on **2026-11-26 (Asia/Kuala_Lumpur)** through independent AI-assisted inspection of the unchanged supplied source. Pass means the expected control was present in the inspected implementation; Fail means it was missing or inconsistently applied. The [dated review evidence](evidence/static_control_review_20261126.json) records the source hashes, references, observations and recommendations. Named human group review remains pending.
 
 | Case ID | Threat / objective | Review scope and expected control | Actual evidence / status | Finding |
 |---|---|---|---|---|
-| TC-SEC-001 | S-02: authentication protections | Review the authentication design for a documented, proportionate policy limiting repeated unsuccessful attempts. | Existing source review identifies a missing control; independent follow-up Not Run. | CR-05 |
-| TC-SEC-002 | I-02: safe rendering | Review the task-title presentation against the expected output-encoding policy. User-controlled content should be treated as text. | Existing source review identifies an encoding concern; independent follow-up Not Run. | CR-04 |
-| TC-SEC-003 | T-01: safe database access | Review the application's database access design against the expected parameterization policy. | Existing source review identifies a query-construction concern; independent follow-up Not Run. | CR-02 |
-| TC-SEC-004 | I-04: password storage | Review the password-storage implementation and configuration against the expected one-way password hashing policy. | Existing source review indicates hashing; independent follow-up Not Run. | Existing control |
+| TC-SEC-001 | S-02: authentication protections | Review the authentication design for a documented, proportionate policy limiting repeated unsuccessful attempts. | **Fail (static).** No failed-attempt limiting policy was found in the supplied login implementation or declared dependencies. Deployment-level controls were not evaluated. Source: `app.py:164–176`, `app.py:334–344`, `requirements.txt`. | CR-05 |
+| TC-SEC-002 | I-02: safe rendering | Review the task-title presentation against the expected output-encoding policy. User-controlled content should be treated as text. | **Fail (static).** The task-title rendering does not preserve the default HTML output-encoding control. Source: `templates/index.html:44`. | CR-04 |
+| TC-SEC-003 | T-01: safe database access | Review the application's database access design against the expected parameterization policy. | **Fail (static).** The reviewed API search query construction does not consistently apply parameter binding. Source: `app.py:354–386`, `app.py:211`. | CR-02 |
+| TC-SEC-004 | I-04: password storage | Review the password-storage implementation and configuration against the expected one-way password hashing policy. | **Pass (static).** Both registration paths use the framework password-hashing function, save the returned hash and verify passwords using the framework verification function. The schema stores a password hash. Actual database contents and cryptographic strength were not evaluated. Source: `app.py:53–63`, `app.py:139–160`, `app.py:164–176`, `app.py:316–330`, `app.py:334–344`. | Existing control |
 
-The four follow-ups are included in planned coverage, but excluded from executed-case totals. They are not four additional confirmed defects. Group review and lecturer agreement on any further runtime validation remain outstanding.
+**Review summary:** 4 planned, 4 reviewed, 1 Pass, 3 Fail, 0 Not Run (25% static-review pass rate). The three failures correspond to existing CR-05, CR-04 and CR-02; they do not create three additional runtime defects. No live requests, password-attempt testing or database inspection were conducted. No source changes were made. Group review remains outstanding.
 
 **Code-review findings.** These are recorded separately from runtime defects so they don't inflate the confirmed defect count, the same way Week 4 separated confirmed defects from assumptions.
 
@@ -262,7 +262,7 @@ For the app's maintainer, in priority order (no fixes were applied, as agreed fo
 6. **Add an audit log and agree a username uniqueness rule** (R-01, S-03).
 
 For the team:
-- Complete the four remaining security control reviews in section 3 and record the reviewer, evidence and actual status. Agree any additional validation scope with the lecturer before claiming runtime confirmation.
+- Review the four completed static control records in section 3 as a group, confirm the recommendations and retain their evidence. Do not interpret static outcomes as runtime confirmation.
 - Carry the existing evidence references into Week 7 without counting source-review observations as newly executed runtime tests.
 - Optional: examine the unresolved laptop latency observation at the ordinary small-team workload with the same measurement method. Record any additional environment observations as a separate run; do not assume a cause or change the historical results.
 - Carry the CR findings and new defect statuses into the Week 7 consolidated defect log and RTM.

@@ -18,7 +18,7 @@
 
 ## Source-review findings and outstanding checks
 
-The eight separately tracked Week 5 findings CR-01–CR-08 are documented in [Week 5 security review](../05_Security_Performance/Week5_Report.md#3-security-test-cases-and-findings). They are not counted as eight new runtime defects. Four planned security control reviews TC-SEC-001–004 are Not Run. The Week 4 assumption failures, duplicate username observation, and Week 2 exact-current-time interpretation remain distinct from confirmed defects.
+The eight separately tracked Week 5 findings CR-01–CR-08 are documented in [Week 5 security review](../05_Security_Performance/Week5_Report.md#3-security-test-cases-and-findings). They are not counted as eight new runtime defects. Four static security control reviews TC-SEC-001–004 are complete (1 Pass, 3 Fail); the failures confirm existing CR findings only, not new runtime defects. The Week 4 assumption failures, duplicate username observation, and Week 2 exact-current-time interpretation remain distinct from confirmed defects.
 
 ## Lifecycle
 

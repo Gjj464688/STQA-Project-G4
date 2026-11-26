@@ -1,0 +1,73 @@
+{
+  "date": "2026-11-26",
+  "timezone": "Asia/Kuala_Lumpur",
+  "method": "Independent AI-assisted static source/control review",
+  "scope": "Supplied app source only; no runtime or database access, no application changes",
+  "human_group_review": "Pending",
+  "source_sha256": {
+    "app.py": "050b4ee4bb7d42f9ea835b46569185177755feee8e420f861376df4e6097f30f",
+    "helpers.py": "bf9140338277534439b38599f5ac3ef722880cced732bba8f1f313147d466d80",
+    "templates/index.html": "12b17334b2e70543cfad1dce2d2e1ffc3e537e80a476ed230027fe69141464e0",
+    "requirements.txt": "267e2c6c3a55cf611ef9f26a7eaee92be8667769659b6546fdfe17f40d130384"
+  },
+  "summary": {
+    "planned": 4,
+    "reviewed": 4,
+    "pass": 1,
+    "fail": 3,
+    "not_run": 0
+  },
+  "cases": [
+    {
+      "case_id": "TC-SEC-001",
+      "objective": "Authentication protections",
+      "status": "Fail",
+      "linked_finding": "CR-05",
+      "source_references": [
+        "app.py:164–176",
+        "app.py:334–344",
+        "requirements.txt"
+      ],
+      "observation": "No failed-attempt limiting policy was found in the supplied login implementation or declared dependencies. Deployment-level controls were not evaluated.",
+      "recommendation": "Introduce a proportionate failed-login limiting policy."
+    },
+    {
+      "case_id": "TC-SEC-002",
+      "objective": "Safe rendering",
+      "status": "Fail",
+      "linked_finding": "CR-04",
+      "source_references": [
+        "templates/index.html:44"
+      ],
+      "observation": "The task-title rendering does not preserve the default HTML output-encoding control.",
+      "recommendation": "Preserve automatic output encoding for task titles."
+    },
+    {
+      "case_id": "TC-SEC-003",
+      "objective": "Safe database access",
+      "status": "Fail",
+      "linked_finding": "CR-02",
+      "source_references": [
+        "app.py:354–386",
+        "app.py:211"
+      ],
+      "observation": "The reviewed API search query construction does not consistently apply parameter binding.",
+      "recommendation": "Use bound parameters for all user-supplied database query values."
+    },
+    {
+      "case_id": "TC-SEC-004",
+      "objective": "Password storage",
+      "status": "Pass",
+      "linked_finding": "Existing control",
+      "source_references": [
+        "app.py:53–63",
+        "app.py:139–160",
+        "app.py:164–176",
+        "app.py:316–330",
+        "app.py:334–344"
+      ],
+      "observation": "Both registration paths use the framework password-hashing function, save the returned hash and verify passwords using the framework verification function. The schema stores a password hash. Actual database contents and cryptographic strength were not evaluated.",
+      "recommendation": "Retain framework-supported password hashing and review configuration during deployment."
+    }
+  ]
+}

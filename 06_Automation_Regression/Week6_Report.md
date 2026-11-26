@@ -14,7 +14,7 @@ This suite automates the **functional** behaviour tested in Week 1 (29 black-box
 
 Not in this suite, by design:
 - **The full Week 4 API suite (53 cases) and the Week 3/4 browser checks.** They are already automated with their own runners (`04_Web_API/run_api_tests.py`, `03_.../run_browser_checks.mjs`). Copying them here would duplicate them. A full regression pass runs this suite plus those runners.
-- **Security testing.** Week 5's pending control reviews are documented separately. DEF-W1-003 is tracked in the Week 4 evidence (API-25), outside the standalone Week 6 totals.
+- **Security testing.** Week 5's completed static control reviews (1 Pass / 3 Fail) are documented separately. DEF-W1-003 is tracked in the Week 4 evidence (API-25), outside the standalone Week 6 totals.
 - **Performance.** Measured with JMeter in Week 5. A load test is not a pass/fail regression check.
 
 ## 2. Review of earlier tests
@@ -153,7 +153,7 @@ This reflection is based on the saved Linux and Windows execution results. Ahmad
 1. **Ahmad:** done on Windows with Chrome (88 Pass / 16 XFAIL). Optional: once more with `--browser edge`.
 2. **A teammate:** run it on a second computer.
 3. **Group:** review the tests and decisions; record the reviewer.
-4. **Week 5 follow-up:** record the outcomes of the four outstanding control reviews and carry appropriate evidence into the consolidated RTM. Keep any future test-framework changes separately reviewed.
+4. **Week 5 follow-up:** Review the four completed static control records and their evidence in the consolidated RTM. Keep any future test-framework changes separately reviewed.
 5. **Week 7:** copy the traceability links into the RTM and master test repository.
 6. **Week 12 (CI/CD):** `ci/github-actions-regression.yml` shows the fast layers on every push and the browser layer nightly. It needs an agreed copy of the app in the repository.
 

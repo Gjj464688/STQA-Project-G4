@@ -24,10 +24,10 @@ Updated **26 November 2026**. Week 3 and Week 4 verification was executed on 12 
 | Week 3 GUI, compatibility, usability, accessibility | 37 cases: 35 Pass / 2 Fail; includes 30 automated checks and 7 user-reported manual usability observations | Complete within selected scope; two accessibility defects open; original usability tester/date not recorded |
 | Week 4 web testing | 20 browser cases: 18 Pass / 2 Fail | Complete within selected scope |
 | Week 4 API testing | 53 cases: 36 Pass / 17 Fail; no setup errors | Complete within selected scope; confirmed defects and unconfirmed policy assumptions distinguished |
-| Week 5 security and performance | 17 STRIDE entries, eight source-review findings; performance measured in two environments | Performance execution complete; four additional security control reviews remain Not Run |
+| Week 5 security and performance | 17 STRIDE entries, eight source-review findings; performance measured in two environments | Performance execution and four static control reviews complete (1 Pass / 3 Fail); group review pending |
 | Week 6 automation and regression | 104 full-suite tests: 88 Pass / 16 XFAIL; 29-test smoke suite | Execution complete; second group computer and group review pending |
 | Week 7 test management | Test plan/strategy, case-level registry (288 IDs), RTM and defect log | Consolidated; group review and outstanding metadata pending |
-| Week 8 final QA evaluation | Integrated metrics, charts, 11 open defect records, risk assessment and recommendations | Report reconciled; outstanding security reviews and group review remain |
+| Week 8 final QA evaluation | Integrated metrics, charts, 11 open defect records, risk assessment and recommendations | Report reconciled; group review pending |
 | Standards integration and presentation | See remaining work below | Pending |
 
 Week 2 achieved **100% statement and branch coverage for the selected helper module**, not the whole application. Failed assertions remain visible. Their presence does not make an executed test incomplete, and a failed assumption is not automatically a confirmed product defect. Manual and automated executions are counted separately.
@@ -40,7 +40,7 @@ Week 2 achieved **100% statement and branch coverage for the selected helper mod
 | Week 2 | [Report](02_White_Box_Coverage/Week2_Report.md), [test repository](02_White_Box_Coverage/Master_Test_Repository.md) | [Unit tests](02_White_Box_Coverage/tests), [coverage and execution evidence](02_White_Box_Coverage/evidence) |
 | Week 3 | [Report](03_GUI_Compatibility_Usability_Accessibility/Week3_Report.md) and four Excel workbooks in the [phase folder](03_GUI_Compatibility_Usability_Accessibility) | [Original and verification evidence](03_GUI_Compatibility_Usability_Accessibility/evidence), browser scripts |
 | Week 4 | [Report](04_Web_API/Week4_Report.md) and four Excel workbooks in the [phase folder](04_Web_API) | [API tests](04_Web_API/tests), [logs, JUnit, JSON, route map, and screenshots](04_Web_API/Evidence) |
-| Week 5 | [Report](05_Security_Performance/Week5_Report.md), [setup and evidence index](05_Security_Performance/README.md) | [Performance evidence](05_Security_Performance/evidence) |
+| Week 5 | [Report](05_Security_Performance/Week5_Report.md), [setup and evidence index](05_Security_Performance/README.md) | [Performance evidence](05_Security_Performance/evidence), [static control review evidence](05_Security_Performance/evidence/static_control_review_20261126.json) |
 | Week 6 | [Report](06_Automation_Regression/Week6_Report.md), [regression test repository](06_Automation_Regression/Regression_Test_Repository.md), [setup](06_Automation_Regression/README.md) | [Tests](06_Automation_Regression/tests), [execution evidence](06_Automation_Regression/evidence), illustrative CI workflow |
 | Week 7 | [Test management report](07_Test_Management/Week7_Report.md), [RTM](07_Test_Management/Requirements_Traceability_Matrix.md) | [Master case registry](07_Test_Management/Master_Test_Case_Repository.md), [consolidated defect log](07_Test_Management/Consolidated_Defect_Log.md) |
 | Week 8 | [Final QA evaluation](08_Final_QA_Report/Week8_Report.md) | [Metrics charts](08_Final_QA_Report/metrics_charts) |
@@ -134,7 +134,7 @@ Recorded result: 36 Pass / 17 Fail, with no setup errors. Each API case uses its
 
 ### Week 5 security and performance
 
-The [Week 5 report](05_Security_Performance/Week5_Report.md) contains 17 STRIDE entries, links to existing evidence, eight source-review findings (CR-01 to CR-08), and four outstanding security control review records. Source-review findings are tracked separately from runtime defects. The four follow-ups are Not Run and are excluded from executed totals.
+The [Week 5 report](05_Security_Performance/Week5_Report.md) contains 17 STRIDE entries, links to existing evidence, eight source-review findings (CR-01 to CR-08), and four completed static security control reviews (1 Pass / 3 Fail). Source-review findings are tracked separately from runtime defects; the four reviews are counted in their own static-review population.
 
 The performance test needs Apache JMeter 5.6.3 extracted beside the repository, Java, and `matplotlib`. From the repository root:
 
@@ -191,4 +191,4 @@ Open `http://127.0.0.1:5000/` and register a dummy test account; the starter app
 
 The lecturer's guidance shared on 7 October 2026 indicated one combined submission around Week 10, feedback in Week 11, and possible resubmission in Week 12. Exact dates remain to be confirmed. Weekly phases organize the work. Labs and the project carry separate marks unless the TA has agreed otherwise.
 
-Before the combined submission, confirm the missing original manual execution details, record the Week 2 and Week 6 group reviews, complete the outstanding Week 5 control reviews, and review the consolidated traceability, metrics, and defect statuses across Weeks 1–8. Detailed findings and recommendations belong in the phase reports; implementation of application fixes is outside the agreed project scope.
+Before the combined submission, confirm the missing original manual execution details, record the Week 2 and Week 6 group reviews, confirm the completed Week 5 static control review records and recommendations, and review the consolidated traceability, metrics, and defect statuses across Weeks 1–8. Detailed findings and recommendations belong in the phase reports; implementation of application fixes is outside the agreed project scope.
