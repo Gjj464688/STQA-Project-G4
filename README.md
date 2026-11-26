@@ -26,7 +26,8 @@ Updated **26 November 2026**. Week 3 and Week 4 verification was executed on 12 
 | Week 4 API testing | 53 cases: 36 Pass / 17 Fail; no setup errors | Complete within selected scope; confirmed defects and unconfirmed policy assumptions distinguished |
 | Week 5 security and performance | 17 STRIDE entries, eight source-review findings; performance measured in two environments | Performance execution complete; four additional security control reviews remain Not Run |
 | Week 6 automation and regression | 104 full-suite tests: 88 Pass / 16 XFAIL; 29-test smoke suite | Execution complete; second group computer and group review pending |
-| Weeks 7–8 and presentation | See the remaining work below | Pending |
+| Week 7 test management | Consolidated test plan, master test case repository, requirements traceability matrix (RTM), and consolidated defect log | Complete |
+| Week 8 final QA evaluation | Consolidated execution metrics, defect summary, risk assessment, quality evaluation, recommendations, and final report | Complete |
 
 Week 2 achieved **100% statement and branch coverage for the selected helper module**, not the whole application. Failed assertions remain visible. Their presence does not make an executed test incomplete, and a failed assumption is not automatically a confirmed product defect. Manual and automated executions are counted separately.
 
@@ -40,6 +41,8 @@ Week 2 achieved **100% statement and branch coverage for the selected helper mod
 | Week 4 | [Report](04_Web_API/Week4_Report.md) and four Excel workbooks in the [phase folder](04_Web_API) | [API tests](04_Web_API/tests), [logs, JUnit, JSON, route map, and screenshots](04_Web_API/Evidence) |
 | Week 5 | [Report](05_Security_Performance/Week5_Report.md), [setup and evidence index](05_Security_Performance/README.md) | [Performance evidence](05_Security_Performance/evidence) |
 | Week 6 | [Report](06_Automation_Regression/Week6_Report.md), [regression test repository](06_Automation_Regression/Regression_Test_Repository.md), [setup](06_Automation_Regression/README.md) | [Tests](06_Automation_Regression/tests), [execution evidence](06_Automation_Regression/evidence), illustrative CI workflow |
+| Week 7 | [Week 7 Test Management Report](07_Test_Management/Week7_Report.md), [Consolidated Test Plan](07_Test_Management/Week7_Report.md), [Master Test Case Repository](07_Test_Management/Master_Test_Case_Repository.md), [Requirements Traceability Matrix](07_Test_Management/Requirements_Traceability_Matrix.md), [Consolidated Defect Log](07_Test_Management/Consolidated_Defect_Log.md) | Consolidated testing scope, execution results, test cases, requirements traceability, and defect status from Weeks 1–6 |
+| Week 8 | [Week 8 Final QA Report](08_Final_QA_Report/Week8_Report.md) | Final quality assessment, consolidated metrics, defect summary, risk assessment, recommendations, and selected testing evidence |
 
 Each report explains scope, environment, findings, recommendations, and limitations. Week 3's Markdown report supersedes its earlier Word summary. Original Week 3/4 workbook observations are retained in each phase's evidence as `original_records.json`; superseded records are excluded from current execution totals. Existing defect IDs are reused across phases to avoid duplicate defect counts.
 
@@ -183,8 +186,6 @@ Open `http://127.0.0.1:5000/` and register a dummy test account; the starter app
 
 | Stage | Planned deliverables |
 |---|---|
-| Week 7 test management | Consolidated test plan, current RTM, master test repository, defect log, and regression status |
-| Week 8 final QA evaluation | Integrated metrics, quality assessment, residual risks, and prioritized recommendations |
 | Integration and presentation | ISO/IEC 25010/process context, CI/CD and Agile/DevOps discussion, presentation, and live demonstration |
 
 The lecturer's guidance shared on 7 October 2026 indicated one combined submission around Week 10, feedback in Week 11, and possible resubmission in Week 12. Exact dates remain to be confirmed. Weekly phases organize the work. Labs and the project carry separate marks unless the TA has agreed otherwise.
