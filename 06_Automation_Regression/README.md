@@ -15,7 +15,7 @@ working-folder\              (e.g. Downloads, or the folder holding the group re
 
 This is the same layout the group README uses.
 
-If the app is somewhere else, tell the suite where before running: `$env:PYTODO_SOURCE_DIR = "C:\path\to\pytodo_pro_student"` (the same variable the Week 3/4 runners use)
+The suite finds the sibling application folder automatically. If the app is somewhere else, set `PYTODO_SOURCE_DIR` to the original source folder before running (the same variable the Week 3/4 runners use).
 
 **b. Create a virtual environment and install the tools.** In PowerShell, in this folder:
 
@@ -45,11 +45,11 @@ The last lines print a verdict:
 
 | Verdict | Meaning |
 |---|---|
-| `PASSED (no new failures)` | Everything passed except the known open defects, which were seen again (XFAIL). This is the expected result for the current app. |
+| `PASSED (no new failures)` | The recorded assertions passed or were classified as expected failures (XFAIL). Check the exact failure reasons before confirming the associated defects. |
 | `ATTENTION` + `NEW FAILURE` | Something that used to work now fails. Investigate and log a defect if it is the app's fault. |
 | `ATTENTION` + `POSSIBLY FIXED` | A known-defect test passed (XPASS). Retest that defect by hand and update its status in the defect log. |
 
-Expected result for the unchanged app: **PASS 88, XFAIL 16 (total 104)**. The 16 XFAILs are the nine open defects from Weeks 1-4.
+Recorded full baseline result: **PASS 88, XFAIL 16 (total 104)**. The 16 XFAILs link to nine of the ten Week 1–4 defect IDs. DEF-W1-003 remains separately tracked by Week 4, and DEF-W5-001 is outside the regression suite. The current expected-failure marker can conceal an unrelated exception; see the report's limitations. The laptop and Linux full runs agree, while group review remains pending.
 
 ## 3. Where the evidence goes
 

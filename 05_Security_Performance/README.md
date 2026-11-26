@@ -10,16 +10,16 @@
 
 ## Run the performance test on your PC
 
-**1. Folders.** Keep the app beside the project, and extract JMeter into Downloads (or anywhere, then use `--jmeter`):
+**1. Folders.** Keep the supplied app and JMeter beside the project repository:
 
 ```
-Downloads\
+working-folder\
   pytodo_pro_student\          <- extracted app (app.py, helpers.py ...)
   apache-jmeter-5.6.3\         <- extracted JMeter
-  STQA_Week5_6\05_Security_Performance\performance\   <- run from here
+  STQA-Project-G4\05_Security_Performance\performance\   <- run from here
 ```
 
-If the app is elsewhere: `$env:PYTODO_SOURCE_DIR = "C:\path\to\pytodo_pro_student"`
+The runner uses the sibling application folder by default. If the app is elsewhere, set `PYTODO_SOURCE_DIR` to the actual original source directory.
 
 **2. Python packages** (in your virtual environment): the app's `requirements.txt`, plus `matplotlib` for the charts.
 
@@ -27,7 +27,7 @@ If the app is elsewhere: `$env:PYTODO_SOURCE_DIR = "C:\path\to\pytodo_pro_studen
 pip install -r ..\..\..\pytodo_pro_student\requirements.txt matplotlib
 ```
 
-JMeter needs Java (you have the JDK installer in Downloads). Check with `java -version`.
+JMeter needs Java. Check your installed Java version with `java -version`.
 
 **3. Quick check (about 2 minutes):**
 
@@ -41,6 +41,6 @@ python run_performance.py --quick
 python run_performance.py --label "Ahmad-PC"
 ```
 
-It prints a summary at the end. Copy the tables from the new `evidence\perf_...\results.md` and the three charts into the report's results section (section 5), replacing the agent-run numbers, and update the environment table (section 4.4) from `environment.json`.
+It prints a summary at the end. Keep each new execution in its own timestamped folder and compare it with the existing report. Preserve the separate laptop and agent results, environment details, and historical evidence. Update the report only after reviewing the new results.
 
 **Options:** `--levels 1,5,10,25` (choose user counts), `--repeats 3`, `--steady 60` (seconds measured per run), `--no-recovery`, `--port 5016`, `--jmeter C:\...\apache-jmeter-5.6.3\bin\jmeter.bat`. To redo only the tables and charts for an existing folder: `python run_performance.py --analyse ..\evidence\perf_<folder>`.

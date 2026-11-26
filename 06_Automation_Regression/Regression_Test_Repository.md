@@ -4,7 +4,7 @@ One row per automated test in the regression suite (104 tests). Each row links t
 
 Common preconditions: PyTodo Pro source unchanged (hashes checked and recorded by every run); each unit/API/web test starts from an empty temporary SQLite database; browser tests share one throwaway database served on 127.0.0.1:5002 and use a unique username per test. `D` is the computer's current date when the test runs. Default valid password: `abcdefghi` (9 characters). Steps are the test code itself: open the listed file and find the test by its AUTO ID in the `trace` marker.
 
-Result meanings: **PASS**; **FAIL**; **XFAIL** = the linked open defect was observed again (expected while the defect is open); **XPASS** = a known-defect test passed, so the defect may be fixed and must be retested.
+Result meanings: **PASS**; **FAIL**; **XFAIL** = failure of a test marked as expected to fail; **XPASS** = a marked test passed unexpectedly. Confirm the specific failure reason before treating XFAIL as a reproduction. The current marker is broad and may also classify unrelated errors as XFAIL. Retest before changing a defect's status.
 
 Four-task fixture (from Week 1 TC-BB-024 to 029): one user with `Work open A`, `Work done B` (done), `Personal open C`, `Personal done D` (done).
 
@@ -143,7 +143,7 @@ Test type: UI end-to-end (Selenium + PyTest). Script: `tests/ui/test_ui_regressi
 
 ## Regression checks for open defects found in Weeks 3 and 4
 
-One automated test per open defect, so a single regression run reports every open defect. The full Week 4 API suite (53 cases) and Week 3/4 browser checks keep their own runners; DEF-W1-003 is checked by Week 4 API-25.
+The standalone suite links to nine of the ten Week 1–4 defect IDs, including selected checks for the five Week 3/4 defects below. DEF-W1-003 is separately tracked by Week 4 API-25. The Week 5 performance defect is outside this suite. AUTO-UNIT-032 retains Week 2's unconfirmed exact-current-time interpretation; the established DEF-W2-001 concerns the inclusive N-day boundary. No new defect is counted solely because of a linked assumption failure.
 
 | Original case | Defect | Automated test | Layer |
 |---|---|---|---|

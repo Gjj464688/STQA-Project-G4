@@ -2,7 +2,7 @@
 
 **Course:** TEB3433 / TFB3433 Software Testing and Quality Assurance, September 2026
 **Assignment stage:** Week 6 - Test automation and regression
-**Report date:** 2026-11-25 (Asia/Kuala_Lumpur, UTC+08:00)
+**Report date:** 2026-11-26 (Asia/Kuala_Lumpur, UTC+08:00); revised after the Windows run.
 **Team:** see the project README. Automation/Tool Coordinator: Ahmad Adam Ali.
 **Execution provenance:** Suite written by Ahmad Adam Ali for the Automation/Tool Coordinator; development runs executed in a Linux workspace. Group runs on Windows: run 1 by Ahmad Adam Ali, 2026-11-26 (section 6.2); run 2: teammate `_____`, date `_____`. Group reviewer: `_____`.
 
@@ -10,11 +10,11 @@
 
 The brief asks the group to review earlier manual tests, select automation candidates by repetition, stability, criticality and regression value, map automated tests to the original cases, build and run automated tests with approved tools (PyTest/Selenium), create a focused regression suite, and analyse automation benefits and limitations.
 
-This suite automates the **functional** behaviour tested in Week 1 (29 black-box cases) and Week 2 (41 white-box cases). It also adds **one regression check for every open defect found in Weeks 3 and 4**, so a single run reports the status of every open defect. The application is not changed: every run checks the SHA-256 of `app.py` (`050b4ee4...`) and `helpers.py` (`bf914033...`) against the Week 1-4 values and saves the result.
+This suite automates the **functional** behaviour tested in Week 1 (29 black-box cases, including one partially automated case) and Week 2 (41 white-box cases). It also includes selected defect-linked regression checks from Weeks 3 and 4. The standalone suite maps to nine of the ten recorded Week 1-4 defect IDs; the remaining ownership issue is tracked separately in the Week 4 evidence. The Week 5 performance finding is outside this suite. Baseline runs record the SHA-256 of `app.py` (`050b4ee4...`) and `helpers.py` (`bf914033...`) against the Week 1-4 values.
 
 Not in this suite, by design:
 - **The full Week 4 API suite (53 cases) and the Week 3/4 browser checks.** They are already automated with their own runners (`04_Web_API/run_api_tests.py`, `03_.../run_browser_checks.mjs`). Copying them here would duplicate them. A full regression pass runs this suite plus those runners.
-- **Security tests.** Week 5's planned security checks will be added once the team has run them. DEF-W1-003 (cross-user delete) is already checked on every Week 4 run by API-25.
+- **Security testing.** Week 5's pending control reviews are documented separately. DEF-W1-003 is tracked in the Week 4 evidence (API-25), outside the standalone Week 6 totals.
 - **Performance.** Measured with JMeter in Week 5. A load test is not a pass/fail regression check.
 
 ## 2. Review of earlier tests
@@ -27,7 +27,7 @@ Not in this suite, by design:
 | Week 4 web and API | 20 browser checks (Playwright), 53 API cases (PyTest) | Automated |
 | Open defects | DEF-W1-001 to 004, DEF-W2-001, DEF-W3-001/002, DEF-W4-001 to 003 | Each week's runner checks only its own defects |
 
-**The Week 1 Playwright script** (`01_Black_Box/run_browser_cases.mjs`) was reviewed and not extended. It loads Playwright from one computer's a tool-cache folder on one computer, uses a hard-coded Edge path and needs a manual database reset. It also runs all 29 cases in the browser, the slowest and most fragile layer. The brief and Lab 5 name PyTest and Selenium for this stage. The script stays as Week 1 evidence, and its 29 cases are moved to the cheapest layer that can check each rule.
+**The Week 1 Playwright script** (`01_Black_Box/run_browser_cases.mjs`) was reviewed. Its original tool and browser locations are specific to the execution machine, and reruns require a fresh database. It runs all 29 cases in the browser. Week 6 uses PyTest and Selenium and assigns the corresponding checks to suitable test layers. The original script remains part of the Week 1 evidence.
 
 ## 3. Automation candidate selection
 
@@ -55,7 +55,7 @@ Each group of cases was rated on the brief's four criteria. Criticality uses the
 
 ## 4. Suite design
 
-The suite follows the test pyramid from the STQA09/10 lecture: many fast low-level tests and few slow end-to-end tests.
+The suite follows the test pyramid from the STQA09/10 lecture: many fast low-level tests and few slow end-to-end tests. The 104 cases and their linked original IDs are recorded in the case repository.
 
 | Layer | Tool | Tests | Smoke | What it exercises |
 |---|---|---:|---:|---|
@@ -66,9 +66,9 @@ The suite follows the test pyramid from the STQA09/10 lecture: many fast low-lev
 | **Total** | | **104** | **29** | |
 
 1. **Isolation.** Each unit, API and web test uses a new empty SQLite file. Browser tests use one throwaway database on 127.0.0.1:5002 with unique usernames. The real `pytodo_pro.db` is never touched and no manual reset is needed.
-2. **Known defects as strict expected failures.** A test linked to an open defect is marked `@known_defect("DEF-...")`. While the defect is present it reports **XFAIL**, so the run stays green but still checks the defect. If the defect is fixed the test reports **XPASS**, which counts as a failure and tells the team to retest and update the defect log. Expected results are never changed to match wrong behaviour.
+2. **Strict expected failures.** A test linked to an open defect is marked `@known_defect("DEF-...")`. A marked failure reports **XFAIL**; an unexpected pass reports **XPASS**, which counts as a failure and prompts review. The current marker is broad: an unrelated exception or setup failure on a marked test may also be classified as XFAIL. Each XFAIL therefore needs its failure reason checked against historical evidence before it can be treated as a confirmed reproduction. The recorded expectations are unchanged.
 3. **Traceability in code.** Every test carries `@trace("AUTO-...", manual=[...], req=[...])`, and the runner saves these links next to each result.
-4. **Smoke set (29 tests, about 8 s):** one test per critical requirement plus one test for every open defect.
+4. **Smoke set (29 tests, about 8 s in the recorded Linux run):** representative checks for critical requirements and the nine defect IDs represented in the standalone suite. It does not cover all project defects or all tests.
 5. **Stable browser tests.** Page objects keep locators in one place. Every form-submitting click waits for the new page (section 6.3). Dates are set in ISO format, because typed dates follow the computer's locale.
 6. **Evidence by default.** `run_regression.py` saves the console log, JUnit XML, an HTML report with screenshots, per-test results with traceability, and a summary with environment and app hashes, in a new timestamped folder for every run.
 
@@ -80,7 +80,7 @@ Per-test details are in [Regression_Test_Repository.md](Regression_Test_Reposito
 - **All 41 Week 2 cases** are re-run unchanged (`TC-WB-nnn` → `AUTO-UNIT-nnn`).
 - **Week 3/4 open defects:** ACC-TC-002 → AUTO-UI-008; ACC-TC-008 → AUTO-WEB-015; API-32 → AUTO-API-019; API-42 → AUTO-API-020; API-49/50 → AUTO-API-021.
 - **Requirements:** R-01, R-02 and R-04 to R-09 are covered at two or more layers; R-03 (list isolation), R-10 and R-11 (open defects only) are covered in part. R-12 (security and performance) belongs to Week 5.
-- **Open defects checked on every run (16 tests):** DEF-W1-001 (4), DEF-W1-002 (3), DEF-W1-004 (1), DEF-W2-001 (3), DEF-W3-001 (1), DEF-W3-002 (1), DEF-W4-001 (1), DEF-W4-002 (1), DEF-W4-003 (1). DEF-W1-003 is checked by Week 4 API-25.
+- **Defect-linked tests in a full run (16 tests, nine IDs):** DEF-W1-001 (4), DEF-W1-002 (3), DEF-W1-004 (1), DEF-W2-001 (3), DEF-W3-001 (1), DEF-W3-002 (1), DEF-W4-001 (1), DEF-W4-002 (1), DEF-W4-003 (1). DEF-W1-003 is tracked separately by Week 4 API-25. The exact-current-time case AUTO-UNIT-032 remains an interpretation of the recent-completion rule; the independently confirmed DEF-W2-001 concerns the inclusive N-day boundary. DEF-W1-004's expected whitespace-title rule also remains a proposed quality expectation.
 
 ## 6. Execution results
 
@@ -105,7 +105,7 @@ All runs are in `evidence/`, named `<date-time>_<suite>_<label>`. Durations are 
 | experiment-B | Full, temporary copy | ATTENTION: PASS 85, XFAIL 16, **FAIL 3** | 104 | 16.2 s | Simulated regression; section 7 |
 | **Ahmad-PC** | Full, on Windows | PASSED: PASS 88, XFAIL 16 | 104 | 49.4 s | Ahmad's laptop, Chrome 157 (`evidence/20261126-024054_full_Ahmad-PC`) |
 
-On the unchanged app every run, on Linux and on Ahmad's Windows laptop, observed the same nine open defects again, with no new failures. The Windows run gave exactly the same result as the Linux runs.
+The completed full baseline runs on Linux and Ahmad's Windows laptop recorded identical per-case outcomes: 88 PASS, 16 XFAIL and no unexpected failures. The earlier smoke run's browser setup error remains visible. The 16 XFAILs link to nine defect IDs; they are not 16 additional defects. A read-only evidence review on 2026-11-26 checked all eight run summaries against their per-test records and JUnit test counts, and confirmed that the two full reference environments agree by automated test ID. No new execution or named group review is claimed by that check.
 
 **Per layer (agent-run-3, test-body time only):**
 
@@ -124,25 +124,26 @@ In agent-run-1, `AUTO-UI-005` failed during setup with a WebDriver error ("Node 
 
 ## 7. Does the suite detect change? Two controlled experiments
 
-Each experiment used a **temporary copy** of the app with one line changed. The supplied files were not modified, and their hashes were unchanged afterwards.
+Each historical experiment used a **temporary copy** of the app with one line changed. The supplied files were not modified. These are demonstrations of the test suite's sensitivity to change, recorded separately from baseline application testing. Their results are excluded from current pass/fail totals and do not constitute application corrections for the assignment. Retain them as optional evidence subject to the lecturer's agreed scope.
 
 - **Experiment A, simulated defect fix.** `is_valid_password` was changed from `> 8` to `>= 8`, a likely fix for DEF-W1-001. All 4 DEF-W1-001 tests (unit, API, web, browser) reported **XPASS**, and the runner printed "POSSIBLY FIXED ... retest and update the defect log". The other eight defects were still reported as present. A fix can't go unnoticed.
 - **Experiment B, simulated regression.** The web route that marks a task done stopped saving the completion time. **Three tests failed:** AUTO-WEB-009, AUTO-WEB-014 and AUTO-UI-005, all reporting completed counts of 0 instead of 1. The API layer did **not** catch it, because the API marks tasks done through a different route. Web and API share rules but not code, so both layers need tests.
 
 ## 8. Reflection: benefits and limitations
 
-> **DRAFT. Ahmad: rewrite this in your own words after your own runs, and add what you noticed (setup problems, time taken, anything surprising).**
+This reflection is based on the saved Linux and Windows execution results. Ahmad's recorded laptop run supplies an independent environment comparison; the group review and any personal reflections remain pending.
 
 **Benefits**
-- **Speed:** all 104 checks run with one command in about 18 seconds, or about 4 seconds without the browser.
-- **Repeatability:** two full runs gave identical results, and no manual database reset is needed.
-- **Defect tracking:** every run confirms the nine open defects, and experiment A shows a fix gets flagged automatically.
+- **Speed:** the recorded full Linux checks took about 18 seconds, the no-browser run about 4 seconds, and Ahmad's Windows full run 49.4 seconds. The difference illustrates the impact of environment and browser startup.
+- **Repeatability:** the full unchanged-source runs gave identical per-case outcomes across two environments. Temporary databases avoid manual reset.
+- **Defect tracking:** the full baseline runs recorded 16 expected failures linked to nine defect IDs. Experiment A shows that the strict marker flags unexpectedly passing tests; defect closure still requires review.
 - **Regression detection:** experiment B was caught at two layers, and it showed why both web and API tests are needed.
 - **Evidence:** each run produces the reports, screenshots and traceability the final report needs.
 
 **Limitations**
 - **Browser tests are slow and fragile.** The only unexpected failure came from browser timing, not the app.
 - **Automation checks only what it is told to.** Every assertion encodes an expected result someone decided; DEF-W1-004, for example, still needs its expectation confirmed. Automation can't judge usability or appearance.
+- **Expected-failure classification.** The current broad XFAIL marker is not restricted to the specific historical failure. Review the underlying failure type and message before confirming a known defect; unrelated failures may otherwise be hidden in the expected-failure count. Refining failure classification is a future test-framework improvement, not an application fix. The saved runs are retained as reported.
 - **The test client is not a real server.** The API and web layers skip the real HTTP server; only the 8 browser tests use it.
 - **Date-dependent tests** could misbehave if a run crosses midnight. The unit layer avoids this with a fixed clock.
 - **Environment:** the suite was developed on Linux. Ahmad's Windows run gave identical results; a second group computer is still to be tried (section 9).
@@ -152,7 +153,7 @@ Each experiment used a **temporary copy** of the app with one line changed. The 
 1. **Ahmad:** done on Windows with Chrome (88 Pass / 16 XFAIL). Optional: once more with `--browser edge`.
 2. **A teammate:** run it on a second computer.
 3. **Group:** review the tests and decisions; record the reviewer.
-4. **After Week 5:** add the agreed security checks with `@trace` and `@known_defect` markers.
+4. **Week 5 follow-up:** record the outcomes of the four outstanding control reviews and carry appropriate evidence into the consolidated RTM. Keep any future test-framework changes separately reviewed.
 5. **Week 7:** copy the traceability links into the RTM and master test repository.
 6. **Week 12 (CI/CD):** `ci/github-actions-regression.yml` shows the fast layers on every push and the browser layer nightly. It needs an agreed copy of the app in the repository.
 

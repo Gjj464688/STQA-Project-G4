@@ -15,7 +15,7 @@ Student IDs follow the supplied Group 4 Lab 3 cover sheet. Planned assignments d
 
 ## Progress
 
-Updated **13 November 2026**. Week 3 and Week 4 verification was executed on 12 November 2026.
+Updated **26 November 2026**. Week 3 and Week 4 verification was executed on 12 November; Week 5 and Week 6 execution evidence includes Linux and Windows laptop runs on 25–26 November.
 
 | Stage | Recorded results | Status |
 |---|---|---|
@@ -24,7 +24,9 @@ Updated **13 November 2026**. Week 3 and Week 4 verification was executed on 12 
 | Week 3 GUI, compatibility, usability, accessibility | 37 cases: 35 Pass / 2 Fail; includes 30 automated checks and 7 user-reported manual usability observations | Complete within selected scope; two accessibility defects open; original usability tester/date not recorded |
 | Week 4 web testing | 20 browser cases: 18 Pass / 2 Fail | Complete within selected scope |
 | Week 4 API testing | 53 cases: 36 Pass / 17 Fail; no setup errors | Complete within selected scope; confirmed defects and unconfirmed policy assumptions distinguished |
-| Weeks 5–8 and presentation | See the remaining work below | Pending |
+| Week 5 security and performance | 17 STRIDE entries, eight source-review findings; performance measured in two environments | Performance execution complete; four additional security control reviews remain Not Run |
+| Week 6 automation and regression | 104 full-suite tests: 88 Pass / 16 XFAIL; 29-test smoke suite | Execution complete; second group computer and group review pending |
+| Weeks 7–8 and presentation | See the remaining work below | Pending |
 
 Week 2 achieved **100% statement and branch coverage for the selected helper module**, not the whole application. Failed assertions remain visible. Their presence does not make an executed test incomplete, and a failed assumption is not automatically a confirmed product defect. Manual and automated executions are counted separately.
 
@@ -36,6 +38,8 @@ Week 2 achieved **100% statement and branch coverage for the selected helper mod
 | Week 2 | [Report](02_White_Box_Coverage/Week2_Report.md), [test repository](02_White_Box_Coverage/Master_Test_Repository.md) | [Unit tests](02_White_Box_Coverage/tests), [coverage and execution evidence](02_White_Box_Coverage/evidence) |
 | Week 3 | [Report](03_GUI_Compatibility_Usability_Accessibility/Week3_Report.md) and four Excel workbooks in the [phase folder](03_GUI_Compatibility_Usability_Accessibility) | [Original and verification evidence](03_GUI_Compatibility_Usability_Accessibility/evidence), browser scripts |
 | Week 4 | [Report](04_Web_API/Week4_Report.md) and four Excel workbooks in the [phase folder](04_Web_API) | [API tests](04_Web_API/tests), [logs, JUnit, JSON, route map, and screenshots](04_Web_API/Evidence) |
+| Week 5 | [Report](05_Security_Performance/Week5_Report.md), [setup and evidence index](05_Security_Performance/README.md) | [Performance evidence](05_Security_Performance/evidence) |
+| Week 6 | [Report](06_Automation_Regression/Week6_Report.md), [regression test repository](06_Automation_Regression/Regression_Test_Repository.md), [setup](06_Automation_Regression/README.md) | [Tests](06_Automation_Regression/tests), [execution evidence](06_Automation_Regression/evidence), illustrative CI workflow |
 
 Each report explains scope, environment, findings, recommendations, and limitations. Week 3's Markdown report supersedes its earlier Word summary. Original Week 3/4 workbook observations are retained in each phase's evidence as `original_records.json`; superseded records are excluded from current execution totals. Existing defect IDs are reused across phases to avoid duplicate defect counts.
 
@@ -126,7 +130,7 @@ Recorded result: 36 Pass / 17 Fail, with no setup errors. Each API case uses its
 
 ### Week 5 security and performance
 
-The security assessment has no runner. The [Week 5 report](05_Security_Performance/Week5_Report.md) contains the STRIDE table (17 threats), links each threat to executed Week 1-4 tests or to code review, and records eight code-review findings (CR-01 to CR-08). Code-review findings are confirmed in the source but not yet by a running test, so they are not counted as confirmed defects. Four planned controlled security checks remain for the group.
+The [Week 5 report](05_Security_Performance/Week5_Report.md) contains 17 STRIDE entries, links to existing evidence, eight source-review findings (CR-01 to CR-08), and four outstanding security control review records. Source-review findings are tracked separately from runtime defects. The four follow-ups are Not Run and are excluded from executed totals.
 
 The performance test needs Apache JMeter 5.6.3 extracted beside the repository, Java, and `matplotlib`. From the repository root:
 
@@ -138,7 +142,7 @@ $env:PYTODO_SOURCE_DIR = (Resolve-Path '..\pytodo_pro_student').Path
 
 `--quick` is a two-minute setup check; the full experiment takes about 50 minutes. For each load level and repeat, the runner starts the unchanged app on port 5015 with a temporary database and debug off, runs the JMeter plan in non-GUI mode, and stops the server. Each run creates a new timestamped folder in `05_Security_Performance/evidence`; earlier results are not overwritten.
 
-Recorded result: nine load levels from 1 to 800 virtual users, run on two computers. On Ahmad's Windows laptop (16 CPUs, three runs per level) the app met the proposed targets (p95 at most 1000 ms, errors at most 1%) at 1, 5, 25, 50 and 100 users. At 10 users, short pauses on the laptop pushed p95 to about 1.4 s; this was not load-related. Above 100 users, most laptop errors came from Windows running out of local network ports for JMeter, a limit of the test computer rather than the app. On the agent-executed Linux run (2 CPUs), the targets were met up to 400 users. At 800 users throughput levelled off at about 400 requests per second, p95 reached about 5.1 s, and 22.5% of requests failed with SQLite `database is locked` errors, recorded as DEF-W5-001. The laptop logged the same `database is locked` errors at 400 and 800 users. Both computers recovered fully when the load dropped.
+Recorded result: the two environments generally showed low median response times at the proposed small-team workload. Some laptop repeats missed the proposed latency target; the cause of the pauses was not established. At higher concurrency, the laptop results were substantially affected by test-client connection failures. Database contention was also observed in both environments and is recorded as DEF-W5-001. The reported limits describe these controlled experiments, not production capacity. See the report for the measurement windows, per-run variation, error classification and recovery results.
 
 ### Week 6 automation and regression
 
@@ -156,7 +160,7 @@ $env:PYTODO_SOURCE_DIR = (Resolve-Path '..\pytodo_pro_student').Path
 .\.venv\Scripts\python.exe .\06_Automation_Regression\run_regression.py --label "<name>-PC"
 ```
 
-Recorded result: 104 tests (41 unit, 34 API, 21 web and 8 Selenium browser tests), 88 Pass / 16 XFAIL, no new failures. All 29 Week 1 cases and all 41 Week 2 cases have automated counterparts. XFAIL marks a test linked to an open defect: it confirms on every run that the defect is still present, and it reports XPASS if the defect is fixed. All nine open defects from Weeks 1-4 are covered. The 29-test smoke set includes one check per open defect. Add `--browser edge` to use Edge, or `--skip-ui` to run without a browser. Each run creates a new timestamped folder in `06_Automation_Regression/evidence` with an HTML report, screenshots, JUnit XML and traceability-linked results. Ahmad's Windows run (Chrome 157) gave the same result, 88 Pass / 16 XFAIL; a second group run and group review are pending.
+Recorded result: 104 tests (41 unit, 34 API, 21 web and 8 Selenium browser tests), 88 Pass / 16 XFAIL in each completed full baseline run. All 29 Week 1 cases (one partial) and all 41 Week 2 cases have automated counterparts. XFAIL is a marked expected failure; review its reason before confirming the associated defect. XPASS prompts retest and review. The standalone suite links to nine of the ten Week 1–4 defect IDs; the remaining ownership finding is separately tracked by Week 4, and the Week 5 performance finding remains outside this suite. The 29-test smoke set covers the subset represented in this suite. Ahmad's Windows run matched the Linux reference; a second group run and group review are pending. The two simulated-change experiments are separate evidence and excluded from baseline totals.
 
 ### Historical Week 1 browser runner
 
@@ -185,4 +189,4 @@ Open `http://127.0.0.1:5000/` and register a dummy test account; the starter app
 
 The lecturer's guidance shared on 7 October 2026 indicated one combined submission around Week 10, feedback in Week 11, and possible resubmission in Week 12. Exact dates remain to be confirmed. Weekly phases organize the work. Labs and the project carry separate marks unless the TA has agreed otherwise.
 
-Before the combined submission, confirm the missing original manual execution details, record the Week 2 group review, and consolidate traceability and defect statuses across all completed phases. Detailed findings and recommendations belong in the phase reports; implementation of application fixes is outside the agreed project scope.
+Before the combined submission, confirm the missing original manual execution details, record the Week 2 and Week 6 group reviews, complete the outstanding Week 5 control reviews, and consolidate traceability and defect statuses across all completed phases. Detailed findings and recommendations belong in the phase reports; implementation of application fixes is outside the agreed project scope.

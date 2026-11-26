@@ -2,7 +2,7 @@
 
 **Course:** TEB3433 / TFB3433 Software Testing and Quality Assurance, September 2026
 **Assignment stage:** Week 5 - Security and performance testing
-**Report date:** 2026-11-25 (Asia/Kuala_Lumpur)
+**Report date:** 2026-11-26 (Asia/Kuala_Lumpur); evidence reviewed and documentation revised after the laptop run.
 **Team:** see the project README.
 **Execution provenance:** STRIDE table by Ahmad Adam Ali. The performance experiment was run twice: by Ahmad Adam Ali on his laptop (Windows 11, 2026-11-26, 02:45-03:36) and earlier as an agent-executed run in a cloud workspace (2026-11-25).
 
@@ -43,7 +43,7 @@ The table follows the four STRIDE steps from the STQA08 lecture: decompose the a
 **Approach.** Each STRIDE row is backed by one of three kinds of evidence:
 1. **Executed tests from earlier weeks** that already exercise the threat. They are not repeated here; Week 5 links them to the threat model.
 2. **Code review (static analysis, SAST in the lecture)** of `app.py` and the templates. These findings are confirmed by reading the code, not by a running test.
-3. **Planned controlled checks** for rows that still need a running test. These are for the team to design and run on the isolated local copy only, with dummy accounts, and agreed with the lecturer first. Nothing in this stage was tested against any site other than the local copy.
+3. **Planned security control reviews** for the remaining evidence gaps. The objectives, expected controls and completion status are recorded below. Code-review evidence and runtime results are reported separately. No new security runtime execution is claimed in this revision.
 
 | STRIDE row | Evidence type | Test / evidence | Result | Defect / finding |
 |---|---|---|---|---|
@@ -63,7 +63,20 @@ The table follows the four STRIDE steps from the STQA08 lecture: decompose the a
 | R-01 | Code review | No logging of task changes anywhere in `app.py` | No audit trail | CR-07 |
 | I-03, S-04 | Code review | No HTTPS or cookie settings in `app.py`; sessions are Flask's default browser cookies | Defaults only | CR-08 |
 | I-04 | Code review | `generate_password_hash` (lines 151, 325) stores salted scrypt hashes, the Werkzeug default | Control works | - |
-| S-02, I-02, T-01, I-04 | **Planned controlled check (team)** | Run on the isolated copy (Week 3/4 server, port 5013/5014) with dummy accounts | Not run yet | Confirms or rejects CR-02, CR-04, CR-05 at run time |
+| S-02, I-02, T-01, I-04 | **Planned control review (team)** | See the four security case records below | Not Run | Additional evidence and reviewer confirmation pending |
+
+### Remaining security case records
+
+These are follow-up reviews of defensive controls. The common precondition is the supplied source version and the existing isolated test environment. Evidence should be a dated review record, a source reference or an approved control-verification result. No new result is inferred from the existing static findings.
+
+| Case ID | Threat / objective | Review scope and expected control | Actual evidence / status | Finding |
+|---|---|---|---|---|
+| TC-SEC-001 | S-02: authentication protections | Review the authentication design for a documented, proportionate policy limiting repeated unsuccessful attempts. | Existing source review identifies a missing control; independent follow-up Not Run. | CR-05 |
+| TC-SEC-002 | I-02: safe rendering | Review the task-title presentation against the expected output-encoding policy. User-controlled content should be treated as text. | Existing source review identifies an encoding concern; independent follow-up Not Run. | CR-04 |
+| TC-SEC-003 | T-01: safe database access | Review the application's database access design against the expected parameterization policy. | Existing source review identifies a query-construction concern; independent follow-up Not Run. | CR-02 |
+| TC-SEC-004 | I-04: password storage | Review the password-storage implementation and configuration against the expected one-way password hashing policy. | Existing source review indicates hashing; independent follow-up Not Run. | Existing control |
+
+The four follow-ups are included in planned coverage, but excluded from executed-case totals. They are not four additional confirmed defects. Group review and lecturer agreement on any further runtime validation remain outstanding.
 
 **Code-review findings.** These are recorded separately from runtime defects so they don't inflate the confirmed defect count, the same way Week 4 separated confirmed defects from assumptions.
 
@@ -110,7 +123,7 @@ Find out how response time, throughput and error rate change as the number of si
 | Pass/fail rule | Each request checked: page/API reads must return 200, create 201, registration must reach "My Tasks" |
 | Targets (proposed; the brief gives none) | p95 response time ≤ 1000 ms and errors ≤ 1% |
 
-Due dates are always valid, so DEF-W4-003 cannot break the test users' task lists during the run. The error rate therefore measures load problems only.
+The workload uses valid due dates to avoid the known invalid-date defect. The reported error rate still includes failures from the application, test client and test environment; it must not be interpreted as an application-only failure rate.
 
 ### 4.4 Environment
 
@@ -145,7 +158,7 @@ Both tables show page and API requests in the 60 s steady-state window, averaged
 | 400 | Stress | 3 | 67,586 | 23 | 84.7 | 375.5 | **80.9** | **No (b)** | 140 / 4,245 |
 | 800 | Stress | 3 | 123,323 | 102.3 | 454.3 | 685.1 (c) | **87.1** | **No (b)** | 133 / 505 |
 
-(a) Short pauses on the laptop, not load: see 5.5, point 1. (b) Mostly a limit of the test computer, not the app: see 5.5, point 3. (c) Includes requests that failed instantly.
+(a) Unexplained pauses observed on the laptop: see 5.5, point 1. (b) Test-environment failures account for much of the error rate: see 5.5, point 3. (c) Includes requests that failed instantly. The table uses the mean of the per-run percentiles, not a pooled request-level percentile; a passing mean does not mean every repeat met the target.
 
 **What the laptop errors were** (share of requests in the measured window):
 
@@ -201,7 +214,7 @@ The p95 varied little between repeats (for example 78-85 ms at 400 users and 5,0
 
 ### 5.5 Interpretation
 
-1. **Expected load (1-25 users): fast on both computers.** Normal requests took a median of 4-5 ms on the laptop and 2-4 ms on the agent machine, with no errors. On the laptop, all three 10-user runs and one 5-user run missed the p95 target. The whole server paused for about 1-2 seconds roughly every 10 seconds, delaying every kind of request at the same moment. The pauses did not happen at 1 user, at 25 or more users, or on the agent machine. That pattern points to something on the laptop (for example background activity or power saving) rather than to the load. The cause was not determined; rerunning the 5- and 10-user levels would show whether it repeats.
+1. **Expected load (1-25 users): generally fast, with laptop latency exceptions.** Normal requests took a median of 4-5 ms on the laptop and 2-4 ms on the agent machine, with no errors. The laptop's three 10-user runs missed the p95 target (1,477, 1,357 and 1,466 ms). All three 5-user runs met it, although one was considerably slower than the others (759 ms versus 15 and 19 ms). These numbers follow the laptop's saved per-run CSV. Periodic pauses delayed multiple request types at the same time. Background activity or power management is a possible explanation, but the cause and its relationship to load were not determined. Treat this as an unresolved environment or application observation until further evidence is available.
 2. **50-100 users: no strain on either computer.** No errors, throughput matching what the users send (about 1 request per second per user), and p95 under 20 ms.
 3. **Laptop at 200 users and above: the test computer reached its limit before the app.** Most errors are `java.net.BindException: Address already in use`, raised by JMeter, which means Windows had no free local network port for a new connection. The Flask built-in server rarely reuses connections: at 10-25 users, 80-92% of requests opened a new one (JMeter's connect time). By default, Windows keeps each closed connection's port reserved for about two minutes and has about 16,000 such ports, which allows roughly 130 new connections per second. 100 users (about 98 requests per second) stay under that; 200 users (about 190 per second) do not. The errors also grew from run to run (8.1%, 20.4%, 29.1% at 200 users) as reserved ports built up. Virtual users whose registration hit this error had no session, which causes the 302/401 errors. These are **not app defects**: the laptop results above 100 users measure the test setup, and are recorded as a limitation (section 6). Linux has more ports and frees them sooner, so the agent run did not hit this.
 4. **The app's own limit (agent run): between 400 and 800 users.** At 400 users the agent machine still met the targets (p95 about 80 ms). At 800 users throughput stopped rising at about 400 requests per second, p95 reached about 5.1 s and 22.5% of requests failed. The server log shows the cause: `sqlite3.OperationalError: database is locked` (3,037 and 3,148 per 800-user run), on the task INSERT (`app.py` line 413) and on registration. SQLite allows one writer at a time, and Python's sqlite3 waits up to 5 seconds for the lock before giving up, which matches the 5.1 s p95. The app does not handle this error, so the user gets HTTP 500 and the task is not saved (45.8% of creates failed).
@@ -209,7 +222,7 @@ The p95 varied little between repeats (for example 78-85 ms at 400 users and 5,0
 6. **Recovery: full on both computers.** As soon as the load dropped, a single user got normal response times with no errors.
 7. **Slowest normal operation: registration** (median about 130-160 ms on the laptop, 70-100 ms on the agent machine), because password hashing (scrypt) is deliberately slow. That is a security feature, not a defect.
 
-**Capacity:** the app copes comfortably with the expected load of a small team on both computers. Its own limit was measured on the agent machine at between 400 and 800 simultaneous active users (about 400 requests per second), set by SQLite's one-writer-at-a-time lock. On the laptop, this test setup can only measure up to about 100 users unless the Windows network settings are changed or JMeter runs on a second computer.
+**Capacity interpretation:** the recorded experiments generally support good median response times at the proposed small-team workload, but some laptop repeats missed the latency target. The agent environment showed a throughput plateau and database contention during the higher-load tests. The laptop results at higher concurrency were substantially affected by test-environment connection failures. These findings characterize the specific hardware, local development server, synthetic workload and measurement windows used; they do not establish a universal or production capacity limit.
 
 ### 5.6 New defect
 
@@ -232,9 +245,9 @@ The p95 varied little between repeats (for example 78-85 ms at 400 users and 5,0
 - **Localhost only.** No network delay is included, so real users on a network would see slower times.
 - **Short, small runs.** 60 s per run and 2-3 repeats show the trend, not long-term stability (memory growth, database size over days).
 - **Synthetic users.** A simple random think time and a four-request loop are simpler than real behaviour.
-- **Windows port limit on the laptop.** Above about 100 users, JMeter on the laptop ran out of local network ports (5.5, point 3), so the laptop could not measure the app's limit. The app's limit comes from the agent run on Linux.
+- **Windows test-client limitation.** The laptop experienced connection failures during the higher-concurrency runs, limiting interpretation of application capacity. The agent run provides additional evidence about the application under its own test environment, not a transferable capacity guarantee.
 - **Unexplained pauses.** The 1-2 s pauses on the laptop at 5-10 users were not explained.
-- **Two computers, different results.** Each table describes its own computer only. The overall conclusions (fast at expected load; a database-lock limit under heavy writes) held on both.
+- **Two computers, different results.** Each table describes a particular test environment. Both generally showed low median response times at expected load and evidence of database contention under heavier workloads. Some laptop repeats missed the latency target; the cause of the pauses remains unresolved.
 - **Security.** Code-review findings are confirmed in the code but not yet by a running test. No scanner was run and no penetration testing was done, as the brief requires. Session, transport and deployment threats were assessed from the code only.
 
 ## 7. Recommendations
@@ -249,6 +262,7 @@ For the app's maintainer, in priority order (no fixes were applied, as agreed fo
 6. **Add an audit log and agree a username uniqueness rule** (R-01, S-03).
 
 For the team:
-- Run the planned controlled checks in section 3 on the isolated copy, after agreeing them with the lecturer, and add them to the Week 6 regression suite with `@known_defect` markers.
-- Optional: rerun the laptop at 5 and 10 users (`--levels 5,10`) to check the pauses. To measure the laptop above 100 users, run JMeter from a second computer, or widen the Windows port range and shorten the port reservation time (an administrator setting).
+- Complete the four remaining security control reviews in section 3 and record the reviewer, evidence and actual status. Agree any additional validation scope with the lecturer before claiming runtime confirmation.
+- Carry the existing evidence references into Week 7 without counting source-review observations as newly executed runtime tests.
+- Optional: examine the unresolved laptop latency observation at the ordinary small-team workload with the same measurement method. Record any additional environment observations as a separate run; do not assume a cause or change the historical results.
 - Carry the CR findings and new defect statuses into the Week 7 consolidated defect log and RTM.
