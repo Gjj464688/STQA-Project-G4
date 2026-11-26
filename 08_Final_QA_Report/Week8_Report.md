@@ -45,7 +45,7 @@ The charts below visualise the recorded results from the table. Week 6 XFAIL cas
 
 ### Selected evidence from earlier testing weeks
 
-The screenshots below are selected from the evidence folders in the project repository. They are examples of the recorded testing evidence and do not replace the complete evidence folders.
+The screenshots below are selected from the evidence folders in the project repository. They are examples of the recorded testing evidence.
 
 ![Week 3 GUI dashboard summary](evidence/03_GUI_Compatibility_Usability_Accessibility/evidence/gui_screenshots/GUI-TC-013_Dashboard_Summary.png)
 
@@ -122,12 +122,7 @@ These charts are taken from the combined Week 5 performance evidence run in the 
 
 *Figure: Error rate versus concurrent users.*
 
-
-The risk levels are qualitative judgements based on impact and available evidence, not calculated probabilities.
-
 ## 7. Quality assessment
-
-This is an informal assessment using selected quality areas, not a formal ISO/IEC 25010 audit.
 
 | Quality area | Our assessment | Limitation |
 |---|---|---|
