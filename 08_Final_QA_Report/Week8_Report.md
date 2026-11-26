@@ -8,7 +8,7 @@
 
 The test results show that many of the selected main workflows work under the conditions we tested. However, there are still issues with access control, validation, date handling, accessibility, API behaviour and database writes under load. The most serious finding is that a signed-in user was able to delete another user's task through an API request during an isolated check.
 
-The results only represent the cases, functions, environments and workloads covered by our testing. They do not show that the application is defect-free.
+The results only represent the cases, functions, environments and workloads covered by our testing.
 
 ## 2. Test execution metrics
 
