@@ -26,7 +26,9 @@ Updated **26 November 2026**. Week 3 and Week 4 verification was executed on 12 
 | Week 4 API testing | 53 cases: 36 Pass / 17 Fail; no setup errors | Complete within selected scope; confirmed defects and unconfirmed policy assumptions distinguished |
 | Week 5 security and performance | 17 STRIDE entries, eight source-review findings; performance measured in two environments | Performance execution complete; four additional security control reviews remain Not Run |
 | Week 6 automation and regression | 104 full-suite tests: 88 Pass / 16 XFAIL; 29-test smoke suite | Execution complete; second group computer and group review pending |
-| Weeks 7–8 and presentation | See the remaining work below | Pending |
+| Week 7 test management | Test plan/strategy, case-level registry (288 IDs), RTM and defect log | Consolidated; group review and outstanding metadata pending |
+| Week 8 final QA evaluation | Integrated metrics, charts, 11 open defect records, risk assessment and recommendations | Report reconciled; outstanding security reviews and group review remain |
+| Standards integration and presentation | See remaining work below | Pending |
 
 Week 2 achieved **100% statement and branch coverage for the selected helper module**, not the whole application. Failed assertions remain visible. Their presence does not make an executed test incomplete, and a failed assumption is not automatically a confirmed product defect. Manual and automated executions are counted separately.
 
@@ -40,6 +42,8 @@ Week 2 achieved **100% statement and branch coverage for the selected helper mod
 | Week 4 | [Report](04_Web_API/Week4_Report.md) and four Excel workbooks in the [phase folder](04_Web_API) | [API tests](04_Web_API/tests), [logs, JUnit, JSON, route map, and screenshots](04_Web_API/Evidence) |
 | Week 5 | [Report](05_Security_Performance/Week5_Report.md), [setup and evidence index](05_Security_Performance/README.md) | [Performance evidence](05_Security_Performance/evidence) |
 | Week 6 | [Report](06_Automation_Regression/Week6_Report.md), [regression test repository](06_Automation_Regression/Regression_Test_Repository.md), [setup](06_Automation_Regression/README.md) | [Tests](06_Automation_Regression/tests), [execution evidence](06_Automation_Regression/evidence), illustrative CI workflow |
+| Week 7 | [Test management report](07_Test_Management/Week7_Report.md), [RTM](07_Test_Management/Requirements_Traceability_Matrix.md) | [Master case registry](07_Test_Management/Master_Test_Case_Repository.md), [consolidated defect log](07_Test_Management/Consolidated_Defect_Log.md) |
+| Week 8 | [Final QA evaluation](08_Final_QA_Report/Week8_Report.md) | [Metrics charts](08_Final_QA_Report/metrics_charts) |
 
 Each report explains scope, environment, findings, recommendations, and limitations. Week 3's Markdown report supersedes its earlier Word summary. Original Week 3/4 workbook observations are retained in each phase's evidence as `original_records.json`; superseded records are excluded from current execution totals. Existing defect IDs are reused across phases to avoid duplicate defect counts.
 
@@ -183,10 +187,8 @@ Open `http://127.0.0.1:5000/` and register a dummy test account; the starter app
 
 | Stage | Planned deliverables |
 |---|---|
-| Week 7 test management | Consolidated test plan, current RTM, master test repository, defect log, and regression status |
-| Week 8 final QA evaluation | Integrated metrics, quality assessment, residual risks, and prioritized recommendations |
 | Integration and presentation | ISO/IEC 25010/process context, CI/CD and Agile/DevOps discussion, presentation, and live demonstration |
 
 The lecturer's guidance shared on 7 October 2026 indicated one combined submission around Week 10, feedback in Week 11, and possible resubmission in Week 12. Exact dates remain to be confirmed. Weekly phases organize the work. Labs and the project carry separate marks unless the TA has agreed otherwise.
 
-Before the combined submission, confirm the missing original manual execution details, record the Week 2 and Week 6 group reviews, complete the outstanding Week 5 control reviews, and consolidate traceability and defect statuses across all completed phases. Detailed findings and recommendations belong in the phase reports; implementation of application fixes is outside the agreed project scope.
+Before the combined submission, confirm the missing original manual execution details, record the Week 2 and Week 6 group reviews, complete the outstanding Week 5 control reviews, and review the consolidated traceability, metrics, and defect statuses across Weeks 1–8. Detailed findings and recommendations belong in the phase reports; implementation of application fixes is outside the agreed project scope.
