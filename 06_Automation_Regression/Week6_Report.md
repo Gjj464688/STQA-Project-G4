@@ -4,7 +4,7 @@
 **Assignment stage:** Week 6 - Test automation and regression
 **Report date:** 2026-11-26 (Asia/Kuala_Lumpur, UTC+08:00); revised after the Windows run.
 **Team:** see the project README. Automation/Tool Coordinator: Ahmad Adam Ali.
-**Execution provenance:** Suite written by Ahmad Adam Ali for the Automation/Tool Coordinator; development runs executed in a Linux workspace. Group runs on Windows: run 1 by Ahmad Adam Ali, 2026-11-26 (section 6.2); run 2: teammate `_____`, date `_____`. Group reviewer: `_____`.
+**Execution provenance:** Suite written by Ahmad Adam Ali for the Automation/Tool Coordinator; development runs executed in a Linux workspace. The recorded Windows reference run was performed by Ahmad Adam Ali on 2026-11-26 (section 6.2).
 
 ## 1. Objective and scope
 
@@ -105,7 +105,7 @@ All runs are in `evidence/`, named `<date-time>_<suite>_<label>`. Durations are 
 | experiment-B | Full, temporary copy | ATTENTION: PASS 85, XFAIL 16, **FAIL 3** | 104 | 16.2 s | Simulated regression; section 7 |
 | **Ahmad-PC** | Full, on Windows | PASSED: PASS 88, XFAIL 16 | 104 | 49.4 s | Ahmad's laptop, Chrome 157 (`evidence/20261126-024054_full_Ahmad-PC`) |
 
-The completed full baseline runs on Linux and Ahmad's Windows laptop recorded identical per-case outcomes: 88 PASS, 16 XFAIL and no unexpected failures. The earlier smoke run's browser setup error remains visible. The 16 XFAILs link to nine defect IDs; they are not 16 additional defects. A read-only evidence review on 2026-11-26 checked all eight run summaries against their per-test records and JUnit test counts, and confirmed that the two full reference environments agree by automated test ID. No new execution or named group review is claimed by that check.
+The completed full baseline runs on Linux and Ahmad's Windows laptop recorded identical per-case outcomes: 88 PASS, 16 XFAIL and no unexpected failures. The earlier smoke run's browser setup error remains visible. The 16 XFAILs link to nine defect IDs; they are not 16 additional defects. A read-only evidence review on 2026-11-26 checked all eight run summaries against their per-test records and JUnit test counts, and confirmed that the two full reference environments agree by automated test ID. That reconciliation did not include an additional test execution.
 
 **Per layer (agent-run-3, test-body time only):**
 
@@ -131,7 +131,7 @@ Each historical experiment used a **temporary copy** of the app with one line ch
 
 ## 8. Reflection: benefits and limitations
 
-This reflection is based on the saved Linux and Windows execution results. Ahmad's recorded laptop run supplies an independent environment comparison; the group review and any personal reflections remain pending.
+This reflection is based on the saved Linux and Windows execution results. Ahmad's recorded laptop run supplies an independent environment comparison.
 
 **Benefits**
 - **Speed:** the recorded full Linux checks took about 18 seconds, the no-browser run about 4 seconds, and Ahmad's Windows full run 49.4 seconds. The difference illustrates the impact of environment and browser startup.
@@ -146,16 +146,11 @@ This reflection is based on the saved Linux and Windows execution results. Ahmad
 - **Expected-failure classification.** The current broad XFAIL marker is not restricted to the specific historical failure. Review the underlying failure type and message before confirming a known defect; unrelated failures may otherwise be hidden in the expected-failure count. Refining failure classification is a future test-framework improvement, not an application fix. The saved runs are retained as reported.
 - **The test client is not a real server.** The API and web layers skip the real HTTP server; only the 8 browser tests use it.
 - **Date-dependent tests** could misbehave if a run crosses midnight. The unit layer avoids this with a fixed clock.
-- **Environment:** the suite was developed on Linux. Ahmad's Windows run gave identical results; a second group computer is still to be tried (section 9).
+- **Environment:** the suite was developed on Linux. Ahmad's Windows run gave identical results. Conclusions are limited to the recorded Linux and Windows environments.
 
-## 9. Remaining actions
+## 9. Integration context
 
-1. **Ahmad:** done on Windows with Chrome (88 Pass / 16 XFAIL). Optional: once more with `--browser edge`.
-2. **A teammate:** run it on a second computer.
-3. **Group:** review the tests and decisions; record the reviewer.
-4. **Week 5 follow-up:** Review the four completed static control records and their evidence in the consolidated RTM. Keep any future test-framework changes separately reviewed.
-5. **Week 7:** copy the traceability links into the RTM and master test repository.
-6. **Week 12 (CI/CD):** `ci/github-actions-regression.yml` shows the fast layers on every push and the browser layer nightly. It needs an agreed copy of the app in the repository.
+The Windows and Linux full reference executions are recorded. Their traceability links, the separately recorded Week 5 control reviews and the consolidated execution status appear in the Week 7 RTM and master case repository. The illustrative CI configuration (`ci/github-actions-regression.yml`) describes fast regression checks on pushes and browser checks nightly; it is not an active workflow in the submitted repository.
 
 ## 10. How to run
 

@@ -216,7 +216,7 @@ Current recorded cases: 288 IDs (29 black-box designs, 41 helper cases, 37 GUI/c
 
 ## Week 5 review
 
-These statuses are from the independent AI-assisted static source review completed 2026-11-26; no additional runtime tests were run. Human group review is pending.
+These statuses are from the independent AI-assisted static source review completed 2026-11-26; no additional runtime tests were run.
 
 | Case ID | Req. | Objective | Manual | Static review result | Defect / observation | Original linked IDs / smoke | Case record | Evidence |
 |---|---|---|---|---|---|---|---|---|

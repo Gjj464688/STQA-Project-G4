@@ -1,6 +1,6 @@
 # Week 1 defect log
 
-Four initial defects are recorded below. Browser failures 007, 014, and 020 were reproduced manually. DEF-W1-003 comes from the separate API probe; its group retest is pending. The complete case execution record is [Master_Test_Repository.md](Master_Test_Repository.md). Keep these defect IDs stable across later phases.
+Four initial defects are recorded below. Browser failures 007, 014, and 020 were reproduced manually. DEF-W1-003 comes from the separate recorded API probe and is corroborated by the Week 4 evidence. The complete case execution record is [Master_Test_Repository.md](Master_Test_Repository.md). Keep these defect IDs stable across later phases.
 
 ### DEF-W1-001 - exactly 8 characters rejected as a password
 
@@ -36,7 +36,7 @@ Four initial defects are recorded below. Browser failures 007, 014, and 020 were
 - **Actual result:** B received HTTP 200 `{"result":"ok"}`; A then received HTTP 404 for the task.
 - **Severity / priority:** Major / High.
 - **Evidence:** the API probe evidence section below, observations P-08 and P-09; raw log `evidence/isolated_api_probe_2026-09-30.txt`; source reference `app.py`, `api_delete_task`.
-- **Status:** Confirmed by isolated API check; group retest in its local environment pending. Revisit in Week 5 threat analysis.
+- **Status:** Confirmed by isolated API check and corroborated by the Week 4 evidence; open. The finding is included in the Week 5 threat analysis.
 
 ### DEF-W1-004 - whitespace-only title creates an unnamed task
 
@@ -44,11 +44,11 @@ Four initial defects are recorded below. Browser failures 007, 014, and 020 were
 - **Environment:** Microsoft Edge headless browser through Playwright, Python 3.12.10, Flask 3.0.3, supplied app with isolated SQLite database, 2026-09-30 (+08:00).
 - **Preconditions:** Signed in; task list accessible.
 - **Steps to reproduce:** 1. Open New Task. 2. Type three spaces in Title. 3. Click Create Task. 4. Inspect the task list.
-- **Expected result:** A whitespace-only title is rejected with a clear validation message because it identifies no task. This is a proposed quality expectation; confirm it with the group/lecturer if a formal requirement is needed.
+- **Expected result:** A whitespace-only title is rejected with a clear validation message because it identifies no task. This is a proposed quality expectation, rather than a formally established requirement.
 - **Actual result:** The app redirected to My Tasks and created a new row whose title displays as blank. A read-only check of the live app database found the stored title was the empty string after the three-space input.
 - **Severity / priority:** Moderate / Medium.
 - **Evidence:** Original manual screenshot `evidence/manual_screenshots/TC-BB-014.png` and [case observation](Master_Test_Repository.md#tc-bb-014---whitespace-only-title); automated browser result TC-BB-014 and `evidence/browser_screenshots/TC-BB-014.png`; source reference `app.py`, `new_task`.
-- **Status:** Reproduced in isolated automated and user-performed manual browser checks; formal whitespace-title requirement confirmation pending.
+- **Status:** Reproduced in isolated automated and user-performed manual browser checks; the whitespace-title expectation was not formally established.
 
 ## Open requirement question, not yet a confirmed defect
 
@@ -62,7 +62,7 @@ Date/time: 2026-09-30, Asia/Singapore (+08:00). Environment: Windows, Python 3.1
 |---|---|---|---|
 | P-01 | Register valid username with 8-character password | Accepted; minimum stated as 8 | HTTP 400, `{"error":"invalid password"}` |
 | P-02 | Register valid username with 9-character password | Accepted | HTTP 201 |
-| P-03 | Register a second account using the same username | Requirement needs confirmation | HTTP 201 for second account |
+| P-03 | Register a second account using the same username | Requirement not formally specified | HTTP 201 for second account |
 | P-04 | Create open task due 2026-09-30 (D) | `Due Today` | HTTP 201, urgency `Overdue` |
 | P-05 | Create open task due D+1 | `Due Soon` | HTTP 201, urgency `Due Soon` |
 | P-06 | Create open task due D+2 | `Due Soon` | HTTP 201, urgency `Due Soon` |

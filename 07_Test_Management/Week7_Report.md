@@ -3,7 +3,7 @@
 **Course:** TEB3433 / TFB3433 Software Testing and Quality Assurance  
 **Project:** PyTodo Pro quality evaluation  
 **Prepared using:** Week 1–6 reports, test repositories and evidence
-**Reconciled:** 26 November 2026, using saved evidence; group review pending
+**Reconciled:** 26 November 2026, using saved evidence
 
 ## 1. Purpose
 
@@ -61,11 +61,11 @@ Test data was made up of dummy accounts and tasks. It included valid and invalid
 | Ahmad Adam Ali — Automation/tools | Tools, regression evidence and environment documentation |
 | Sathineswary Saravanesvaran — Defects/metrics | Defect status, execution metrics and residual risk review |
 
-These roles are proposed in the project README; they do not establish actual historical execution identities. The team must confirm named reviewers and missing execution metadata.
+These roles are proposed in the project README; they do not establish actual historical execution identities. The phase reports retain the recorded execution provenance.
 
 ### 2.8 Main limitations
 
-Some test populations overlap between weeks. Some Week 4 failures depend on expectations that still need confirmation. Week 2 coverage is limited to the selected helper functions. The Week 6 XFAIL marker needs its failure reason checked because it can hide unrelated errors. Performance results only represent the recorded workload and machine. Some tester/date and group-review details also need confirmation. Week 5 includes eight source-review findings and four completed static control reviews (1 Pass / 3 Fail; group confirmation pending). Existing evidence is retained; no additional runtime result is claimed.
+Some test populations overlap between weeks. Some Week 4 failures depend on expectations that were not formally established. Week 2 coverage is limited to the selected helper functions. The Week 6 XFAIL marker needs its failure reason checked because it can hide unrelated errors. Performance results only represent the recorded workload and machine. Some historical tester/date and reviewer details were not recorded. Week 5 includes eight source-review findings and four completed static control reviews (1 Pass / 3 Fail). Existing evidence is retained; no additional runtime result is claimed.
 
 ## 3. Test prioritisation
 
@@ -76,13 +76,13 @@ We prioritised the features that could have the biggest effect on users or their
 | Risk | Priority / impact | Control and owner role |
 |---|---|---|
 | Ownership and validation defects | High | Track open findings and maintainer recommendations; QA lead and defect coordinator |
-| Inconsistent expected requirements | Medium | Record assumptions and obtain agreement; test design coordinator |
+| Inconsistent expected requirements | Medium | Record unformalised requirements as assumptions; test design coordinator |
 | Open security control findings | High | Review the completed static source findings and recommendations; QA lead |
 | Broad expected-failure classification | Medium | Review underlying failure reason; automation coordinator |
-| Unconfirmed manual evidence provenance | Medium | Obtain dates/tester/reviewer confirmation; QA lead |
+| Unconfirmed manual evidence provenance | Medium | Limit claims to the recorded evidence provenance; QA lead |
 | Environment-dependent performance | Medium | Interpret by environment and distinguish client errors; metrics coordinator |
 
-Exit decision: planned functional executions and consolidation are recorded; the four Week 5 static follow-ups are complete, while original metadata and named group reviews remain outstanding. The project can report open defects and pending checks without claiming all tests passed.
+Exit decision: planned functional executions and consolidation are recorded, and the four Week 5 static control reviews are complete. The integrated submission reports the recorded outcomes, open product defects and limitations without claiming that all tests passed.
 
 ## 4. Consolidated execution summary
 
@@ -107,7 +107,7 @@ Pass rate = Pass / Executed. XFAIL is an expected-failure classification, separa
 
 ## 6. Consolidated defect management
 
-[Consolidated Defect Log](Consolidated_Defect_Log.md) records 11 open entries (10 scope-confirmed, one observed pending requirement confirmation), with severity, priority, source references and lifecycle. The eight Week 5 CR findings are tracked separately; the four static follow-up reviews are complete (1 Pass / 3 Fail), with no new runtime defects.
+[Consolidated Defect Log](Consolidated_Defect_Log.md) records 11 open entries (10 scope-confirmed, one observed against a proposed requirement), with severity, priority, source references and lifecycle. The eight Week 5 CR findings are tracked separately; the four static follow-up reviews are complete (1 Pass / 3 Fail), with no new runtime defects.
 
 ## 7. Week 6 regression status
 
@@ -116,16 +116,10 @@ Pass rate = Pass / Executed. XFAIL is an expected-failure classification, separa
 - The XFAILs are linked to known defect IDs, but the marker is broad. The failure message/reason should still be checked before accepting an XFAIL as the expected defect.
 - Week 6 covers selected earlier test cases and does not cover every Week 5 performance or source-review finding.
 
-## 8. Remaining work
+## 8. Submission evidence
 
-1. Confirm the expected behaviour for duplicate usernames and spaces-only task titles.
-2. Confirm tester names, dates and group review details where they are missing.
-3. Retain the Week 1 and Week 4 ownership finding evidence and confirm group review and remediation recommendations.
-4. Confirm the four completed Week 5 static control review records and recommendations during group review.
-5. Check defect severity, priority and status against the original reports before submission.
-6. Keep the RTM and master repositories aligned, and avoid combining overlapping test counts.
-7. Save the current evidence before rerunning scripts that replace evidence files.
+The RTM, master case repository, defect log, execution summaries and phase evidence form the integrated submission record. They retain the documented assumptions, provenance and open product findings. The final QA report combines these results without adding overlapping test populations.
 
 ## 9. Conclusion
 
-This week we consolidated the testing work from Weeks 1–6 into the test plan, RTM, defect log and case-level master repository. The main workflows have some good results, but there are still confirmed defects and areas that were not covered. The reports should be reviewed by the group before final submission, especially the open defects and the assumptions that still need confirmation.
+This week we consolidated the testing work from Weeks 1–6 into the test plan, RTM, defect log and case-level master repository. The main workflows have some good results, but there are still confirmed defects and areas that were not covered. The integrated report documents the open product findings, assumptions and limitations.

@@ -3,7 +3,7 @@
 **Course:** TEB3433 / TFB3433 Software Testing and Quality Assurance  
 **Project:** PyTodo Pro quality evaluation  
 **Prepared from:** Week 1–6 reports, test evidence and Week 7 consolidation
-**Reconciled:** 26 November 2026; group review pending
+**Reconciled:** 26 November 2026
 
 ## 1. Overall evaluation
 
@@ -38,7 +38,7 @@ The charts separate ordinary Fail, XFAIL and Not Run. The Week 5 chart row repre
 
 ## 3. What the results tell us
 
-- **Week 1:** Each of the two separately recorded executions (manual and automated) has 26 out of 29 black-box cases passed. The failures were related to the password minimum, due-today urgency and a whitespace-only title. The title expectation still needs confirmation.
+- **Week 1:** Each of the two separately recorded executions (manual and automated) has 26 out of 29 black-box cases passed. The failures were related to the password minimum, due-today urgency and a whitespace-only title. The title expectation was not formally established.
 - **Week 2:** 36 out of 41 helper tests passed. The selected helper module reached 100% statement and branch coverage, but five assertions still failed. Coverage shows which code was exercised; it does not guarantee correct behaviour.
 - **Week 3:** 35 out of 37 checks/observations passed. The two accessibility findings are recorded in the defect log. Manual usability observations are different from automated browser checks.
 - **Week 4:** 18/20 web checks passed. For API, 36/53 passed. The 17 failures include ownership/robustness checks and checks based on assumptions/design expectations. They should not all be reported as confirmed defects.
@@ -121,7 +121,7 @@ The 17 Week 4 API failures are not automatically 17 defects. Some assertions dep
 | Performance/reliability | 1 |
 | Total | 11 |
 
-Each record is counted once in its primary feature group. DEF-W1-004 is included in the Moderate/Medium counts as an observed issue pending requirement confirmation; this is not a claim of eleven independently confirmed defects.
+Each record is counted once in its primary feature group. DEF-W1-004 is included in the Moderate/Medium counts as an observed issue against a proposed requirement; this is not a claim of eleven independently confirmed defects.
 
 ## 6. Remaining risks
 
@@ -170,15 +170,15 @@ These charts are taken from the combined Week 5 performance evidence run in the 
 
 - Test cases from different weeks overlap and do not represent a unique combined population.
 - Week 2 coverage only applies to the selected helper module and functions.
-- Some Week 4 failures depend on assumptions that need confirmation.
+- Some Week 4 failures depend on assumptions about unformalised requirements.
 - Duplicate usernames and spaces-only titles are not fully formalised requirements.
-- The four Week 5 static follow-up control reviews are complete; group confirmation is pending and the eight original source-review findings are separately documented. Static outcomes do not confirm runtime behaviour.
+- The four Week 5 static control reviews are complete and the eight original source-review findings are separately documented. Static outcomes do not confirm runtime behaviour.
 - Performance results are limited to the recorded setup and workload; connection failures and DB locking affected some results.
 - Physical mobile, broader browser versions, screen-reader testing and full WCAG evaluation were not established.
-- Some manual tester/date details and group-review confirmations still need to be checked.
+- Some historical manual tester/date and reviewer details were not recorded.
 - XFAIL handling in Week 6 should be reviewed to avoid hiding unrelated errors.
 
-## 9. QA process improvement and recommended next steps
+## 9. QA process improvement and recommendations
 
 | Preventive QA activity | Evidence motivating it | Proposed improvement |
 |---|---|---|
@@ -192,7 +192,7 @@ These charts are taken from the combined Week 5 performance evidence run in the 
 Implementation of application changes is a recommendation for its maintainer; the group retains the supplied code for assessment.
 
 1. **Priority 1 – Access control:** Prioritize maintainer review of the existing ownership finding and its authorization policy; preserve the documented evidence.
-2. **Priority 1 – Security findings:** Review and address the documented Week 5 source-review findings. Confirm the four completed static control review records and recommendations during group review.
+2. **Priority 1 – Security findings:** Review and address the documented Week 5 source-review findings, preserving the evidence and distinction from runtime results.
 3. **Priority 1 – Validation:** Retain the stated eight-character password minimum and confirm the blank-title expectation, then update tests and defect statuses.
 4. **Priority 2 – Date logic:** Confirm date-boundary rules and retest the due-today and exact-N-day issues.
 5. **Priority 2 – Accessibility:** Improve contrast and labels and expand the checks to keyboard/focus and assistive technology.

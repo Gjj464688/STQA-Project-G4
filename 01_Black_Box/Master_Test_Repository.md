@@ -2,7 +2,7 @@
 
 This is the single record for all 29 case designs, input data, expected results, manual and automated actual results, evidence, and defect IDs. Expectations were defined before execution. Manual and automated outcomes are recorded separately. Both runs contain 26 Pass and 3 Fail (007, 014, 020). The API probe is outside these 29 cases and is recorded in [Defect_Log.md](Defect_Log.md#api-probe-evidence).
 
-The executor, partner, and dates in each case remain **planned assignments** until the group confirms who performed the tests. Record confirmed execution details in those existing case records. Manual browser/version: `_____`; database reset/reuse method: `_____`. The manual app ran on port 5000 using the supplied download, Python 3.12.10, Flask 3.0.3, and Asia/Singapore time.
+The executor, partner and dates in each case are **planned assignments**, not verified execution identities. The original manual browser/version and database reset/reuse method were not recorded. The manual app ran on port 5000 using the supplied download, Python 3.12.10, Flask 3.0.3, and Asia/Singapore time.
 
 Automated run started 2026-09-30T06:20:42.178Z: Windows NT build 26200, Edge 154.0.4258.37 via Playwright, Python 3.12.10, Flask 3.0.3, isolated SQLite database on port 5001. Raw results: [browser_results.json](evidence/browser_results.json). Method, scope, risks, and RTM: [Week1_Report.md](Week1_Report.md).
 
@@ -319,7 +319,7 @@ Session: signed out -> signed in -> signed out (008-010). Task: created/open -> 
 - **Automated Actual Result:** Selected task changed title/category/due date; second task stayed unchanged.
 - **Automated Status:** Pass
 - **Automated Evidence:** [Screenshot](evidence/browser_screenshots/TC-BB-015.png); raw result in `evidence/browser_results.json`
-- **Manual Actual Result:** The selected task saved as `Update lab`, category Study, due date `2026-10-02`; `Undated task` remained unchanged. The planned title was `Updated lab`; the saved title is recorded as a manual test-data variation pending any correction from the tester.
+- **Manual Actual Result:** The selected task saved as `Update lab`, category Study, due date `2026-10-02`; `Undated task` remained unchanged. The planned title was `Updated lab`; the saved title is recorded as a manual test-data variation; the exact submitted title is not independently established.
 - **Planned Manual Executor:** Sathineswary Saravanesvaran
 - **Planned Partner/Reviewer:** Ahmad Adam Ali
 - **Planned Date:** Fri 2026-10-02 (evidence review/retest)
@@ -327,7 +327,7 @@ Session: signed out -> signed in -> signed out (008-010). Task: created/open -> 
 - **Manual Note:** Saved title `Update lab` differs from planned `Updated lab`; see the observation for the documented data variation.
 - **Manual Evidence:** [result](evidence/manual_screenshots/TC-BB-015.png)
 - **Defect ID:** —
-- **Evidence limitation:** If the tester confirms entering `Updated lab` exactly, investigate the saved `Update lab` title and reconsider the current data-variation classification.
+- **Evidence limitation:** The saved evidence does not independently establish the exact submitted title; the title difference is classified as a manual test-data variation.
 
 ## TC-BB-016 - mark done and reopen
 

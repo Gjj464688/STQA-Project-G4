@@ -49,7 +49,7 @@ The last lines print a verdict:
 | `ATTENTION` + `NEW FAILURE` | Something that used to work now fails. Investigate and log a defect if it is the app's fault. |
 | `ATTENTION` + `POSSIBLY FIXED` | A known-defect test passed (XPASS). Retest that defect by hand and update its status in the defect log. |
 
-Recorded full baseline result: **PASS 88, XFAIL 16 (total 104)**. The 16 XFAILs link to nine of the ten Week 1–4 defect IDs. DEF-W1-003 remains separately tracked by Week 4, and DEF-W5-001 is outside the regression suite. The current expected-failure marker can conceal an unrelated exception; see the report's limitations. The laptop and Linux full runs agree, while group review remains pending.
+Recorded full baseline result: **PASS 88, XFAIL 16 (total 104)**. The 16 XFAILs link to nine of the ten Week 1–4 defect IDs. DEF-W1-003 remains separately tracked by Week 4, and DEF-W5-001 is outside the regression suite. The current expected-failure marker can conceal an unrelated exception; see the report's limitations. The recorded laptop and Linux full runs agree.
 
 ## 3. Where the evidence goes
 

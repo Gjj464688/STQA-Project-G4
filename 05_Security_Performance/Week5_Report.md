@@ -63,11 +63,11 @@ The table follows the four STRIDE steps from the STQA08 lecture: decompose the a
 | R-01 | Code review | No logging of task changes anywhere in `app.py` | No audit trail | CR-07 |
 | I-03, S-04 | Code review | No HTTPS or cookie settings in `app.py`; sessions are Flask's default browser cookies | Defaults only | CR-08 |
 | I-04 | Code review | `generate_password_hash` (lines 151, 325) stores the framework-generated password hash | Hash use confirmed in source | - |
-| S-02, I-02, T-01, I-04 | **Static control review** | See the four security case records below | 1 Pass / 3 Fail | Source evidence recorded; group review pending |
+| S-02, I-02, T-01, I-04 | **Static control review** | See the four security case records below | 1 Pass / 3 Fail | Source evidence recorded |
 
 ### Security control review records
 
-These four follow-up reviews were completed on **2026-11-26 (Asia/Kuala_Lumpur)** through independent AI-assisted inspection of the unchanged supplied source. Pass means the expected control was present in the inspected implementation; Fail means it was missing or inconsistently applied. The [dated review evidence](evidence/static_control_review_20261126.json) records the source hashes, references, observations and recommendations. Named human group review remains pending.
+These four follow-up reviews were completed on **2026-11-26 (Asia/Kuala_Lumpur)** through independent AI-assisted inspection of the unchanged supplied source. Pass means the expected control was present in the inspected implementation; Fail means it was missing or inconsistently applied. The [dated review evidence](evidence/static_control_review_20261126.json) records the source hashes, references, observations and recommendations. The evidence records the AI-assisted review method; it is not a record of a named independent human review.
 
 | Case ID | Threat / objective | Review scope and expected control | Actual evidence / status | Finding |
 |---|---|---|---|---|
@@ -76,7 +76,7 @@ These four follow-up reviews were completed on **2026-11-26 (Asia/Kuala_Lumpur)*
 | TC-SEC-003 | T-01: safe database access | Review the application's database access design against the expected parameterization policy. | **Fail (static).** The reviewed API search query construction does not consistently apply parameter binding. Source: `app.py:354–386`, `app.py:211`. | CR-02 |
 | TC-SEC-004 | I-04: password storage | Review the password-storage implementation and configuration against the expected one-way password hashing policy. | **Pass (static).** Both registration paths use the framework password-hashing function, save the returned hash and verify passwords using the framework verification function. The schema stores a password hash. Actual database contents and cryptographic strength were not evaluated. Source: `app.py:53–63`, `app.py:139–160`, `app.py:164–176`, `app.py:316–330`, `app.py:334–344`. | Existing control |
 
-**Review summary:** 4 planned, 4 reviewed, 1 Pass, 3 Fail, 0 Not Run (25% static-review pass rate). The three failures correspond to existing CR-05, CR-04 and CR-02; they do not create three additional runtime defects. No live requests, password-attempt testing or database inspection were conducted. No source changes were made. Group review remains outstanding.
+**Review summary:** 4 planned, 4 reviewed, 1 Pass, 3 Fail, 0 Not Run (25% static-review pass rate). The three failures correspond to existing CR-05, CR-04 and CR-02; they do not create three additional runtime defects. No live requests, password-attempt testing or database inspection were conducted. No source changes were made.
 
 **Code-review findings.** These are recorded separately from runtime defects so they don't inflate the confirmed defect count, the same way Week 4 separated confirmed defects from assumptions.
 
@@ -261,8 +261,4 @@ For the app's maintainer, in priority order (no fixes were applied, as agreed fo
 5. **Prepare for heavier use** (D-02, DEF-W5-001): handle `database is locked` without crashing (retry, or a clear 503 instead of 500), consider SQLite WAL mode or a client-server database if many users will write at once, and run behind a production server.
 6. **Add an audit log and agree a username uniqueness rule** (R-01, S-03).
 
-For the team:
-- Review the four completed static control records in section 3 as a group, confirm the recommendations and retain their evidence. Do not interpret static outcomes as runtime confirmation.
-- Carry the existing evidence references into Week 7 without counting source-review observations as newly executed runtime tests.
-- Optional: examine the unresolved laptop latency observation at the ordinary small-team workload with the same measurement method. Record any additional environment observations as a separate run; do not assume a cause or change the historical results.
-- Carry the CR findings and new defect statuses into the Week 7 consolidated defect log and RTM.
+The Week 7 consolidated defect log and RTM include the Week 5 evidence. Static source-review outcomes remain distinct from runtime defects. The unexplained laptop latency observation is recorded as an environment-specific limitation.

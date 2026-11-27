@@ -3,7 +3,7 @@
 **Course:** TEB3433 / TFB3433 Software Testing and Quality Assurance  
 **Execution and report date:** 2026-10-07, Asia/Singapore  
 **Team:** Names and student IDs are maintained in the [project README](../README.md).  
-**Execution provenance:** Agent-executed tests; actual group reviewer: `_____`. Group members should inspect the tests, reproduce the run, and record their review before submission.
+**Execution provenance:** Agent-executed tests on the supplied helper snapshot.
 
 ## 1. Objective, scope and selected units
 
@@ -160,7 +160,7 @@ Evidence: [baseline text](evidence/baseline_coverage.txt), [final text](evidence
 - **Actual:** Exactly N returns False for both N=7 and N=1. Inside returns True; outside returns False. The comparison `age.days < n` excludes the documented inclusive endpoint.
 - **Severity / priority:** Moderate / Medium; a boundary completion is omitted from the intended metric. This run establishes the helper defect, not a separate end-to-end dashboard reproduction.
 - **Evidence:** TC-WB-033/034/035/039 in the [case repository](Master_Test_Repository.md#recent-completion-window), assertion output in [final_pytest.txt](evidence/final_pytest.txt), and [structured results](evidence/final_results.json).
-- **Status:** Confirmed at unit level; open. Group review and any UI/API reproduction remain pending. No application correction was applied.
+- **Status:** Confirmed at unit level; open. This phase does not establish separate UI/API reproduction. No application correction was applied.
 - **Recommendation:** The maintainer should agree the precise inclusive timestamp interval and align the predicate with it. Keep tests at both ends of that interval.
 - **Associated observation:** With `completed_at == now`, the current `age.total_seconds() > 0` also returns False (032). Inclusion of the current instant is a labeled interpretation of “within the last N days”; the exact-N mismatch above is confirmed independently of this interpretation.
 
@@ -197,6 +197,6 @@ That direct command is useful for investigation; use `run_tests.py` when regener
 | Measured coverage and uncovered-code interpretation | Sections 4-5; evidence/ |
 | Findings, residual risks and recommendations | Section 6 and this section |
 
-The selection is deliberately limited to four helpers. HTTP integration, historical dashboard counts in a running app, broad Unicode/input-type policies, timezone semantics, accessibility, security, performance, and compatibility are not established by these results. PyTest execution is automated evidence; named group members have not yet reviewed or reproduced this run. Student IDs and the group reviewer should be completed before the combined submission. Weekly deliverables remain part of the planned combined submission around Week 10.
+The selection is deliberately limited to four helpers. HTTP integration, historical dashboard counts in a running app, broad Unicode/input-type policies, timezone semantics, accessibility, security, performance, and compatibility are not established by these results. PyTest execution is automated evidence; the named execution provenance is recorded at the start of this report. Student IDs and coordination roles are listed in the project README.
 
 **Sources:** Supplied `Group Project.pdf`, pages 2-3, included in the supplied `pytodo_pro_student` folder; preserved helper source/docstrings; course guidance supplied by the user on 2026-10-07. Test outcomes and coverage figures come from the linked execution artifacts, not estimates.

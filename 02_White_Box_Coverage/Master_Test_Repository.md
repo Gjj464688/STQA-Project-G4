@@ -2,7 +2,7 @@
 
 ## Scope, environment and procedure
 
-All 41 cases call the unchanged [helpers.py snapshot](target/helpers.py). Selection rationale, control-flow diagrams, condition analysis, coverage, and defects are in [Week2_Report.md](Week2_Report.md). These are executed unit tests; actual group tester/reviewer identities remain unconfirmed. The agent executed the suites on 2026-10-07. A teammate review is still required before describing this as group-reviewed work.
+All 41 cases call the unchanged [helpers.py snapshot](target/helpers.py). Selection rationale, control-flow diagrams, condition analysis, coverage, and defects are in [Week2_Report.md](Week2_Report.md). These are executed unit tests. The agent executed the suites on 2026-10-07; the recorded execution provenance is documented in the Week 2 report.
 
 Common preconditions: Python and the pinned test tools installed; source hash matches [source_manifest.json](evidence/source_manifest.json); no app server or database is needed. Reference date D = 2026-10-07. Reference time T = 2026-10-07 12:00:00. These are fixed test data independent of the computer clock. For tests of omitted clocks, the fixture temporarily supplies that fixed clock in memory and restores the original dependency afterwards.
 

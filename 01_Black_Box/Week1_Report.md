@@ -5,7 +5,7 @@
 **Report updated:** 2026-10-01 (Asia/Singapore)  
 **Scope clarification added:** 2026-10-07 (Asia/Singapore), from the course guidance screenshot shared by the user.
 **Team:** See the project [README](../README.md) for names, student IDs, and coordination roles.
-**Manual test assignments:** Planned executors, partners and dates are retained within each case in `Master_Test_Repository.md`. Actual tester/date confirmation is still pending.
+**Manual test assignments:** Planned executors, partners and dates are retained within each case in `Master_Test_Repository.md`. Actual tester/date metadata was not recorded for every historical manual observation.
 
 ## 1. Purpose and application overview
 
@@ -22,7 +22,7 @@ Risk ratings are QA judgments (impact x likelihood, each 1-3), updated after the
 | R-01 | Register with valid username and password; reject invalid input | 2 | 3 | 6 | Automated: 6 Pass, 1 Fail; manual: 6 Pass, 1 Fail; DEF-W1-001 reproduced manually |
 | R-02 | Authenticate, reject wrong credentials, log out | 3 | 2 | 6 | Automated and manual: 3 Pass |
 | R-03 | Restrict tasks to their owner | 3 | 3 | 9 | UI isolation passed; API deletion failed; DEF-W1-003; Week 5 follow-up |
-| R-04 | Create tasks with title, description, category, optional due date | 2 | 3 | 6 | Automated and manual: 3 Pass, 1 Fail; whitespace title DEF-W1-004; requirement confirmation pending |
+| R-04 | Create tasks with title, description, category, optional due date | 2 | 3 | 6 | Automated and manual: 3 Pass, 1 Fail; whitespace title DEF-W1-004; proposed expectation not formally specified |
 | R-05 | Edit and delete the correct task | 2 | 2 | 4 | UI edit/delete passed; API ownership issue DEF-W1-003 |
 | R-06 | Mark tasks done and reopen them | 2 | 2 | 4 | State transition passed in browser |
 | R-07 | Show correct urgency for no date, past, today, +1/+2, +3 days | 2 | 3 | 6 | Automated: 5 Pass, 1 Fail; manual due-today failure reproduced as DEF-W1-002 |
@@ -56,7 +56,7 @@ The browser filled forms, clicked controls, followed redirects, inspected visibl
 | Execution type | Planned | Executed | Passed | Failed | Blocked | Not Run | Interpretation |
 |---|---:|---:|---:|---:|---:|---:|---|
 | Isolated automated browser | 29 | 29 | 26 | 3 | 0 | 0 | 89.7% passed; 10.3% failed in this selected suite |
-| Group manual browser | 29 | 29 | 26 | 3 | 0 | 0 | 100% observed; original images stored, actual tester metadata pending |
+| Group manual browser | 29 | 29 | 26 | 3 | 0 | 0 | 100% observed; original images stored, historical tester metadata incomplete |
 
 The API probe's P-01-P-09 observations are **not** added to the 29-case counts. Its cross-user deletion finding is an additional defect. Counts from RTM rows overlap because some cases support more than one requirement.
 
@@ -68,24 +68,24 @@ All 29 manual cases have user-provided observations. Individual case records doc
 |---|---|---|---|---|
 | DEF-W1-001 | An exactly 8-character password is rejected despite the stated minimum of 8 | Moderate / Medium | Manual TC-BB-007 screenshot; automated TC-BB-007; API P-01/P-02 | Confirmed in manual browser, isolated browser, and API checks |
 | DEF-W1-002 | A task due today is labeled `Overdue` instead of `Due Today` | Moderate / Medium | Manual TC-BB-020 screenshot and database check; automated TC-BB-020; API P-04-P-07 | Confirmed in manual browser, isolated browser, and API checks |
-| DEF-W1-003 | One signed-in account can delete another account's task via the API | Major / High | API P-08/P-09 raw log | Confirmed in isolated API check; team retest pending |
-| DEF-W1-004 | A whitespace-only title creates a task with no visible title | Moderate / Medium | Manual TC-BB-014 screenshot and database check; automated TC-BB-014 | Reproduced manually and in isolated browser; formal requirement confirmation pending |
+| DEF-W1-003 | One signed-in account can delete another account's task via the API | Major / High | API P-08/P-09 raw log | Confirmed in isolated API check and corroborated by Week 4 evidence; open |
+| DEF-W1-004 | A whitespace-only title creates a task with no visible title | Moderate / Medium | Manual TC-BB-014 screenshot and database check; automated TC-BB-014 | Reproduced manually and in isolated browser; formal title requirement not established |
 
 Detailed reproducible reports, environments, expected/actual results, severity, priority, evidence, and lifecycle status are in `Defect_Log.md`. An additional observation is that duplicate usernames were accepted through the API. Username uniqueness has not been established as a formal requirement, so it remains an open question rather than a confirmed defect.
 
 The browser correctly kept account A's task out of account B's list and edit page (TC-BB-018), while the API deletion check failed. This difference shows why the later API and security phases must cover ownership independently from the UI.
 
-## 5. Quality assessment, limits, and next actions
+## 5. Quality assessment and limitations
 
 The selected common workflows for login, task lifecycle, filters, and current dashboard counts worked in the isolated Edge run. Three browser cases failed at defined input/date boundaries, and an additional API check found unauthorized deletion. The evidence does not establish overall product quality or absence of other defects.
 
-The main limits are: actual tester names and browser version metadata remain unconfirmed; only one browser/version was used for the automated suite; the API probe was small rather than a full endpoint suite; historical 7-day dashboard boundaries, accessibility, compatibility, performance, and broader security behavior remain untested. The whitespace-title expectation and duplicate-username policy need confirmation. The group should record student IDs before submission. Capture timestamps in screenshot filenames establish when the images were saved, but do not identify the person who tested or independently prove the execution time. The TC-BB-002 and TC-BB-004 forms clear submitted values, so those images alone do not show the rejected usernames; case mapping follows the user's recheck sequence.
+The main limits are: actual tester names and browser version metadata remain unconfirmed; only one browser/version was used for the automated suite; the API probe was small rather than a full endpoint suite; historical 7-day dashboard boundaries, accessibility, compatibility, performance, and broader security behavior remain untested. The whitespace-title expectation and duplicate-username policy were not formally established in the recorded requirements. Capture timestamps in screenshot filenames establish when the images were saved, but do not identify the person who tested or independently prove the execution time. The TC-BB-002 and TC-BB-004 forms clear submitted values, so those images alone do not show the rejected usernames; case mapping follows the user's recheck sequence.
 
-The course guidance shared on 2026-10-07 confirms an inspection, QA planning, and documentation scope with the supplied PyTodo code and features unchanged. Application corrections are recommendations for its maintainer. The team's next actions are: (1) extend ownership tests and document the API deletion risk; (2) add focused unit and branch tests for password and urgency boundaries; (3) clarify the whitespace-title and duplicate-username expectations; (4) confirm actual tester names, dates, and browser versions for the completed manual log; (5) carry the observed risks into later phases and revise the RTM as evidence grows. Observed defects remain open until a changed application version is available and successfully retested.
+The course guidance shared on 2026-10-07 confirms an inspection, QA planning, and documentation scope with the supplied PyTodo code and features unchanged. Application corrections are recommendations for its maintainer. Later phases added focused helper tests, further web/API evidence, security review, and consolidated traceability. The unspecified input policies and incomplete historical manual metadata are limitations of the recorded evidence. Observed defects remain open until a changed application version is available and successfully retested.
 
 ## 6. Requirements traceability matrix (RTM)
 
-The requirement IDs are working testable statements derived from the supplied app's README, forms, and helper specifications. R-03 (ownership) and whitespace rejection under R-04 are justified quality expectations; confirm them with the group/lecturer if a formal specification is required. Manual and automated results are recorded in `Master_Test_Repository.md`; API observations and defect details are in `Defect_Log.md`. One case may support more than one requirement, so counts in different rows must **not** be added together.
+The requirement IDs are working testable statements derived from the supplied app's README, forms, and helper specifications. R-03 (ownership) and whitespace rejection under R-04 are justified quality expectations; the whitespace input policy was not formally specified. Manual and automated results are recorded in `Master_Test_Repository.md`; API observations and defect details are in `Defect_Log.md`. One case may support more than one requirement, so counts in different rows must **not** be added together.
 
 | Requirement / feature | Test scenario | Test case ID(s) | Type / technique | Automated result | Manual result | Defect ID / gap |
 |---|---|---|---|---|---|---|
@@ -99,7 +99,7 @@ The requirement IDs are working testable statements derived from the supplied ap
 | R-08 Filters and search | Category/status combinations and title search | TC-BB-024-028 | Decision table, EP | 5 Pass | 024-028 Pass | None observed |
 | R-09 Dashboard counts | Completion transition and known four-task totals | TC-BB-016, TC-BB-029 | Functional, state | 2 Pass | 016 and 029 Pass | Historical 7-day boundary untested; Week 2 follow-up |
 | R-10 API validation/status | Registration, task creation/list/get/delete spot checks | P-01-P-09 (observations, not formal cases) | Exploratory API | Three confirmed issue categories plus duplicate-username observation | Not Run | DEF-W1-001/002/003; formal API suite Week 4 |
-| R-11 GUI, compatibility, accessibility | Forms and pages visible in Edge | Browser screenshots only | Visual evidence, not structured Week 3 checks | No formal result | Not Run | Browser/device matrix and WCAG checks pending |
+| R-11 GUI, compatibility, accessibility | Forms and pages visible in Edge | Browser screenshots only | Visual evidence, not structured Week 3 checks | No formal result | Not Run | Outside Week 1 scope; selected checks documented in Week 3 |
 | R-12 Security and performance | Task ownership and controlled load | P-08/P-09 for ownership only | Exploratory security | Ownership deletion failed; performance untested | Not Run | DEF-W1-003; STRIDE/performance Week 5 |
 
 ### Traceability checks

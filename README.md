@@ -31,16 +31,16 @@ Updated **27 November 2026**. Week 3 and Week 4 verification was executed on 12 
 
 | Stage | Recorded results | Status |
 |---|---|---|
-| Week 1 black-box testing | 29 manual cases and 29 separate automated cases; each execution records 26 Pass / 3 Fail | Planned execution complete; original manual tester/date/browser details need confirmation |
-| Week 2 white-box testing | 41 unit cases: 36 Pass / 5 Fail; four selected helpers | Execution complete; group review pending |
-| Week 3 GUI, compatibility, usability, accessibility | 37 cases: 35 Pass / 2 Fail; includes 30 automated checks and 7 user-reported manual usability observations | Complete within selected scope; two accessibility defects open; original usability tester/date not recorded |
+| Week 1 black-box testing | 29 manual cases and 29 separate automated cases; each execution records 26 Pass / 3 Fail | Execution complete within selected scope |
+| Week 2 white-box testing | 41 unit cases: 36 Pass / 5 Fail; four selected helpers | Execution complete within selected scope |
+| Week 3 GUI, compatibility, usability, accessibility | 37 cases: 35 Pass / 2 Fail; includes 30 automated checks and 7 user-reported manual usability observations | Complete within selected scope; two accessibility defects open |
 | Week 4 web testing | 20 browser cases: 18 Pass / 2 Fail | Complete within selected scope |
 | Week 4 API testing | 53 cases: 36 Pass / 17 Fail; no setup errors | Complete within selected scope; confirmed defects and unconfirmed policy assumptions distinguished |
-| Week 5 security and performance | 17 STRIDE entries, eight source-review findings; performance measured in two environments | Performance execution and four static control reviews complete (1 Pass / 3 Fail); group review pending |
-| Week 6 automation and regression | 104 full-suite tests: 88 Pass / 16 XFAIL; 29-test smoke suite | Execution complete; second group computer and group review pending |
-| Week 7 test management | Test plan/strategy, case-level registry (288 IDs), RTM and defect log | Consolidated; group review and outstanding metadata pending |
-| Week 8 final QA evaluation | Integrated metrics, charts, 11 open defect records, risk assessment and recommendations | Report reconciled; group review pending |
-| Standards integration and presentation | Integrated PDF with ISO/IEC 25010, ISO 9001, CMMI, Agile/DevOps and CI/CD discussion; presentation slides and recorded demonstration | Submission artefacts prepared; outstanding group confirmations remain |
+| Week 5 security and performance | 17 STRIDE entries, eight source-review findings; performance measured in two environments | Performance execution and four static control reviews complete (1 Pass / 3 Fail) |
+| Week 6 automation and regression | 104 full-suite tests: 88 Pass / 16 XFAIL; 29-test smoke suite | Execution complete; matching Linux and Windows reference outcomes |
+| Week 7 test management | Test plan/strategy, case-level registry (288 IDs), RTM and defect log | Consolidated |
+| Week 8 final QA evaluation | Integrated metrics, charts, 11 open defect records, risk assessment and recommendations | Integrated report and metrics complete |
+| Standards integration and presentation | Integrated PDF with ISO/IEC 25010, ISO 9001, CMMI, Agile/DevOps and CI/CD discussion; presentation slides and recorded demonstration | Submission artefacts prepared |
 
 Week 2 achieved **100% statement and branch coverage for the selected helper module**, not the whole application. Failed assertions remain visible. Their presence does not make an executed test incomplete, and a failed assumption is not automatically a confirmed product defect. Manual and automated executions are counted separately.
 
@@ -177,7 +177,7 @@ $env:PYTODO_SOURCE_DIR = (Resolve-Path '..\pytodo_pro_student').Path
 .\.venv\Scripts\python.exe .\06_Automation_Regression\run_regression.py --label "<name>-PC"
 ```
 
-Recorded result: 104 tests (41 unit, 34 API, 21 web and 8 Selenium browser tests), 88 Pass / 16 XFAIL in each completed full baseline run. All 29 Week 1 cases (one partial) and all 41 Week 2 cases have automated counterparts. XFAIL is a marked expected failure; review its reason before confirming the associated defect. XPASS prompts retest and review. The standalone suite links to nine of the ten Week 1–4 defect IDs; the remaining ownership finding is separately tracked by Week 4, and the Week 5 performance finding remains outside this suite. The 29-test smoke set covers the subset represented in this suite. Ahmad's Windows run matched the Linux reference; a second group run and group review are pending. The two simulated-change experiments are separate evidence and excluded from baseline totals.
+Recorded result: 104 tests (41 unit, 34 API, 21 web and 8 Selenium browser tests), 88 Pass / 16 XFAIL in each completed full baseline run. All 29 Week 1 cases (one partial) and all 41 Week 2 cases have automated counterparts. XFAIL is a marked expected failure; review its reason before confirming the associated defect. XPASS prompts retest and review. The standalone suite links to nine of the ten Week 1–4 defect IDs; the remaining ownership finding is separately tracked by Week 4, and the Week 5 performance finding remains outside this suite. The 29-test smoke set covers the subset represented in this suite. Ahmad's Windows run matched the Linux reference. The two simulated-change experiments are separate evidence and excluded from baseline totals.
 
 ### Historical Week 1 browser runner
 
@@ -196,10 +196,8 @@ python -m venv .venv
 
 Open `http://127.0.0.1:5000/` and register a dummy test account; the starter app has no preset account. This starts the ordinary application and its database, separately from the isolated verification server. After stopping the app, use `Pop-Location` to return to the repository root.
 
-## Final submission checks
+## Submission scope
 
 The integrated final report, presentation and edited demonstration are available in the [final submission section](#final-submission). The recording illustrates selected live functional checks and existing results; it is not a new full-suite execution or an additional aggregate test population.
 
-The lecturer's guidance shared on 7 October 2026 indicated one combined submission around Week 10, feedback in Week 11, and possible resubmission in Week 12. Exact dates remain to be confirmed. Weekly phases organize the work. Labs and the project carry separate marks unless the TA has agreed otherwise.
-
-Before the combined submission, confirm the missing original manual execution details, record the Week 2 and Week 6 group reviews, confirm the completed Week 5 static control review records and recommendations, and review the consolidated traceability, metrics, and defect statuses across Weeks 1–8. Detailed findings and recommendations belong in the phase reports; implementation of application fixes is outside the agreed project scope.
+The phase reports retain the documented execution provenance, assumptions, limitations, open defects and recommendations. The supplied application remains unchanged; implementation of application fixes is outside the agreed project scope.
